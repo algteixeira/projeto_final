@@ -9,6 +9,16 @@ class PeopleService {
       return error;
     }
   }
+
+  async find() {
+    try {
+      const result = await PeopleRepository.find();
+      return result;
+    } catch (error) {
+      return error;
+    }
+  }
+
 }
 
 module.exports = new PeopleService();
