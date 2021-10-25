@@ -8,7 +8,18 @@ class PeopleController  {
 
   async find(req, res) {
     const result = await PeopleService.find();
-    return res.status(201).json(result);
+    return res.status(200).json(result);
+  }
+
+
+  async findById(req, res) {
+    try {
+      const result = await PeopleService.findById(req.params.id);
+
+      return res.status(200).json(result);
+    } catch (error) {
+      return res.status(404).send('Invalid person id');
+    }        
   }
 
 }

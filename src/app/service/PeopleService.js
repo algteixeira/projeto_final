@@ -19,6 +19,14 @@ class PeopleService {
     }
   }
 
+  async findById(payload) {
+    try {
+      const result = await PeopleRepository.findById(payload);
+      return result;
+    } catch (error) {
+      throw new Error ();
+    }
+  }
 }
 
 module.exports = new PeopleService();

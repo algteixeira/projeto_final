@@ -8,6 +8,12 @@ class PeopleRepository  {
   async find() {
     return PeopleSchema.find();
   }
+
+  async findById(payload) {
+    const PeopleFound = await PeopleSchema.findById(payload).exec();
+  
+    return PeopleFound;
+  }
 }
 
 module.exports = new PeopleRepository();
