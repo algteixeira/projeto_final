@@ -3,12 +3,15 @@ const CarSchema = require('../schema/CarSchema');
 class CarRepository  {
   async create(payload) {
     return await CarSchema.create(payload);
-  } /*
+  }
+  
+  
+  
 
   async find() {
-    return PeopleSchema.find();
+    return CarSchema.find();
   }
-
+/*
   async findById(payload) {
     const PeopleFound = await PeopleSchema.findById(payload).exec();
   

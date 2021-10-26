@@ -5,12 +5,12 @@ class CarController  {
     const result = await CarService.create(req.body);
     return res.status(201).json(result);
   }
-/*
+
   async find(req, res) {
-    const result = await PeopleService.find();
+    const result = await CarService.find();
     return res.status(200).json(result);
   }
-
+/*
 
   async findById(req, res) {
     try {
