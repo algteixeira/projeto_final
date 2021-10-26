@@ -1,9 +1,9 @@
-const PeopleSchema = require('../schema/PeopleSchema');
+const CarSchema = require('../schema/CarSchema');
 
-class PeopleRepository  {
+class CarRepository  {
   async create(payload) {
-    return await PeopleSchema.create(payload);
-  }
+    return await CarSchema.create(payload);
+  } /*
 
   async find() {
     return PeopleSchema.find();
@@ -26,9 +26,9 @@ class PeopleRepository  {
       runValidators: true
     })
 
-  }
+  } */
 
 
 }
 
-module.exports = new PeopleRepository();
+module.exports = new CarRepository();
