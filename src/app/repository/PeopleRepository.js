@@ -14,6 +14,21 @@ class PeopleRepository  {
   
     return PeopleFound;
   }
+
+  async delete (payload) {
+    const DeletedPeople = await PeopleSchema.findOneAndDelete({_id : payload});
+    return DeletedPeople;
+  }
+
+  async update (id, payload) {
+  
+    return await PeopleSchema.findOneAndUpdate({_id : id}, payload, {
+      runValidators: true
+    })
+
+  }
+
+
 }
 
 module.exports = new PeopleRepository();

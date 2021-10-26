@@ -22,6 +22,24 @@ class PeopleController  {
     }        
   }
 
+  async deletePerson(req, res) {
+    try {
+      const result = await PeopleService.deletePerson(req.params.id);
+      return res.status(204).json(result);
+    } catch (error) {
+      return res.status(400).send(error);
+    }
+  }
+
+  async update (req, res) {
+    try {
+      const result = await PeopleService.update(req.params.id , req.body);
+      return res.status(200).json(result);
+    } catch (error) {
+      return res.status(400).send(error);
+    }
+  }
+
 }
 
 module.exports = new PeopleController();
