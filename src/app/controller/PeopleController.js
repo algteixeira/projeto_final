@@ -40,6 +40,11 @@ class PeopleController  {
     }
   }
 
+  async validate (req, res) {
+    const result = await PeopleService.validate(req.body);
+    return res.status(200).json(result);
+  }
+
 }
 
 module.exports = new PeopleController();

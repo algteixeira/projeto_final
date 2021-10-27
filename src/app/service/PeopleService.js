@@ -1,4 +1,6 @@
 const PeopleRepository = require('../repository/PeopleRepository');
+const jwt = require('jsonwebtoken');
+const authConfig = require('../../infra/config/auth');
 
 class PeopleService {
   async create(payload) {
@@ -51,6 +53,25 @@ class PeopleService {
       throw new Error ();
     }
 
+  }
+
+  async validate (payload) {
+    try {
+      const result = await PeopleRepository.validate(payload);
+      if (!result) {
+        console.log(result+'     falhou');
+        throw new Error ('Authentication failed. Invalid user');
+      }
+      const token = jwt.sign({ id : result.id}, authConfig.secret, {
+        expiresIn: 130
+      });
+      console.log(token);
+      const email = result.email;
+      const habilitado = result.habilitado;
+      return {token, email, habilitado};
+    } catch (error) {
+      return error;
+    }
   }
 
 

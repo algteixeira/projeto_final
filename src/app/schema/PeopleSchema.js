@@ -5,7 +5,10 @@ const PeopleSchema = mongoose.Schema({
   cpf: String,
   data_nascimento: Date,
   email: String,
-  senha: String,
+  senha: {
+    type: String,
+    select: false
+  },
   habilitado: String
 })
 

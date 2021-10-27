@@ -28,6 +28,14 @@ class PeopleRepository  {
 
   }
 
+  async validate (payload) {
+    const {email, senha} = payload;
+
+    const result =  await PeopleSchema.findOne({email}).select('+senha');
+
+    return result;
+  }
+
 
 }
 
