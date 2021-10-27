@@ -11,13 +11,13 @@ class CarRepository  {
   async find() {
     return CarSchema.find();
   }
-/*
-  async findById(payload) {
-    const PeopleFound = await PeopleSchema.findById(payload).exec();
-  
-    return PeopleFound;
-  }
 
+  async findById(payload) {
+    const CarFound = await CarSchema.findById(payload).exec();
+  
+    return CarFound;
+  }
+/*
   async delete (payload) {
     const DeletedPeople = await PeopleSchema.findOneAndDelete({_id : payload});
     return DeletedPeople;

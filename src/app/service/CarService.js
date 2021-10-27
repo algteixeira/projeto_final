@@ -18,16 +18,16 @@ class CarService {
       return error;
     }
   }
-/*
+
   async findById(payload) {
     try {
-      const result = await PeopleRepository.findById(payload);
+      const result = await CarRepository.findById(payload);
       return result;
     } catch (error) {
       throw new Error ();
     }
   }
-
+/*
   async deletePerson(payload) {
     try {
       const result = await PeopleRepository.delete(payload);

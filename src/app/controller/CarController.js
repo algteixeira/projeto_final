@@ -10,18 +10,18 @@ class CarController  {
     const result = await CarService.find();
     return res.status(200).json(result);
   }
-/*
+
 
   async findById(req, res) {
     try {
-      const result = await PeopleService.findById(req.params.id);
+      const result = await CarService.findById(req.params.id);
 
       return res.status(200).json(result);
     } catch (error) {
-      return res.status(404).send('Invalid person id');
+      return res.status(404).send('Invalid car id');
     }        
   }
-
+/*
   async deletePerson(req, res) {
     try {
       const result = await PeopleService.deletePerson(req.params.id);
