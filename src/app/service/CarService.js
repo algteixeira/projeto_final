@@ -38,20 +38,20 @@ class CarService {
     } catch (error) {
       return error;
     }
-  }
+  }      */
 
 
   async update (id, payload) {
     try {
       
-      const result = await PeopleRepository.update(id, payload);
+      const result = await CarRepository.update(id, payload);
       return result;
 
     } catch (error) {
       throw new Error ();
     }
 
-  } */
+  } 
 
 
 

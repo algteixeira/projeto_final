@@ -6,6 +6,6 @@ module.exports = (server, routes, prefix = '/car') => {
   routes.get('/', CarController.find);
   //routes.get('/:id', CarController.findById);
   //routes.delete('/:id', CarController.deleteCar);
-  //routes.patch('/:id', CarController.update);
+  routes.put('/:id', CarController.update);
   server.use(prefix, routes);
 }

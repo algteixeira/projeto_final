@@ -21,15 +21,15 @@ class CarRepository  {
   async delete (payload) {
     const DeletedPeople = await PeopleSchema.findOneAndDelete({_id : payload});
     return DeletedPeople;
-  }
+  }     */
 
   async update (id, payload) {
   
-    return await PeopleSchema.findOneAndUpdate({_id : id}, payload, {
+    return await CarSchema.findOneAndUpdate({_id : id}, payload, {
       runValidators: true
     })
 
-  } */
+  } 
 
 
 }
