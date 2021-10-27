@@ -7,7 +7,11 @@ class CarController  {
   }
 
   async find(req, res) {
-    const result = await CarService.find();
+    if (req.query.modelo === undefined) {
+      console.log(req.query);
+    }
+    
+    const result = await CarService.find(req.query);
     return res.status(200).json(result);
   }
 
