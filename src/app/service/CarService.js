@@ -29,15 +29,9 @@ class CarService {
   }
 
   async deleteCar(payload) {
-    try {
-      const result = await CarRepository.delete(payload);
-      if (result === null) {
-        throw Object.assign(new Error('Non-existent car'), { statusCode: 404 });
-      }
-      return result;
-    } catch (error) {
-      return error;
-    }
+    const result = await CarRepository.delete(payload);
+    return result;
+
   }      
 
 
@@ -48,9 +42,8 @@ class CarService {
       return result;
 
     } catch (error) {
-      throw new Error ();
+      return error;
     }
-
   } 
 
 

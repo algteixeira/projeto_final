@@ -24,7 +24,6 @@ class CarRepository  {
   }     
 
   async update (id, payload) {
-  
     return await CarSchema.findOneAndUpdate({_id : id}, payload, {
       runValidators: true
     })
