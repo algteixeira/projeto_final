@@ -11,13 +11,12 @@ class CarService {
     }  
   
   async find(payload) {
-    try {
-      //console.log(payload);
-      const result = await CarRepository.find(payload);
-      return result;
-    } catch (error) {
-      return error;
-    }
+  
+    const result = await CarRepository.find(payload);
+  
+    return result;
+  
+  
   }
 
   async findById(payload) {

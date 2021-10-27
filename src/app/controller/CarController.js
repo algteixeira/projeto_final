@@ -6,13 +6,17 @@ class CarController  {
     return res.status(201).json(result);
   }
 
-  async find(req, res) {
-    if (req.query.modelo === undefined) {
-      console.log(req.query);
+  async find(req, res, next) {    
+    try {
+      const result = await CarService.find(req.query);
+      if (result.length === 0) {
+        return res.status(404).send('Not found');
+      }
+        return res.status(200).json(result);
+    } catch (error) {
+      next(error);
     }
-    
-    const result = await CarService.find(req.query);
-    return res.status(200).json(result);
+
   }
 
 
