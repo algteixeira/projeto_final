@@ -6,6 +6,6 @@ module.exports = (server, routes, prefix = '/people') => {
   routes.get('/', PeopleController.find);
   routes.get('/:id', PeopleController.findById);
   routes.delete('/:id', PeopleController.deletePerson);
-  routes.patch('/:id', PeopleController.update);
+  routes.put('/:id', PeopleController.update);
   server.use(prefix, routes);
 }
