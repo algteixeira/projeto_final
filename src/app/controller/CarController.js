@@ -21,15 +21,15 @@ class CarController  {
       return res.status(404).send('Invalid car id');
     }        
   }
-/*
-  async deletePerson(req, res) {
+
+  async deleteCar(req, res) {
     try {
-      const result = await PeopleService.deletePerson(req.params.id);
+      const result = await CarService.deleteCar(req.params.id);
       return res.status(204).json(result);
     } catch (error) {
       return res.status(400).send(error);
     }
-  }     */
+  }     
 
   async update (req, res) {
     try {

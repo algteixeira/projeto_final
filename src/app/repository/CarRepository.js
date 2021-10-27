@@ -17,11 +17,11 @@ class CarRepository  {
   
     return CarFound;
   }
-/*
+
   async delete (payload) {
-    const DeletedPeople = await PeopleSchema.findOneAndDelete({_id : payload});
-    return DeletedPeople;
-  }     */
+    const DeletedCar = await CarSchema.findOneAndDelete({_id : payload});
+    return DeletedCar;
+  }     
 
   async update (id, payload) {
   

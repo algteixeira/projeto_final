@@ -27,18 +27,18 @@ class CarService {
       throw new Error ();
     }
   }
-/*
-  async deletePerson(payload) {
+
+  async deleteCar(payload) {
     try {
-      const result = await PeopleRepository.delete(payload);
+      const result = await CarRepository.delete(payload);
       if (result === null) {
-        throw Object.assign(new Error('Non-existent person'), { statusCode: 404 });
+        throw Object.assign(new Error('Non-existent car'), { statusCode: 404 });
       }
       return result;
     } catch (error) {
       return error;
     }
-  }      */
+  }      
 
 
   async update (id, payload) {
