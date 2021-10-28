@@ -11,20 +11,24 @@ class CarService {
     }  
   
   async find(payload) {
-    let limit, offset;
+    let limit, page;
     if (!payload.limit) {
-      limit=2;
+      limit=10;
     } else {
       limit=payload.limit;
     }
-    if (!payload.offset) {
-      offset=0;
+    if (!payload.page) {
+      page=1;
     } else {
-      offset = payload.offset;
+      page = payload.page;
     }
+
+    page = parseInt(page);
+    limit = parseInt(limit);
+    const offset = (page-1)*limit;
   
     const result = await CarRepository.find(payload, limit, offset);
-  
+    
     return result;
   
   

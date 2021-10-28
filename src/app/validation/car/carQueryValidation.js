@@ -4,7 +4,7 @@ module.exports = async (req, res, next) => {
   try {
     const schema = Joi.object({
       limit: Joi.number().min(1).required(),
-      offset: Joi.number().min(0).required(),
+      page: Joi.number().min(1).required(),
       modelo: Joi.string(),
       cor: Joi.string(),
       ano: Joi.number().min(1950).max(2022),

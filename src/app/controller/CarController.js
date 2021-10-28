@@ -18,7 +18,7 @@ class CarController  {
     }
 
   }
-
+// valida id no joi se tem 23 caracteres e se é string
 
   async findById(req, res) {
     try {
@@ -38,7 +38,7 @@ class CarController  {
       }
       return res.status(204).json(result);
     } catch (error) {
-      return res.status(400).send(error);
+      return res.status(400).send('Wrong format');
     }
   }     
 

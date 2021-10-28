@@ -1,5 +1,6 @@
 const CarSchema = require('../schema/CarSchema');
 
+
 class CarRepository  {
   async create(payload) {
     return await CarSchema.create(payload);
@@ -9,8 +10,6 @@ class CarRepository  {
   
 
   async find(payload, limit, offset) {
-    offset = parseInt(offset)
-    limit = parseInt(limit)
     const total = await CarSchema.find(payload).countDocuments();
     const veiculos = await CarSchema.find(payload).skip(offset).limit(limit).exec();
     const offsets = veiculos.length;
