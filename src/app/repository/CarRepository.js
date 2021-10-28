@@ -8,8 +8,13 @@ class CarRepository  {
   
   
 
-  async find(payload) {
-    return CarSchema.find(payload);
+  async find(payload, limit, offset) {
+    offset = parseInt(offset)
+    limit = parseInt(limit)
+    const total = await CarSchema.find(payload).countDocuments();
+    const veiculos = await CarSchema.find(payload).skip(offset).limit(limit).exec();
+    const offsets = veiculos.length;
+    return {veiculos, total, limit, offset, offsets};
   }
 
   async findById(payload) {
