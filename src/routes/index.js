@@ -7,6 +7,8 @@ const authenticate = require('../routes/authenticate.router');
 
 module.exports = server => {
   server.use((req, res, next) => {
+    res.header("Access-Control-Allow-Origin", "http://localhost:3333");
+    res.header("Access-Control-Allow-Method", "GET,PUT,POST,DELETE");
     people(server, new Router());
     car(server, new Router());
     authenticate(server, new Router());
