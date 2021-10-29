@@ -6,7 +6,7 @@ class PeopleController  {
       const result = await PeopleService.create(req.body);
       return res.status(201).send(result);
     } catch (error) {
-      return res.status(400).send('User already exists');
+      return res.status(error.statusCode).send(error.message);
     }
     
   }
@@ -23,7 +23,7 @@ class PeopleController  {
 
       return res.status(200).json(result);
     } catch (error) {
-      return res.status(404).send('Invalid person id');
+      return res.status(error.statusCode).json(error.message);
     }        
   }
 
@@ -32,7 +32,7 @@ class PeopleController  {
       const result = await PeopleService.deletePerson(req.params.id);
       return res.status(204).json(result);
     } catch (error) {
-      return res.status(400).send(error);
+      return res.status(error.statusCode).send(error.message);
     }
   }
 
@@ -41,7 +41,7 @@ class PeopleController  {
       const result = await PeopleService.update(req.params.id , req.body);
       return res.status(200).json(result);
     } catch (error) {
-      return res.status(400).send(error);
+      return res.status(error.statusCode).send(error.message);
     }
   }
 

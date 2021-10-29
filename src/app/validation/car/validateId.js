@@ -10,7 +10,7 @@ module.exports = async (req, res, next) => {
     if (error) throw error
     return next();
   } catch (error) {
-    return res.status(400).send('Wrong format');
+    return res.status(400).send('Wrong ID format');
   }
 }
 
