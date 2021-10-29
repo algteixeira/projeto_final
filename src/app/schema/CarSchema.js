@@ -8,7 +8,8 @@ const CarSchema = mongoose.Schema({
   acessorios:[{
 
     descricao:{
-      type:String,  
+      type:String,
+      unique: true  
    }
   }],
   quantidadePassageiros: Number

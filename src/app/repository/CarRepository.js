@@ -34,6 +34,10 @@ class CarRepository  {
 
   } 
 
+  /*async avoidDuplicates (id, payload) {
+    return await CarSchema.findOne({_id: id, }).exec();
+  }*/
+
 
 }
 

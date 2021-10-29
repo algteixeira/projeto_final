@@ -33,12 +33,9 @@ class CarController  {
   async deleteCar(req, res) {
     try {
       const result = await CarService.deleteCar(req.params.id);
-      if (result === null) {
-        return res.status(404).send('Not Found');
-      }
       return res.status(204).json(result);
     } catch (error) {
-      return res.status(400).send('Wrong format');
+      return res.status(error.statusCode).send(error.message);
     }
   }     
 
@@ -48,7 +45,7 @@ class CarController  {
 
       return res.status(200).json(result);
     } catch (error) {
-      return res.status(400).send('Bad request');
+      return res.status(error.statusCode).send(error.message);
     }
   }    
 

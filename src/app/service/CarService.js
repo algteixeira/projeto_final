@@ -1,5 +1,7 @@
 const CarRepository = require('../repository/CarRepository');
 
+const NotFound = require('../errors/notFound');
+
 class CarService {
     async create(payload) {
         try {
@@ -46,20 +48,29 @@ class CarService {
 
   async deleteCar(payload) {
     const result = await CarRepository.delete(payload);
+    if (result === null) {
+      throw new NotFound();
+    }
     return result;
 
   }      
 
 
   async update (id, payload) {
-    try {
-      
-      const result = await CarRepository.update(id, payload);
-      return result;
-
-    } catch (error) {
-      return error;
+    if (payload.acessorios) {
+      payload.acessorios = await payload.acessorios.reduce((unique, o) => {
+        if(!unique.some(obj => obj.descricao === o.descricao)) {
+          unique.push(o);
+        }
+        return unique;
+    },[])
+    }    
+    const result = await CarRepository.update(id, payload);
+    if (result === null) {
+      throw new NotFound();
     }
+    return result;      
+    
   } 
 
 
