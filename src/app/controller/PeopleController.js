@@ -50,7 +50,7 @@ class PeopleController  {
       const result = await PeopleService.validate(req.body);
       return res.status(200).json(result);
     } catch (error) {
-      return res.status(404).send(error.message);
+      return res.status(error.statusCode).send(error.message);
     }
   }
 

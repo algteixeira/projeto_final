@@ -11,6 +11,10 @@ class PeopleRepository  {
     return await PeopleSchema.find();
   }
 
+  async findByCpf (payload) {
+    return await PeopleSchema.findOne({cpf: payload}).exec();
+  }
+
   async findByEmail(payload) {
     const findByEmail =  await PeopleSchema.findOne({email: payload}).exec();
     return findByEmail;
