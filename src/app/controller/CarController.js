@@ -18,7 +18,7 @@ class CarController  {
     }
 
   }
-// valida id no joi se tem 23 caracteres e se é string
+
 
   async findById(req, res) {
     try {
