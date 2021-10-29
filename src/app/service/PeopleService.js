@@ -2,16 +2,17 @@ const PeopleRepository = require('../repository/PeopleRepository');
 const jwt = require('jsonwebtoken');
 const authConfig = require('../../infra/config/auth');
 const Bcrypt = require('../utils/encrypt');
+const moment = require('moment');
 
 
 class PeopleService {
   async create(payload) {
     const findByEmail = await PeopleRepository.findByEmail(payload.email);
-    console.log(payload.senha);
     if (findByEmail === null) {
+      payload.data_nascimento = moment(payload.data_nascimento, 'DD/MM/YYYY').format('MM/DD/YYYY');
       payload.senha=await Bcrypt.hashPassword(payload.senha);
-      console.log(payload.senha);
       const result = await PeopleRepository.create(payload);
+  
       return result;
     } else {
       throw new Error;
