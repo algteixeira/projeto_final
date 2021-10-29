@@ -6,7 +6,12 @@ class PeopleRepository  {
   }
 
   async find() {
-    return PeopleSchema.find();
+    return await PeopleSchema.find();
+  }
+
+  async findByEmail(payload) {
+    const findByEmail =  await PeopleSchema.findOne({email: payload}).exec();
+    return findByEmail;
   }
 
   async findById(payload) {
@@ -29,7 +34,8 @@ class PeopleRepository  {
   }
 
   async validate (payload) {
-    const {email, senha} = payload;
+    // eslint-disable-next-line no-unused-vars
+    const email = payload;
 
     const result =  await PeopleSchema.findOne({email}).select('+senha');
 

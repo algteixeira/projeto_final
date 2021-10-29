@@ -2,8 +2,13 @@ const PeopleService = require('../service/PeopleService');
 
 class PeopleController  {
   async create(req, res) {
-    const result = await PeopleService.create(req.body);
-    return res.status(201).json(result);
+    try {
+      const result = await PeopleService.create(req.body);
+      return res.status(201).send(result);
+    } catch (error) {
+      return res.status(400).send('User already exists');
+    }
+    
   }
 
   async find(req, res) {
@@ -41,8 +46,12 @@ class PeopleController  {
   }
 
   async validate (req, res) {
-    const result = await PeopleService.validate(req.body);
-    return res.status(200).json(result);
+    try {
+      const result = await PeopleService.validate(req.body);
+      return res.status(200).json(result);
+    } catch (error) {
+      return res.status(404).send(error.message);
+    }
   }
 
 }
