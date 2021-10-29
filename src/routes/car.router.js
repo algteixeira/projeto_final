@@ -4,7 +4,7 @@ const updateCarValidation = require('../app/validation/car/updateCarValidation')
 const carQueryValidation = require('../app/validation/car/carQueryValidation');
 const deleteValidation = require('../app/validation/car/validateId');
 
-module.exports = (server, routes, prefix = '/car') => {
+module.exports = (server, routes, prefix = '/api/v1/car/') => {
   routes.post('/', createCarValidation, CarController.create);
   routes.get('/', carQueryValidation ,CarController.find);
   routes.get('/:id', CarController.findById);

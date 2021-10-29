@@ -3,7 +3,7 @@ const createPeopleValidation = require('../app/validation/people/create');
 const authenticatePeopleValidation = require('../app/validation/people/authenticate');
 
 
-module.exports = (server, routes, prefix = '/people') => {
+module.exports = (server, routes, prefix = '/api/v1/people') => {
   routes.post('/', createPeopleValidation, PeopleController.create);
   routes.get('/', PeopleController.find);
   routes.get('/:id', PeopleController.findById);
