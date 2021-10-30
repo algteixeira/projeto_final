@@ -5,6 +5,7 @@ const authenticate = require('../routes/authenticate.router');
 
 
 
+
 module.exports = server => {
   server.use((req, res, next) => {
     res.header("Access-Control-Allow-Origin", "http://localhost:3333");

@@ -23,10 +23,9 @@ class CarController  {
   async findById(req, res) {
     try {
       const result = await CarService.findById(req.params.id);
-
       return res.status(200).json(result);
     } catch (error) {
-      return res.status(404).send('Invalid car id');
+      return res.status(error.statusCode).send(error.message);
     }        
   }
 

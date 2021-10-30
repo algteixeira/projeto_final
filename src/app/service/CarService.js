@@ -38,12 +38,12 @@ class CarService {
   }
 
   async findById(payload) {
-    try {
-      const result = await CarRepository.findById(payload);
-      return result;
-    } catch (error) {
-      throw new Error ();
+    const result = await CarRepository.findById(payload);
+    if (result === null) {
+      throw new NotFound();
     }
+    return result;
+    
   }
 
   async deleteCar(payload) {

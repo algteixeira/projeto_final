@@ -1,0 +1,494 @@
+{
+    "openapi": "3.0.1",
+    "info": {
+        "title": "Compassolissa",
+        "description": "This is the final project for Compasso UOL trainee's program",
+        "contact": {
+            "email": "andre.teixeira_bols@compasso.uol.com.br"
+        },
+        "version": "1.0.0"
+    },
+    "servers": [
+        {
+            "url": "http://localhost:3333",
+            "description": "Base URL to use the first version of this project"
+        }
+    ],
+    "paths": {
+        "/api/v1/people": {
+            "post": {
+                "summary": "Insert a person into the database",
+                "description": "This route uses req.body to get information about the person, than validate it and insert into the database",
+                "tags": [
+                    "People"
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Person"
+                            },
+                            "examples": {
+                                "person": {
+                                    "value": {
+                                        "nome": "joaozinho ciclano",
+                                        "cpf": "131.147.860-49",
+                                        "data_nascimento": "03/03/2021",
+                                        "email": "joazinho@email.com",
+                                        "senha": "123456",
+                                        "habilitado": "sim"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "400": {
+                        "description": "It shows up when req.body have invalid items to insert, person is an underage or already exists in the database"
+                    },
+                    "201": {
+                        "description": "It shows up when person is created with success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "$ref": "#/components/schemas/Person"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "get": {
+                "summary": "Get all people from the database",
+                "description": "This route gives you back the entire collection of people in the database",
+                "tags": [
+                    "Person"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "It shows up in every request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "$ref": "#/components/schemas/People"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/car": {
+            "post": {
+                "summary": "Insert a car into the database",
+                "description": "This route uses req.body to get information about the car, than remove duplicated accessories if necessary and insert into the database",
+                "tags": [
+                    "Car"
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Car"
+                            },
+                            "examples": {
+                                "car": {
+                                    "value": {
+                                        "modelo": "GM S10 2.8",
+                                        "cor": "branco",
+                                        "ano": "2021",
+                                        "acessorios": [
+                                            {
+                                                "descricao": "Ar-condicionado"
+                                            },
+                                            {
+                                                "descricao": "Dir. Hidráulica"
+                                            },
+                                            {
+                                                "descricao": "Cabine Dupla"
+                                            },
+                                            {
+                                                "descricao": "Tração 4x4"
+                                            },
+                                            {
+                                                "descricao": "4 portas"
+                                            },
+                                            {
+                                                "descricao": "Diesel"
+                                            },
+                                            {
+                                                "descricao": "Air bag"
+                                            },
+                                            {
+                                                "descricao": "ABS"
+                                            }
+                                        ],
+                                        "quantidadePassageiros": 5
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "It shows up when car is created with success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "$ref": "#/components/schemas/Car"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "It shows up when req.body have invalid items to insert"
+                    }
+                }
+            },
+            "get": {
+                "summary": "Get all cars from the database that match with the queries using pagination",
+                "description": "Pagination style = http://localhost:3333/api/v1/car/?page=1&limit=10",
+                "tags": [
+                    "Cars"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "It shows up when have at least 1 entry in the database fitting to the query",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "$ref": "#/components/schemas/Cars"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "It shows up when there's no car in the database matching to the query"
+                    }
+                },
+                "parameters": [
+                    {
+                        "in": "query",
+                        "name": "limit",
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "description": "The number of cars to show per page. OBRIGATORY QUERY",
+                        "required": true
+                    },
+                    {
+                        "in": "query",
+                        "name": "page",
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "description": "The page to show with (limit) amount of cars. OBRIGATORY QUERY",
+                        "required": true
+                    },
+                    {
+                        "in": "query",
+                        "name": "modelo",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "description": "The car model to search"
+                    },
+                    {
+                        "in": "query",
+                        "name": "cor",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "description": "The car color to search for"
+                    },
+                    {
+                        "in": "query",
+                        "name": "ano",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "description": "The year of the car fabrication"
+                    },
+                    {
+                        "in": "query",
+                        "name": "descricao",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "description": "The description of the accessories"
+                    },
+                    {
+                        "in": "query",
+                        "name": "quantidadePassageiros",
+                        "schema": {
+                            "type": "number"
+                        },
+                        "description": "The amount of passagens that a car can handle"
+                    }
+                ]
+            }
+        },
+        "/api/v1/car/{id}": {
+            "delete": {
+                "summary": "Route to delete a car based on it's id",
+                "description": "Try to find a vehicle and delete it",
+                "tags": [
+                    "Car"
+                ],
+                "responses": {
+                    "404": {
+                        "description": "Throw a NotFound, telling that there's no car with this id in the database"
+                    },
+                    "204": {
+                        "description": "Car excluded with success"
+                    },
+                    "400": {
+                        "description": "Invalid id format"
+                    }
+                },
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "required": "true",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ]
+            },
+            "put": {
+                "summary": "Update car values",
+                "description": "Using a car ID, search for it and if it founds, put new values (avoiding duplicates on accessories)",
+                "tags": [
+                    "Car"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Car updated with success"
+                    },
+                    "400": {
+                        "description": "Wrong id or content format"
+                    },
+                    "404": {
+                        "description": "Car not found"
+                    }
+                },
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "required": "true",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ]
+            },
+            "get": {
+                "summary": "Get car by id",
+                "description": "Return a car based on its id",
+                "tags": [
+                    "Car"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Return a car with passed ID"
+                    },
+                    "400": {
+                        "description": "Invalid id format"
+                    },
+                    "404": {
+                        "description":"Car not found"
+                    }
+                
+                },
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "required": "true",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ]
+            }
+        },
+        "/api/v1/people/{id}": {
+            "delete": {
+                "summary": "Route to delete a person based on it's id",
+                "description": "Try to find a person and delete it",
+                "tags": [
+                    "Person"
+                ],
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "required": "true",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "400": {
+                        "description": "It happens when ID format is wrong"
+                    },
+                    "204": {
+                        "description": "Person excluded with success"
+                    },
+                    "404": {
+                        "description": "Person not found"
+                    }
+                }
+            },
+            "put": {
+                "summary": "Route to update a person data based it's id",
+                "description": "Try to find a person and then update it's data with req.body",
+                "tags": [
+                    "Person"
+                ],
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "required": "true",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "400": {
+                        "description": "It happens when ID format or content is wrong or when there's already someone with the new CPF or email you're trying to insert"
+                    },
+                    "200": {
+                        "description": "Person data updated with success"
+                    },
+                    "404": {
+                        "description": "Person not found"
+                    }
+                },
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Person"
+                            },
+                            "examples": {
+                                "person": {
+                                    "value": {
+                                        "email": "cenouraabravanel@gmail.com"
+                                    }                                       
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "get": {
+                "summary": "Route to get a person data based it's id",
+                "description": "Try to find a person",
+                "tags": [
+                    "Person"
+                ],
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "required": "true",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "400": {
+                        "description": "It happens when ID format is wrong"
+                    },
+                    "200": {
+                        "description": "Person found with success"
+                    },
+                    "404": {
+                        "description": "Person not found"
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "Person": {
+                "type": "object",
+                "properties": {
+                    "nome": {
+                        "type": "string"
+                    },
+                    "cpf": {
+                        "type": "string"
+                    },
+                    "data_nascimento": {
+                        "type": "string"
+                    },
+                    "email": {
+                        "type": "string"
+                    },
+                    "senha": {
+                        "type": "string"
+                    },
+                    "habilitado": {
+                        "type": "string"
+                    }
+                }
+            },
+            "People": {
+                "type": "array",
+                "items": {
+                    "$ref": "#/components/schemas/Person"
+                }
+            },
+            "Car": {
+                "type": "object",
+                "properties": {
+                    "modelo": {
+                        "type": "string"
+                    },
+                    "cor": {
+                        "type": "string"
+                    },
+                    "ano": {
+                        "type": "number"
+                    },
+                    "acessorios": {
+                        "type": "array",
+                        "items": {
+                            "type": "object",
+                            "properties": {
+                                "descricao": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    },
+                    "quantidadePassageiros": {
+                        "type": "number"
+                    }
+                }
+            },
+            "Cars": {
+                "type": "array",
+                "items": {
+                    "$ref": "#/components/schemas/Car"
+                }
+            }
+        }
+    }
+}
