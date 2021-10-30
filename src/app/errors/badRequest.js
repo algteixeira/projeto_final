@@ -1,6 +1,6 @@
 class BadRequest extends Error {
     constructor() {
-        const message = `Incorrect parameters in the body`;
+        const message = `Incorrect parameters`;
         super(message);
         this.name = 'badRequest';
         this.idError = 3;

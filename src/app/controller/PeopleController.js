@@ -1,4 +1,5 @@
 const PeopleService = require('../service/PeopleService');
+const NotFound = require('../errors/notFound');
 
 class PeopleController  {
   async create(req, res) {
@@ -12,8 +13,15 @@ class PeopleController  {
   }
 
   async find(req, res) {
-    const result = await PeopleService.find();
-    return res.status(200).json(result);
+    try {
+      const result = await PeopleService.find(req.query);
+      if (result.length === 0) {
+        throw new NotFound();
+      }
+      return res.status(200).json(result);
+    } catch (error) {
+      return res.status(error.statusCode).json(error.message);
+    }
   }
 
 

@@ -33,8 +33,25 @@ class PeopleService {
         
   }
 
-  async find() {
-    const result = await PeopleRepository.find();
+  async find(payload) {
+    let limit, page;
+    if (!payload.limit) {
+      limit=10;
+    } else {
+      limit=payload.limit;
+    }
+    if (!payload.page) {
+      page=1;
+    } else {
+      page = payload.page;
+    }
+
+    page = parseInt(page);
+    limit = parseInt(limit);
+    const offset = (page-1)*limit;
+  
+    const result = await PeopleRepository.find(payload, limit, offset);
+    
     return result;
     
   }

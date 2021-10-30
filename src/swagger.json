@@ -61,10 +61,10 @@
                 }
             },
             "get": {
-                "summary": "Get all people from the database",
-                "description": "This route gives you back the entire collection of people in the database",
+                "summary": "Get all people from the database that match with the queries using pagination",
+                "description": "Pagination style = http://localhost:3333/api/v1/car/?page=1&limit=10",
                 "tags": [
-                    "Person"
+                    "People"
                 ],
                 "responses": {
                     "200": {
@@ -77,8 +77,71 @@
                                 }
                             }
                         }
+                    },
+                    "400": {
+                        "description": "Throws it if the request have bad format on the queries"
                     }
-                }
+                },
+                "parameters": [
+                    {
+                        "in": "query",
+                        "name": "limit",
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "description": "The number of cars to show per page. OBRIGATORY QUERY",
+                        "required": true
+                    },
+                    {
+                        "in": "query",
+                        "name": "page",
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "description": "The page to show with (limit) amount of cars. OBRIGATORY QUERY",
+                        "required": true
+                    },
+                    {
+                        "in": "query",
+                        "name": "nome",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "description": "The person name to find"
+                    },
+                    {
+                        "in": "query",
+                        "name": "cpf",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "description": "The CPF to search for"
+                    },
+                    {
+                        "in": "query",
+                        "name": "data_nascimento",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "description": "The birthday to find for"
+                    },
+                    {
+                        "in": "query",
+                        "name": "email",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "description": "The email to search for"
+                    },
+                    {
+                        "in": "query",
+                        "name": "habilitado",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "description": "Search based if person have a driver's license"
+                    }
+                ]
             }
         },
         "/api/v1/car": {
@@ -422,6 +485,49 @@
                     }
                 }
             }
+        },
+        "/api/v1/authenticate": {
+            "post": {
+                "description": "Authentication route",
+                "summary": "Gets an email and password from the body and try to authenticate it. Returns an access token, person email and driver's license situation.",
+                "tags": ["Authentication"],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Person"
+                            },
+                            "examples": {
+                                "person": {
+                                    "value": {
+                                        "email": "silviosantos@gmail.com",
+                                        "senha": "juninho123"                                        
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "404": {
+                        "description": "It shows up if user and/or password is not in the database"
+                    },
+                    "200": {
+                        "description": "It shows up if person is successfully authenticated",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "$ref": "#/components/schemas/Authentication"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "It throws up when you haven't passed the right body (containing email and password)"
+                    }
+                }
+            }
         }
     },
     "components": {
@@ -487,6 +593,21 @@
                 "type": "array",
                 "items": {
                     "$ref": "#/components/schemas/Car"
+                }
+            },
+            "Authentication": {
+                "type": "object",
+                "properties": {
+                    "token": {
+                        "type": "string"
+                    },
+                    "email": {
+                        "type": "string"
+                    },
+                    "habilitado": {
+                        "type": "string"
+                    }
+
                 }
             }
         }

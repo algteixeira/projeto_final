@@ -1,20 +1,21 @@
 const CarService = require('../service/CarService');
+const NotFound = require('../errors/notFound');
 
-class CarController  {
+class CarController {
   async create(req, res) {
     const result = await CarService.create(req.body);
     return res.status(201).json(result);
   }
 
-  async find(req, res, next) {    
+  async find(req, res) {
     try {
       const result = await CarService.find(req.query);
       if (result.length === 0) {
-        return res.status(404).send('Not found');
+        throw new NotFound();
       }
-        return res.status(200).json(result);
+      return res.status(200).json(result);
     } catch (error) {
-      next(error);
+      return res.status(error.statusCode).json(error.message);
     }
 
   }
@@ -26,7 +27,7 @@ class CarController  {
       return res.status(200).json(result);
     } catch (error) {
       return res.status(error.statusCode).send(error.message);
-    }        
+    }
   }
 
   async deleteCar(req, res) {
@@ -36,18 +37,18 @@ class CarController  {
     } catch (error) {
       return res.status(error.statusCode).send(error.message);
     }
-  }     
+  }
 
-  async update (req, res) {
+  async update(req, res) {
     try {
-      const result = await CarService.update(req.params.id , req.body);
+      const result = await CarService.update(req.params.id, req.body);
 
       return res.status(200).json(result);
     } catch (error) {
       return res.status(error.statusCode).send(error.message);
     }
-  }    
+  }
 
-} 
+}
 
 module.exports = new CarController();
