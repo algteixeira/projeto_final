@@ -16,7 +16,7 @@ class CarService {
   async find(payload) {
     let limit, page;
     if (!payload.limit) {
-      limit=10;
+      limit=100;
     } else {
       limit=payload.limit;
     }

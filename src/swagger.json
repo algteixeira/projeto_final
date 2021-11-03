@@ -90,7 +90,7 @@
                             "type": "integer"
                         },
                         "description": "The number of cars to show per page. OBRIGATORY QUERY",
-                        "required": true
+                        "required": false
                     },
                     {
                         "in": "query",
@@ -99,7 +99,7 @@
                             "type": "integer"
                         },
                         "description": "The page to show with (limit) amount of cars. OBRIGATORY QUERY",
-                        "required": true
+                        "required": false
                     },
                     {
                         "in": "query",
@@ -243,7 +243,7 @@
                             "type": "integer"
                         },
                         "description": "The number of cars to show per page. OBRIGATORY QUERY",
-                        "required": true
+                        "required": false
                     },
                     {
                         "in": "query",
@@ -252,7 +252,7 @@
                             "type": "integer"
                         },
                         "description": "The page to show with (limit) amount of cars. OBRIGATORY QUERY",
-                        "required": true
+                        "required": false
                     },
                     {
                         "in": "query",
@@ -352,7 +352,52 @@
                             "type": "string"
                         }
                     }
-                ]
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Car"
+                            },
+                            "examples": {
+                                "car": {
+                                    "value": {
+                                        "modelo": "GM S10 2.8",
+                                        "cor": "branco",
+                                        "ano": "2021",
+                                        "acessorios": [
+                                            {
+                                                "descricao": "Ar-condicionado"
+                                            },
+                                            {
+                                                "descricao": "Dir. Hidráulica"
+                                            },
+                                            {
+                                                "descricao": "Cabine Dupla"
+                                            },
+                                            {
+                                                "descricao": "Tração 4x4"
+                                            },
+                                            {
+                                                "descricao": "4 portas"
+                                            },
+                                            {
+                                                "descricao": "Diesel"
+                                            },
+                                            {
+                                                "descricao": "Air bag"
+                                            },
+                                            {
+                                                "descricao": "ABS"
+                                            }
+                                        ],
+                                        "quantidadePassageiros": 5
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
             },
             "get": {
                 "summary": "Get car by id",

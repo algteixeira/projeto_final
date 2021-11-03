@@ -8,8 +8,8 @@ const Joi = require('joi')
 module.exports = async (req, res, next) => {
     try {
         const schema = Joi.object({
-            limit: Joi.number().min(1).required(),
-            page: Joi.number().min(1).required(),
+            limit: Joi.number().min(1),
+            page: Joi.number().min(1),
             nome: Joi.string(),
             cpf: Joi.string().regex(/[0-9]{3}\.?[0-9]{3}\.?[0-9]{3}\-?[0-9]{2}/),
             data_nascimento: Joi.date().format('DD/MM/YYYY'),
