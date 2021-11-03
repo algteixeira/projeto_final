@@ -11,7 +11,7 @@ module.exports = async (req, res, next) => {
       data_nascimento: Joi.date().format('DD/MM/YYYY').required(),
       email: Joi.string().email().required(),
       senha: Joi.string().min(6).required(),
-      habilitado: Joi.string().valid('sim', 'nao').required()
+      habilitado: Joi.string().valid('sim', 'não').required()
     });
 
     const { error } = await schema.validate(req.body, { abortEarl: true });
