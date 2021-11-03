@@ -1,4 +1,5 @@
 const Joi = require('joi');
+const { min } = require('moment');
 
 module.exports = async (req, res, next) => {  
   try {
@@ -6,7 +7,7 @@ module.exports = async (req, res, next) => {
       modelo: Joi.string().trim().min(2).required(),
       cor: Joi.string().trim().min(3).required(),
       ano: Joi.number().min(1950).max(2022).required(),
-      acessorios: Joi.array().items({descricao: Joi.string().trim().min(2).required()}).required().unique(),
+      acessorios: Joi.array().items({descricao: Joi.string().trim().min(2).required()}).min(1).required().unique(),
       quantidadePassageiros: Joi.number().required()
     });
 

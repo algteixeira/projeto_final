@@ -3,7 +3,7 @@ const PeopleSchema = require('../schema/PeopleSchema');
 class PeopleRepository  {
   async create(payload) {
     const result = await PeopleSchema.create(payload);
-    console.log(result);
+
     return result;
   }
 

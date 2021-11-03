@@ -131,7 +131,6 @@ class PeopleService {
     const token = jwt.sign({ id : searchByEmail.id}, authConfig.secret, {
       expiresIn: 130
     });
-    console.log(token);
     const email = searchByEmail.email;
     const habilitado = searchByEmail.habilitado;
     return {token, email, habilitado};

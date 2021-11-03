@@ -2,19 +2,32 @@ const mongoose = require('mongoose');
 const moment = require('moment');
 
 const PeopleSchema = mongoose.Schema({
-  nome: String,
-  cpf: String,
+  nome: {
+   type: String,
+   required: true
+  },
+  cpf: {
+    type: String,
+    required: true
+  },
   data_nascimento: {
     type: Date,
     required: true,
     transform: (val) => moment(val).format('DD/MM/YYYY'),
   },
-  email: String,
+  email: {
+    type: String,
+    required: true
+  },
   senha: {
     type: String,
-    select: false
+    select: false,
+    required: true
   },
-  habilitado: String
+  habilitado: {
+    type:String, 
+    required: true
+  }
 })
 
 const People = mongoose.model('People', PeopleSchema);

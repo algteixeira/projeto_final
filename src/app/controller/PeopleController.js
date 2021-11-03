@@ -7,7 +7,7 @@ class PeopleController  {
       const result = await PeopleService.create(req.body);
       return res.status(201).send(result);
     } catch (error) {
-      return res.status(error.statusCode).send(error.message);
+      return res.status(error.statusCode).json({message: error.message});
     }
     
   }
@@ -20,7 +20,7 @@ class PeopleController  {
       }
       return res.status(200).json(result);
     } catch (error) {
-      return res.status(error.statusCode).json(error.message);
+      return res.status(error.statusCode).json({message: error.message});
     }
   }
 
@@ -31,7 +31,7 @@ class PeopleController  {
 
       return res.status(200).json(result);
     } catch (error) {
-      return res.status(error.statusCode).json(error.message);
+      return res.status(error.statusCode).json({message: error.message});
     }        
   }
 
@@ -40,7 +40,7 @@ class PeopleController  {
       const result = await PeopleService.deletePerson(req.params.id);
       return res.status(204).json(result);
     } catch (error) {
-      return res.status(error.statusCode).send(error.message);
+      return res.status(error.statusCode).json({message: error.message});
     }
   }
 
@@ -49,7 +49,7 @@ class PeopleController  {
       const result = await PeopleService.update(req.params.id , req.body);
       return res.status(200).json(result);
     } catch (error) {
-      return res.status(error.statusCode).send(error.message);
+      return res.status(error.statusCode).json({message: error.message});
     }
   }
 
@@ -58,7 +58,7 @@ class PeopleController  {
       const result = await PeopleService.validate(req.body);
       return res.status(200).json(result);
     } catch (error) {
-      return res.status(error.statusCode).send(error.message);
+      return res.status(error.statusCode).json({message: error.message});
     }
   }
 

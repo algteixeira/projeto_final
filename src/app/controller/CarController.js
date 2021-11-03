@@ -26,7 +26,7 @@ class CarController {
       const result = await CarService.findById(req.params.id);
       return res.status(200).json(result);
     } catch (error) {
-      return res.status(error.statusCode).send(error.message);
+      return res.status(error.statusCode).json({message: error.message});
     }
   }
 
@@ -35,7 +35,7 @@ class CarController {
       const result = await CarService.deleteCar(req.params.id);
       return res.status(204).json(result);
     } catch (error) {
-      return res.status(error.statusCode).send(error.message);
+      return res.status(error.statusCode).json({message: error.message});
     }
   }
 
@@ -45,7 +45,7 @@ class CarController {
 
       return res.status(200).json(result);
     } catch (error) {
-      return res.status(error.statusCode).send(error.message);
+      return res.status(error.statusCode).json({message: error.message});
     }
   }
 
