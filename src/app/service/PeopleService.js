@@ -17,8 +17,12 @@ class PeopleService {
   async create(payload) {
     const findByEmail = await PeopleRepository.findByEmail(payload.email);
     if (findByEmail === null) {
+      
       payload.data_nascimento = moment(payload.data_nascimento, 'DD/MM/YYYY').format('MM/DD/YYYY');
+      moment.suppressDeprecationWarnings = true;
       const age = moment().diff(payload.data_nascimento, 'years');
+      
+    
       if (age < 18) {
         throw new UnderAge(payload.nome);
       }

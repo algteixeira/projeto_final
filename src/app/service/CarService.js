@@ -2,15 +2,21 @@ const CarRepository = require('../repository/CarRepository');
 
 const NotFound = require('../errors/notFound');
 
+const AlreadyExists = require('../errors/alreadyExists');
+
 class CarService {
     async create(payload) {
-        try {
-          
-            const result = await CarRepository.create(payload);
-            return result;
-        } catch (error) {
-            return error;
-        }
+      
+      const findByModel = await CarRepository.findByModel(payload.modelo);
+      if (findByModel === null) {
+        const result = await CarRepository.create(payload); 
+        return result;
+      } else {
+        throw new AlreadyExists();
+      }
+      
+      
+     
     }  
   
   async find(payload) {

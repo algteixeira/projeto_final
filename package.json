@@ -16,7 +16,6 @@
     "nodemon": "^2.0.14"
   },
   "dependencies": {
-    "@hapi/joi-date": "^2.0.1",
     "@joi/date": "^2.1.0",
     "bcrypt": "^5.0.1",
     "cors": "^2.8.5",

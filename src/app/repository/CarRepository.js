@@ -3,7 +3,10 @@ const CarSchema = require('../schema/CarSchema');
 
 class CarRepository  {
   async create(payload) {
-    return await CarSchema.create(payload);
+    
+    const result = await CarSchema.create(payload); 
+
+    return result;
   }
   
   
@@ -21,6 +24,12 @@ class CarRepository  {
   
     return CarFound;
   }
+
+  async findByModel(payload) {
+    const findByModel =  await CarSchema.findOne({modelo: payload}).exec();
+    return findByModel;
+  }
+
 
   async delete (payload) {
     const DeletedCar = await CarSchema.findOneAndDelete({_id : payload});

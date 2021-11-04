@@ -1,11 +1,12 @@
 const PeopleService = require('../service/PeopleService');
 const NotFound = require('../errors/notFound');
+const { serialize } = require('../serialize/createUser');
 
 class PeopleController  {
   async create(req, res) {
     try {
       const result = await PeopleService.create(req.body);
-      return res.status(201).send(result);
+      return res.status(201).json(serialize(result));
     } catch (error) {
       return res.status(error.statusCode).json({message: error.message});
     }

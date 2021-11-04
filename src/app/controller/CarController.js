@@ -1,10 +1,16 @@
 const CarService = require('../service/CarService');
 const NotFound = require('../errors/notFound');
+const { serialize } = require('../serialize/createCar');
 
 class CarController {
   async create(req, res) {
-    const result = await CarService.create(req.body);
-    return res.status(201).json(result);
+    try {
+      const result = await CarService.create(req.body);
+      return res.status(201).json(serialize(result));
+    } catch (error) {
+      return res.status(error.statusCode).json({message: error.message});
+    }
+    
   }
 
   async find(req, res) {

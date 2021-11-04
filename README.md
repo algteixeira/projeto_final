@@ -20,7 +20,13 @@ This is the final project that i'm doing for Compasso UOL trainee's program.
 
 ## Used technologies
 
-**Server:** Node, Express, Joi/Joi-date, Bcrypt, MongoDB/Mongoose, JWT and SwaggerUI
+**Server:** 
+- Node v14.17.4
+- Express v4.17.1
+- MongoDB v5.0.2
+- Mongoose v6.0.11
+- JWT v8.5.1 & Bcrypt v5.0.1
+- SwaggerUI v4.1.6
 
 
 ## How to run
