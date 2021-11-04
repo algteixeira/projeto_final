@@ -35,6 +35,14 @@ class CarService {
     page = parseInt(page);
     limit = parseInt(limit);
     const offset = (page-1)*limit;
+    if (payload.descricao) {
+      
+      payload['acessorios.descricao'] = payload.descricao;
+      payload.descricao = undefined;
+      
+    }
+
+    
   
     const result = await CarRepository.find(payload, limit, offset);
     

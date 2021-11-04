@@ -8,7 +8,7 @@ module.exports = async (req, res, next) => {
       modelo: Joi.string(),
       cor: Joi.string(),
       ano: Joi.number().min(1950).max(2022),
-      acessorios: Joi.array().items({descricao: Joi.string()}),
+      descricao: Joi.string(),
       quantidadePassageiros: Joi.number()
     });
     const { error } = await schema.validate(req.query, { abortEarly: false });
