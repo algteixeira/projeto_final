@@ -26,7 +26,9 @@ This is the final project that i'm doing for Compasso UOL trainee's program.
 - MongoDB v5.0.2
 - Mongoose v6.0.11
 - JWT v8.5.1 & Bcrypt v5.0.1
-- SwaggerUI v4.1.6
+
+**Client:**
+- - SwaggerUI v4.1.6
 
 
 ## How to run
