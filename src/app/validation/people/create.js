@@ -1,3 +1,5 @@
+const { serializeErrors } = require('../../serialize/errors/joierrors');
+
 const Joi = require('joi')
     .extend(require('@joi/date'));
 
@@ -14,10 +16,10 @@ module.exports = async (req, res, next) => {
       habilitado: Joi.string().valid('sim', 'não').required()
     });
 
-    const { error } = await schema.validate(req.body, { abortEarl: true });
+    const { error } = await schema.validate(req.body, { abortEarly: false });
     if (error) throw error
     return next();
   } catch (error) {
-    return res.status(400).json(error);
+    return res.status(400).json(Object.values(serializeErrors(error)));
   }
 }

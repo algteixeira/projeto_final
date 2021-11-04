@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 const moment = require('moment');
-
+const mongoosePaginate = require('mongoose-paginate-v2');
 const PeopleSchema = mongoose.Schema({
   nome: {
    type: String,
@@ -29,7 +29,7 @@ const PeopleSchema = mongoose.Schema({
     required: true
   }
 })
-
+PeopleSchema.plugin(mongoosePaginate);
 const People = mongoose.model('People', PeopleSchema);
 
 module.exports = People;

@@ -8,10 +8,9 @@ class PeopleRepository  {
   }
 
   async find(payload, limit, offset) {
-    const total = await PeopleSchema.find(payload).countDocuments();
-    const pessoas = await PeopleSchema.find(payload).skip(offset).limit(limit).exec();
-    const offsets = pessoas.length;
-    return {pessoas, total, limit, offset, offsets};
+    const result = await PeopleSchema.paginate(payload, {offset, limit});
+    console.log(result);
+    return result;
   }
 
   async findByCpf (payload) {
