@@ -12,6 +12,13 @@ class RentalRepository {
         return result;
 
     }
+    async findByCnpj (payload) {
+        
+        const result = await RentalSchema.findOne({cnpj: payload});
+        
+        return result;
+
+    }
 }
 
 module.exports = new RentalRepository();
