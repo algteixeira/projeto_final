@@ -13,7 +13,7 @@ class RentalController {
         }
     }
 
-    async find (req, res) {
+    async find(req, res) {
         try {
             const result = await RentalService.find(req.query);
             if (result.length === 0) {
@@ -22,6 +22,15 @@ class RentalController {
             return res.status(200).json(serializeAllRental(result));
         } catch (error) {
             return res.status(error.statusCode).json(error.message);
+        }
+    }
+
+    async update(req, res) {
+        try {
+            const result = await RentalService.update(req.params.id, req.body);
+            return res.status(200).json(result);
+        } catch (error) {
+            return res.status(error.statusCode).json({ message: error.message });
         }
     }
 }

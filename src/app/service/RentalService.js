@@ -2,6 +2,7 @@ const RentalRepository = require("../repository/RentalRepository");
 const AlreadyExists = require("../errors/alreadyExists");
 const BadRequest = require("../errors/badRequest");
 const axios = require('axios').default;
+const NotFound = require('../errors/notFound');
 
 
 class RentalService {
@@ -25,7 +26,7 @@ class RentalService {
 
         }));
 
-        console.log(payload.endereco);
+        
 
 
 
@@ -107,6 +108,45 @@ class RentalService {
         const result = await RentalRepository.find(payload, limit, offset);
 
         return result;
+    }
+
+    async update(id, payload) {
+
+        const checkId = await RentalRepository.findById(id);
+    if (checkId === null) {
+      throw new NotFound();
+    }
+
+    
+    if (payload.nome) {
+      const findByName = await RentalRepository.findByName(payload.nome);
+      if (findByName) {
+        throw new AlreadyExists();
+      }
+    }
+
+    if (payload.cnpj) {
+      const findByCnpj = await RentalRepository.findByCnpj(payload.cnpj);
+      if (findByCnpj) {
+        throw new AlreadyExists();
+      }
+    }
+
+    let count = payload.endereco.filter((item) => item.isFilial === false);
+
+        if (count.length === 0 || count.length > 1) {
+            throw new BadRequest();
+        }
+
+    
+
+    const result = await RentalRepository.update(id, payload);
+
+    if (result === null) {
+      throw new NotFound();
+    }   
+
+    return result;
     }
 }
 

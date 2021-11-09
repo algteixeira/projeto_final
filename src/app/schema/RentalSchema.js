@@ -31,6 +31,22 @@ const RentalSchema = mongoose.Schema({
         complemento: {
             type: String,
             required: false
+        },
+        bairro: {
+            type: String,
+            required: false
+        },
+        logradouro: {
+            type: String,
+            required: false
+        },
+        localidade: {
+            type: String,
+            required: false
+        },
+        uf: {
+            type: String,
+            required: false
         }
     }],
 
