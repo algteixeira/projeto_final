@@ -6,11 +6,11 @@ const axios = require('axios').default;
 
 class RentalService {
 
-    
+
 
     async create(payload) {
-        
-        await Promise.all(payload.endereco.map(async ({cep, ... data}, index) => {
+
+        await Promise.all(payload.endereco.map(async ({ cep, ...data }, index) => {
             const res = await axios.get(`https://viacep.com.br/ws/${cep}/json/`);
             res.data.isFilial = data.isFilial;
             res.data.number = data.number;
@@ -22,13 +22,13 @@ class RentalService {
             payload.endereco[index].bairro = res.data.bairro;
             payload.endereco[index].localidade = res.data.localidade;
             payload.endereco[index].uf = res.data.uf;
-            
-         }));
+
+        }));
 
         console.log(payload.endereco);
 
 
-        
+
 
         let count = payload.endereco.filter((item) => item.isFilial === false);
 
@@ -48,6 +48,65 @@ class RentalService {
 
         await RentalRepository.create(payload);
         return payload;
+    }
+
+
+    async find(payload) {
+        let limit, page;
+        if (!payload.limit) {
+            limit = 100;
+        } else {
+            limit = payload.limit;
+        }
+        if (!payload.page) {
+            page = 1;
+        } else {
+            page = payload.page;
+        }
+
+        page = parseInt(page);
+        limit = parseInt(limit);
+        const offset = (page - 1) * limit;
+        if (payload.cep) {
+
+            payload['endereco.cep'] = payload.cep;
+            payload.cep = undefined;
+        }
+        if (payload.logradouro) {
+
+            payload['endereco.logradouro'] = payload.logradouro;
+            payload.logradouro = undefined;
+        }
+        if (payload.complemento) {
+
+            payload['endereco.complemento'] = payload.complemento;
+            payload.complemento = undefined;
+        }
+        if (payload.bairro) {
+
+            payload['endereco.bairro'] = payload.bairro;
+            payload.bairro = undefined;
+        }
+        if (payload.number) {
+
+            payload['endereco.number'] = payload.number;
+            payload.number = undefined;
+        }
+        if (payload.localidade) {
+
+            payload['endereco.localidade'] = payload.localidade;
+            payload.localidade = undefined;
+        }
+        if (payload.uf) {
+
+            payload['endereco.uf'] = payload.uf;
+            payload.uf = undefined;
+        }
+
+
+        const result = await RentalRepository.find(payload, limit, offset);
+
+        return result;
     }
 }
 
