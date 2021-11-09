@@ -26,7 +26,7 @@ class RentalService {
 
         }));
 
-        
+
 
 
 
@@ -110,43 +110,56 @@ class RentalService {
         return result;
     }
 
+    async findById(payload) {
+        const result = await RentalRepository.findById(payload);
+        if (result === null) {
+          throw new NotFound();
+        }
+        return result;
+        
+      }
+
+
+
+
+
     async update(id, payload) {
 
         const checkId = await RentalRepository.findById(id);
-    if (checkId === null) {
-      throw new NotFound();
-    }
+        if (checkId === null) {
+            throw new NotFound();
+        }
 
-    
-    if (payload.nome) {
-      const findByName = await RentalRepository.findByName(payload.nome);
-      if (findByName) {
-        throw new AlreadyExists();
-      }
-    }
 
-    if (payload.cnpj) {
-      const findByCnpj = await RentalRepository.findByCnpj(payload.cnpj);
-      if (findByCnpj) {
-        throw new AlreadyExists();
-      }
-    }
+        if (payload.nome) {
+            const findByName = await RentalRepository.findByName(payload.nome);
+            if (findByName) {
+                throw new AlreadyExists();
+            }
+        }
 
-    let count = payload.endereco.filter((item) => item.isFilial === false);
+        if (payload.cnpj) {
+            const findByCnpj = await RentalRepository.findByCnpj(payload.cnpj);
+            if (findByCnpj) {
+                throw new AlreadyExists();
+            }
+        }
+
+        let count = payload.endereco.filter((item) => item.isFilial === false);
 
         if (count.length === 0 || count.length > 1) {
             throw new BadRequest();
         }
 
-    
 
-    const result = await RentalRepository.update(id, payload);
 
-    if (result === null) {
-      throw new NotFound();
-    }   
+        const result = await RentalRepository.update(id, payload);
 
-    return result;
+        if (result === null) {
+            throw new NotFound();
+        }
+
+        return result;
     }
 }
 

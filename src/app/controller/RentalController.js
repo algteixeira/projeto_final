@@ -25,6 +25,16 @@ class RentalController {
         }
     }
 
+    async findById(req, res) {
+        try {
+          const result = await RentalService.findById(req.params.id);
+    
+          return res.status(200).json(result);
+        } catch (error) {
+          return res.status(error.statusCode).json({message: error.message});
+        }        
+      }
+
     async update(req, res) {
         try {
             const result = await RentalService.update(req.params.id, req.body);
