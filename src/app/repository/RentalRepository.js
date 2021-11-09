@@ -7,7 +7,7 @@ class RentalRepository {
 
     async find(payload, limit, offset) {
         const result = await RentalSchema.paginate(payload, { offset, limit });
-        
+
         return result;
     }
 
@@ -28,18 +28,25 @@ class RentalRepository {
 
     async findById(payload) {
         const RentalFound = await RentalSchema.findById(payload).exec();
-      
+
         return RentalFound;
-      }
+    }
 
 
-    async update (id, payload) {
-  
-        return await RentalSchema.findOneAndUpdate({_id : id}, payload, {
-          runValidators: true
+    async update(id, payload) {
+
+        return await RentalSchema.findOneAndUpdate({ _id: id }, payload, {
+            runValidators: true
         })
-    
+
+    }
+
+
+    async delete (payload) {
+        const DeletedRental = await RentalSchema.findOneAndDelete({_id : payload});
+        return DeletedRental;
       }
+
 }
 
 module.exports = new RentalRepository();

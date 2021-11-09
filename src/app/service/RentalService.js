@@ -161,6 +161,18 @@ class RentalService {
 
         return result;
     }
+
+    async delete(payload) {
+        const result = await RentalRepository.delete(payload);
+        if (result === null) {
+          throw new NotFound();
+        }
+        return result;
+        
+      }
+
+
+
 }
 
 module.exports = new RentalService();
