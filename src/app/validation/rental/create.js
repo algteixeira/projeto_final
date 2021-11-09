@@ -9,7 +9,7 @@ module.exports = async (req, res, next) => {
             atividades: Joi.string().trim().min(2).required(),
             endereco: Joi.array().items(
                 {
-                    cep: Joi.string().regex(/[0-9]{5}-[0-9]{3}$/).required(),
+                    cep: Joi.string().regex(/[0-9]{5}-[0-9]{3}$/).trim().min(2).required(),
                     number: Joi.number().required(),
                     complemento: Joi.string().trim().min(1),
                     isFilial: Joi.boolean().required()

@@ -6,21 +6,29 @@ const axios = require('axios').default;
 
 class RentalService {
 
+    
+
     async create(payload) {
-        // THIS IS THE TRUE DEFINITION OF "GAMBIARRA DO MILÊNIO", I'LL WORK TO CHANCE IT FOR A 
-        // "MAP" BASED CODE
-        for (let i=0; i<payload.endereco.length; i++) {
-            const res = await axios.get(`https://viacep.com.br/ws/${payload.endereco[i].cep}/json/`);
+        
+        await Promise.all(payload.endereco.map(async ({cep, ... data}, index) => {
+            const res = await axios.get(`https://viacep.com.br/ws/${cep}/json/`);
+            res.data.isFilial = data.isFilial;
+            res.data.number = data.number;
+            res.data.complemento = data.complemento;
             if (res.data.erro) {
                 throw new BadRequest();
             }
-            res.data.number = payload.endereco[i].number;
-            res.data.isFilial = payload.endereco[i].isFilial;
-            res.data.complemento = payload.endereco[i].complemento;
-            payload.endereco[i] = res.data;
-        }
+            payload.endereco[index].logradouro = res.data.logradouro;
+            payload.endereco[index].bairro = res.data.bairro;
+            payload.endereco[index].localidade = res.data.localidade;
+            payload.endereco[index].uf = res.data.uf;
+            
+         }));
 
         console.log(payload.endereco);
+
+
+        
 
         let count = payload.endereco.filter((item) => item.isFilial === false);
 
