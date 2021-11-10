@@ -1,10 +1,11 @@
 const mongoose = require('mongoose');
 const moment = require('moment');
 const mongoosePaginate = require('mongoose-paginate-v2');
+
 const PeopleSchema = mongoose.Schema({
   nome: {
-   type: String,
-   required: true
+    type: String,
+    required: true
   },
   cpf: {
     type: String,
@@ -13,7 +14,7 @@ const PeopleSchema = mongoose.Schema({
   data_nascimento: {
     type: Date,
     required: true,
-    transform: (val) => moment(val).format('DD/MM/YYYY'),
+    transform: (val) => moment(val).format('DD/MM/YYYY')
   },
   email: {
     type: String,
@@ -25,10 +26,10 @@ const PeopleSchema = mongoose.Schema({
     required: true
   },
   habilitado: {
-    type:String, 
+    type: String,
     required: true
   }
-})
+});
 PeopleSchema.plugin(mongoosePaginate);
 const People = mongoose.model('People', PeopleSchema);
 

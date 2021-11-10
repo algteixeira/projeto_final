@@ -5,14 +5,15 @@ const CarSchema = mongoose.Schema({
   modelo: String,
   cor: String,
   ano: Number,
-  acessorios:[{
-
-    descricao:{
-      type:String  
-   }
-  }],
+  acessorios: [
+    {
+      descricao: {
+        type: String
+      }
+    }
+  ],
   quantidadePassageiros: Number
-})
+});
 
 CarSchema.plugin(mongoosePaginate);
 

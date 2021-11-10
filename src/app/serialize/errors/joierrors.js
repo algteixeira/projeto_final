@@ -1,14 +1,14 @@
-const serialize = ({message, path, type, context}) => {
-    const adjustedPath = path.values();
-    return {
-        description: adjustedPath.next().value,
-        name: message
-    };
-}
-
-const serializeErrors = ({_original, details}) => {
-    return {
-        errors: details.map(serialize)
-    }
+const serialize = ({ message, path }) => {
+  const adjustedPath = path.values();
+  return {
+    description: adjustedPath.next().value,
+    name: message
+  };
 };
-module.exports = {serialize, serializeErrors};
+
+const serializeErrors = ({ details }) => ({
+  errors: details.map(serialize)
+});
+module.exports = { serialize, serializeErrors };
+/* , type, context */
+// _original

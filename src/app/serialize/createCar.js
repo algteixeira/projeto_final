@@ -1,9 +1,15 @@
-const serialize = ({modelo, cor, ano, acessorios, quantidadePassageiros, _id, __v}) => {
-    return {modelo, cor, ano, acessorios, quantidadePassageiros, _id};
-};
+// eslint-disable-next-line no-unused-vars
+const serialize = ({ modelo, cor, ano, acessorios, quantidadePassageiros, _id, __v }) => ({
+  modelo,
+  cor,
+  ano,
+  acessorios,
+  quantidadePassageiros,
+  _id
+});
 
-module.exports = {serialize};
-/*{
+module.exports = { serialize };
+/* {
     "modelo": "tropa do papai",
     "cor": "branco",
     "ano": 2021,

@@ -3,15 +3,14 @@ const NotFound = require('../errors/notFound');
 const { serialize } = require('../serialize/createUser');
 const { serializeAllPeople } = require('../serialize/allPeople');
 
-class PeopleController  {
+class PeopleController {
   async create(req, res) {
     try {
       const result = await PeopleService.create(req.body);
       return res.status(201).json(serialize(result));
     } catch (error) {
-      return res.status(error.statusCode).json({message: error.message});
+      return res.status(error.statusCode).json({ message: error.message });
     }
-    
   }
 
   async find(req, res) {
@@ -22,10 +21,9 @@ class PeopleController  {
       }
       return res.status(200).json(serializeAllPeople(result));
     } catch (error) {
-      return res.status(error.statusCode).json({message: error.message});
+      return res.status(error.statusCode).json({ message: error.message });
     }
   }
-
 
   async findById(req, res) {
     try {
@@ -33,8 +31,8 @@ class PeopleController  {
 
       return res.status(200).json(result);
     } catch (error) {
-      return res.status(error.statusCode).json({message: error.message});
-    }        
+      return res.status(error.statusCode).json({ message: error.message });
+    }
   }
 
   async deletePerson(req, res) {
@@ -42,28 +40,27 @@ class PeopleController  {
       const result = await PeopleService.deletePerson(req.params.id);
       return res.status(204).json(result);
     } catch (error) {
-      return res.status(error.statusCode).json({message: error.message});
+      return res.status(error.statusCode).json({ message: error.message });
     }
   }
 
-  async update (req, res) {
+  async update(req, res) {
     try {
-      const result = await PeopleService.update(req.params.id , req.body);
+      const result = await PeopleService.update(req.params.id, req.body);
       return res.status(200).json(result);
     } catch (error) {
-      return res.status(error.statusCode).json({message: error.message});
+      return res.status(error.statusCode).json({ message: error.message });
     }
   }
 
-  async validate (req, res) {
+  async validate(req, res) {
     try {
       const result = await PeopleService.validate(req.body);
       return res.status(200).json(result);
     } catch (error) {
-      return res.status(error.statusCode).json({message: error.message});
+      return res.status(error.statusCode).json({ message: error.message });
     }
   }
-
 }
 
 module.exports = new PeopleController();

@@ -11,4 +11,4 @@ module.exports = (server, routes, prefix = '/api/v1/rental') => {
   routes.put('/:id', validateId, updateRentalValidation, RentalController.update);
   routes.delete('/:id', validateId, RentalController.delete);
   server.use(prefix, routes);
-}
+};

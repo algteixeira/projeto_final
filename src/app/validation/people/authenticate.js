@@ -1,8 +1,7 @@
 const Joi = require('joi');
-const BadRequest = require('../../errors/badRequest');
 const { serializeErrors } = require('../../serialize/errors/joierrors');
 
-module.exports = async (req, res, next) => {  
+module.exports = async (req, res, next) => {
   try {
     const schema = Joi.object({
       email: Joi.string().email().required(),
@@ -14,4 +13,4 @@ module.exports = async (req, res, next) => {
   } catch (error) {
     return res.status(400).json(Object.values(serializeErrors(error)));
   }
-}
+};

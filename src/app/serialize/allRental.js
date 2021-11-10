@@ -1,16 +1,12 @@
-const serialize = ({_id, nome, cnpj, atividades, endereco, __v}) => {
-    return {_id, nome, cnpj, atividades, endereco};
-}
+// eslint-disable-next-line no-unused-vars
+const serialize = ({ _id, nome, cnpj, atividades, endereco, __v }) => ({ _id, nome, cnpj, atividades, endereco });
 
-const serializeAllRental = ({docs, limit, totalDocs, pagingCounter, totalPages}) => {
-    return {
-        locadoras: docs.map(serialize),
-        total: totalDocs,
-        limit,
-        offset: pagingCounter,
-        offsets: totalPages
-    };
+const serializeAllRental = ({ docs, limit, totalDocs, pagingCounter, totalPages }) => ({
+  locadoras: docs.map(serialize),
+  total: totalDocs,
+  limit,
+  offset: pagingCounter,
+  offsets: totalPages
+});
 
-};
-
-module.exports = {serialize, serializeAllRental};
+module.exports = { serialize, serializeAllRental };
