@@ -121,7 +121,7 @@ class PeopleService {
     }
 
     const token = jwt.sign({ id: searchByEmail.id }, authConfig.secret, {
-      expiresIn: 130
+      expiresIn: '1d'
     });
     const { email } = searchByEmail;
     const { habilitado } = searchByEmail;
