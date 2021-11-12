@@ -9,7 +9,7 @@ class CarRepository {
 
   async find(payload, limit, offset) {
     const result = await CarSchema.paginate(payload, { offset, limit });
-    console.log(result);
+
     return result;
   }
 

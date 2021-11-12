@@ -12,7 +12,8 @@ const AuthFailed = require('../errors/authFailed');
 class PeopleService {
   async create(payload) {
     const findByEmail = await PeopleRepository.findByEmail(payload.email);
-    if (findByEmail === null) {
+    const findByCpf = await PeopleRepository.findByCpf(payload.cpf);
+    if (findByEmail === null && findByCpf === null) {
       payload.data_nascimento = moment(payload.data_nascimento, 'DD/MM/YYYY').format('MM/DD/YYYY');
       moment.suppressDeprecationWarnings = true;
       const age = moment().diff(payload.data_nascimento, 'years');

@@ -9,7 +9,6 @@ class PeopleRepository {
 
   async find(payload, limit, offset) {
     const result = await PeopleSchema.paginate(payload, { offset, limit });
-    console.log(result);
     return result;
   }
 

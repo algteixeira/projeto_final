@@ -3,13 +3,14 @@ const cors = require('cors');
 const swaggerUi = require('swagger-ui-express');
 const router = require('./routes');
 const swaggerDocs = require('./swagger.json');
-require('./infra/database/mongo');
+const Database = require('./infra/database/mongo/index');
 
 class App {
   constructor() {
     this.server = express();
     this.middlewares();
     this.routes();
+    Database.connect();
   }
 
   middlewares() {
