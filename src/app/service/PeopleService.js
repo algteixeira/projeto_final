@@ -113,7 +113,7 @@ class PeopleService {
   async validate(payload) {
     const searchByEmail = await PeopleRepository.validate(payload.email);
     if (searchByEmail === null) {
-      throw new NotFound();
+      throw new NotFound(payload.email);
     }
 
     const match = await Bcrypt.isSame(payload.senha, searchByEmail.senha);

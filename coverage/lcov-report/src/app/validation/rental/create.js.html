@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">91.42% </span>
+                <span class="strong">11.42% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>32/35</span>
-            </div>
-        
-            
-            <div class='fl pad1y space-right2'>
-                <span class="strong">33.33% </span>
-                <span class="quiet">Branches</span>
-                <span class='fraction'>1/3</span>
+                <span class='fraction'>4/35</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
-                <span class="quiet">Functions</span>
-                <span class='fraction'>1/1</span>
+                <span class="quiet">Branches</span>
+                <span class='fraction'>0/0</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">91.42% </span>
+                <span class="strong">0% </span>
+                <span class="quiet">Functions</span>
+                <span class='fraction'>0/1</span>
+            </div>
+        
+            
+            <div class='fl pad1y space-right2'>
+                <span class="strong">11.42% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>32/35</span>
+                <span class='fraction'>4/35</span>
             </div>
         
             
@@ -55,7 +55,7 @@
             Press <em>n</em> or <em>j</em> to go to the next uncovered block, <em>b</em>, <em>p</em> or <em>k</em> for the previous block.
         </p>
     </div>
-    <div class='status-line high'></div>
+    <div class='status-line low'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -96,72 +96,72 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">const Joi = require('joi');
 const { serializeErrors } = require('../../serialize/errors/joierrors');
 &nbsp;
-module.exports = async (req, res, next) =&gt; {
-  try {
-    const schema = Joi.object({
-      nome: Joi.string().trim().min(2).required(),
-      cnpj: Joi.string()
-        .required()
-        // eslint-disable-next-line no-useless-escape
-        .regex(/^\d{2}\.\d{3}\.\d{3}\/\d{4}\-\d{2}$/),
-      atividades: Joi.string().trim().min(2).required(),
-      endereco: Joi.array()
-        .items({
-          cep: Joi.string()
-            .regex(/[0-9]{5}-[0-9]{3}$/)
-            .trim()
-            .min(2)
-            .required(),
-          number: Joi.number().required(),
-          complemento: Joi.string().trim().min(1),
-          isFilial: Joi.boolean().required()
-        })
-        .min(1)
-        .required()
-    });
-&nbsp;
-    const { error } = await schema.validate(req.body, { abortEarly: false });
-    if (error) <span class="branch-0 cbranch-no" title="branch not covered" >throw e</span>rror;
-    return next();
-  } <span class="branch-0 cbranch-no" title="branch not covered" >catch (error) {</span>
+module.exports = <span class="fstat-no" title="function not covered" >async (req, res, next) =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >  try {</span>
+<span class="cstat-no" title="statement not covered" >    const schema = Joi.object({</span>
+<span class="cstat-no" title="statement not covered" >      nome: Joi.string().trim().min(2).required(),</span>
+<span class="cstat-no" title="statement not covered" >      cnpj: Joi.string()</span>
+<span class="cstat-no" title="statement not covered" >        .required()</span>
+<span class="cstat-no" title="statement not covered" >        // eslint-disable-next-line no-useless-escape</span>
+<span class="cstat-no" title="statement not covered" >        .regex(/^\d{2}\.\d{3}\.\d{3}\/\d{4}\-\d{2}$/),</span>
+<span class="cstat-no" title="statement not covered" >      atividades: Joi.string().trim().min(2).required(),</span>
+<span class="cstat-no" title="statement not covered" >      endereco: Joi.array()</span>
+<span class="cstat-no" title="statement not covered" >        .items({</span>
+<span class="cstat-no" title="statement not covered" >          cep: Joi.string()</span>
+<span class="cstat-no" title="statement not covered" >            .regex(/[0-9]{5}-[0-9]{3}$/)</span>
+<span class="cstat-no" title="statement not covered" >            .trim()</span>
+<span class="cstat-no" title="statement not covered" >            .min(2)</span>
+<span class="cstat-no" title="statement not covered" >            .required(),</span>
+<span class="cstat-no" title="statement not covered" >          number: Joi.number().required(),</span>
+<span class="cstat-no" title="statement not covered" >          complemento: Joi.string().trim().min(1),</span>
+<span class="cstat-no" title="statement not covered" >          isFilial: Joi.boolean().required()</span>
+<span class="cstat-no" title="statement not covered" >        })</span>
+<span class="cstat-no" title="statement not covered" >        .min(1)</span>
+<span class="cstat-no" title="statement not covered" >        .required()</span>
+<span class="cstat-no" title="statement not covered" >    });</span>
+<span class="cstat-no" title="statement not covered" ></span>
+<span class="cstat-no" title="statement not covered" >    const { error } = await schema.validate(req.body, { abortEarly: false });</span>
+<span class="cstat-no" title="statement not covered" >    if (error) throw error;</span>
+<span class="cstat-no" title="statement not covered" >    return next();</span>
+<span class="cstat-no" title="statement not covered" >  } catch (error) {</span>
 <span class="cstat-no" title="statement not covered" >    console.log(error);</span>
 <span class="cstat-no" title="statement not covered" >    return res.status(400).json(Object.values(serializeErrors(error)));</span>
 <span class="cstat-no" title="statement not covered" >  }</span>
-};
+<span class="cstat-no" title="statement not covered" >};</span>
 &nbsp;</pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->
@@ -169,7 +169,7 @@ module.exports = async (req, res, next) =&gt; {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Fri Nov 12 2021 01:16:24 GMT-0300 (Brasilia Standard Time)
+                at Fri Nov 12 2021 16:04:25 GMT-0300 (Brasilia Standard Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>
