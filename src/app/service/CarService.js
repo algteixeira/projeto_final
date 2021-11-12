@@ -4,7 +4,9 @@ const NotFound = require('../errors/notFound');
 
 const AlreadyExists = require('../errors/alreadyExists');
 
-const BadRequest = require('../errors/badRequest');
+const UnexistentAccessory = require('../errors/unexistentAccessory');
+
+const ExistentDescription = require('../errors/existentDescription');
 
 class CarService {
   async create(payload) {
@@ -13,7 +15,7 @@ class CarService {
       const result = await CarRepository.create(payload);
       return result;
     }
-    throw new AlreadyExists();
+    throw new AlreadyExists(payload.modelo);
   }
 
   async find(payload) {
@@ -46,7 +48,7 @@ class CarService {
   async findById(payload) {
     const result = await CarRepository.findById(payload);
     if (result === null) {
-      throw new NotFound();
+      throw new NotFound(payload);
     }
     return result;
   }
@@ -54,7 +56,7 @@ class CarService {
   async deleteCar(payload) {
     const result = await CarRepository.delete(payload);
     if (result === null) {
-      throw new NotFound();
+      throw new NotFound(payload);
     }
     return result;
   }
@@ -68,9 +70,14 @@ class CarService {
         return unique;
       }, []);
     }
+    const findByModel = await CarRepository.findByModel(payload.modelo);
+    if (findByModel !== null) {
+      throw new AlreadyExists(payload.modelo);
+    }
+
     const result = await CarRepository.update(id, payload);
     if (result === null) {
-      throw new NotFound();
+      throw new NotFound(id);
     }
     return result;
   }
@@ -78,17 +85,17 @@ class CarService {
   async updateAccessory(ids, payload) {
     const foundById = await CarRepository.findById(ids.id);
     if (!foundById) {
-      throw new NotFound();
+      throw new NotFound(ids.id);
     } else {
       const acessoriesId = foundById.acessorios.filter((accessory) => accessory._id.toString() === ids.id2);
       if (acessoriesId.length !== 1) {
-        throw new BadRequest();
+        throw new UnexistentAccessory();
       } else {
         const accessoriesDescription = foundById.acessorios.filter(
           (accessory) => accessory.descricao.toString() === payload
         );
         if (accessoriesDescription.length === 1) {
-          throw new AlreadyExists();
+          throw new ExistentDescription();
         } else {
           const result = await CarRepository.updateAccessory(ids.id, ids.id2, payload);
 
