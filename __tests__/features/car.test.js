@@ -4,16 +4,20 @@ const Database = require('../../src/infra/database/mongo/index');
 
 const CarSchema = require('../../src/app/schema/CarSchema');
 
+const PeopleSchema = require('../../src/app/schema/PeopleSchema');
+
 const app = require('../../src/app');
 
 Database.connect();
 
 beforeAll(async () => {
   await CarSchema.deleteMany();
+  await PeopleSchema.deleteMany();
 });
 
 beforeEach(async () => {
   await CarSchema.deleteMany();
+  await PeopleSchema.deleteMany();
 });
 
 afterEach(async () => {
