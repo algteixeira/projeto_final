@@ -27,7 +27,7 @@ class PeopleService {
 
       return result;
     }
-    throw new AlreadyExists();
+    throw new AlreadyExists('user');
   }
 
   async find(payload) {
@@ -56,7 +56,7 @@ class PeopleService {
   async findById(payload) {
     const result = await PeopleRepository.findById(payload);
     if (result === null) {
-      throw new NotFound();
+      throw new NotFound(payload);
     }
     return result;
   }
@@ -64,7 +64,7 @@ class PeopleService {
   async deletePerson(payload) {
     const result = await PeopleRepository.delete(payload);
     if (result === null) {
-      throw new NotFound();
+      throw new NotFound(payload);
     }
     return result;
   }
@@ -82,14 +82,14 @@ class PeopleService {
     if (payload.email) {
       const findByEmail = await PeopleRepository.findByEmail(payload.email);
       if (findByEmail) {
-        throw new AlreadyExists();
+        throw new AlreadyExists(payload.email);
       }
     }
 
     if (payload.cpf) {
       const findByCpf = await PeopleRepository.findByCpf(payload.cpf);
       if (findByCpf) {
-        throw new AlreadyExists();
+        throw new AlreadyExists(payload.cpf);
       }
     }
 
@@ -104,7 +104,7 @@ class PeopleService {
     const result = await PeopleRepository.update(id, payload);
 
     if (result === null) {
-      throw new NotFound();
+      throw new NotFound(id);
     }
 
     return result;
