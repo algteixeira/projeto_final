@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">39.39% </span>
+                <span class="strong">40.29% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>26/66</span>
+                <span class='fraction'>27/67</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">39.39% </span>
+                <span class="strong">40.29% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>26/66</span>
+                <span class='fraction'>27/67</span>
             </div>
         
             
@@ -123,7 +123,9 @@
 <a name='L64'></a><a href='#L64'>64</a>
 <a name='L65'></a><a href='#L65'>65</a>
 <a name='L66'></a><a href='#L66'>66</a>
-<a name='L67'></a><a href='#L67'>67</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L67'></a><a href='#L67'>67</a>
+<a name='L68'></a><a href='#L68'>68</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -193,6 +195,7 @@
 const NotFound = require('../errors/notFound');
 const { serialize } = require('../serialize/createCar');
 const { serializeAllCars } = require('../serialize/allCars');
+const { serializeErrors } = require('../serialize/errors/routeErrors');
 &nbsp;
 class CarController {
   async create<span class="fstat-no" title="function not covered" >(req, res) {</span>
@@ -200,7 +203,7 @@ class CarController {
 <span class="cstat-no" title="statement not covered" >      const result = await CarService.create(req.body);</span>
 <span class="cstat-no" title="statement not covered" >      return res.status(201).json(serialize(result));</span>
 <span class="cstat-no" title="statement not covered" >    } catch (error) {</span>
-<span class="cstat-no" title="statement not covered" >      return res.status(error.statusCode).json({ message: error.message });</span>
+<span class="cstat-no" title="statement not covered" >      return res.status(error.statusCode).json(serializeErrors(error));</span>
 <span class="cstat-no" title="statement not covered" >    }</span>
 <span class="cstat-no" title="statement not covered" >  }</span>
 &nbsp;
@@ -212,7 +215,7 @@ class CarController {
 <span class="cstat-no" title="statement not covered" >      }</span>
       return res.status(200).json(serializeAllCars(result));
     } <span class="branch-0 cbranch-no" title="branch not covered" >catch (error) {</span>
-<span class="cstat-no" title="statement not covered" >      return res.status(error.statusCode).json(error.message);</span>
+<span class="cstat-no" title="statement not covered" >      return res.status(error.statusCode).json(serializeErrors(error));</span>
 <span class="cstat-no" title="statement not covered" >    }</span>
   }
 &nbsp;
@@ -221,7 +224,7 @@ class CarController {
 <span class="cstat-no" title="statement not covered" >      const result = await CarService.findById(req.params.id);</span>
 <span class="cstat-no" title="statement not covered" >      return res.status(200).json(result);</span>
 <span class="cstat-no" title="statement not covered" >    } catch (error) {</span>
-<span class="cstat-no" title="statement not covered" >      return res.status(error.statusCode).json({ message: error.message });</span>
+<span class="cstat-no" title="statement not covered" >      return res.status(error.statusCode).json(serializeErrors(error));</span>
 <span class="cstat-no" title="statement not covered" >    }</span>
 <span class="cstat-no" title="statement not covered" >  }</span>
 &nbsp;
@@ -230,7 +233,7 @@ class CarController {
 <span class="cstat-no" title="statement not covered" >      const result = await CarService.deleteCar(req.params.id);</span>
 <span class="cstat-no" title="statement not covered" >      return res.status(204).json(result);</span>
 <span class="cstat-no" title="statement not covered" >    } catch (error) {</span>
-<span class="cstat-no" title="statement not covered" >      return res.status(error.statusCode).json({ message: error.message });</span>
+<span class="cstat-no" title="statement not covered" >      return res.status(error.statusCode).json(serializeErrors(error));</span>
 <span class="cstat-no" title="statement not covered" >    }</span>
 <span class="cstat-no" title="statement not covered" >  }</span>
 &nbsp;
@@ -240,7 +243,7 @@ class CarController {
 <span class="cstat-no" title="statement not covered" ></span>
 <span class="cstat-no" title="statement not covered" >      return res.status(200).json(result);</span>
 <span class="cstat-no" title="statement not covered" >    } catch (error) {</span>
-<span class="cstat-no" title="statement not covered" >      return res.status(error.statusCode).json({ message: error.message });</span>
+<span class="cstat-no" title="statement not covered" >      return res.status(error.statusCode).json(serializeErrors(error));</span>
 <span class="cstat-no" title="statement not covered" >    }</span>
 <span class="cstat-no" title="statement not covered" >  }</span>
 &nbsp;
@@ -249,7 +252,7 @@ class CarController {
 <span class="cstat-no" title="statement not covered" >      const result = await CarService.updateAccessory(req.params, req.body.descricao);</span>
 <span class="cstat-no" title="statement not covered" >      return res.status(200).json(result);</span>
 <span class="cstat-no" title="statement not covered" >    } catch (error) {</span>
-<span class="cstat-no" title="statement not covered" >      return res.status(error.statusCode).json({ message: error.message });</span>
+<span class="cstat-no" title="statement not covered" >      return res.status(error.statusCode).json(serializeErrors(error));</span>
 <span class="cstat-no" title="statement not covered" >    }</span>
 <span class="cstat-no" title="statement not covered" >  }</span>
 }
@@ -262,7 +265,7 @@ module.exports = new CarController();
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Fri Nov 12 2021 17:21:20 GMT-0300 (Brasilia Standard Time)
+                at Fri Nov 12 2021 17:46:53 GMT-0300 (Brasilia Standard Time)
             </div>
         </div>
         <script src="../../../prettify.js"></script>

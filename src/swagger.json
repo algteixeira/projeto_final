@@ -14,6 +14,134 @@
             "description": "Base URL to use the first version of this project"
         }
     ],
+
+    "components": {
+        "schemas": {
+            "Person": {
+                "type": "object",
+                "properties": {
+                    "nome": {
+                        "type": "string"
+                    },
+                    "cpf": {
+                        "type": "string"
+                    },
+                    "data_nascimento": {
+                        "type": "string"
+                    },
+                    "email": {
+                        "type": "string"
+                    },
+                    "senha": {
+                        "type": "string"
+                    },
+                    "habilitado": {
+                        "type": "string"
+                    }
+                }
+            },
+            "People": {
+                "type": "array",
+                "items": {
+                    "$ref": "#/components/schemas/Person"
+                }
+            },
+            "Car": {
+                "type": "object",
+                "properties": {
+                    "modelo": {
+                        "type": "string"
+                    },
+                    "cor": {
+                        "type": "string"
+                    },
+                    "ano": {
+                        "type": "number"
+                    },
+                    "acessorios": {
+                        "type": "array",
+                        "items": {
+                            "type": "object",
+                            "properties": {
+                                "descricao": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    },
+                    "quantidadePassageiros": {
+                        "type": "number"
+                    }
+                }
+            },
+            "Rental": {
+                "type": "object",
+                "properties": {
+                    "nome": {
+                        "type": "string"
+                    },
+                    "cnpj": {
+                        "type": "string"
+                    },
+                    "atividades": {
+                        "type": "string"
+                    },
+                    "endereco": {
+                        "type": "array",
+                        "properties": {
+                            "cep": {
+                                "type": "string"
+                            },
+                            "number": {
+                                "type": "number"
+                            },
+                            "isFilial": {
+                                "type": "boolean"
+                            },
+                            "complemento": {
+                                "type": "string"
+                            }
+                        }
+                    }
+                }
+            },
+            "Rentals": {
+                "type": "array",
+                "items": {
+                    "$ref": "#/components/schemas/Rental"
+                }
+            },
+            "Cars": {
+                "type": "array",
+                "items": {
+                    "$ref": "#/components/schemas/Car"
+                }
+            },
+            "Authentication": {
+                "type": "object",
+                "properties": {
+                    "token": {
+                        "type": "string"
+                    },
+                    "email": {
+                        "type": "string"
+                    },
+                    "habilitado": {
+                        "type": "string"
+                    }
+
+                }
+            }        
+        },
+        "securitySchemes": {
+            "bearerAuth": {
+              "type": "http",
+              "scheme": "bearer",
+              "bearerFormat": "JWT"
+            }
+        }
+    },
+
     "paths": {
         "/api/v1/people": {
             "post": {
@@ -146,6 +274,7 @@
         },
         "/api/v1/car": {
             "post": {
+                "security": [{ "bearerAuth": [] }],
                 "summary": "Insert a car into the database",
                 "description": "This route uses req.body to get information about the car, than remove duplicated accessories if necessary and insert into the database",
                 "tags": [
@@ -214,6 +343,7 @@
                 }
             },
             "get": {
+                "security": [{ "bearerAuth": [] }],                
                 "summary": "Get all cars from the database that match with the queries using pagination",
                 "description": "Pagination style = http://localhost:3333/api/v1/car/?page=1&limit=10",
                 "tags": [
@@ -299,6 +429,7 @@
         },
         "/api/v1/car/{id}": {
             "delete": {
+                "security": [{ "bearerAuth": [] }],
                 "summary": "Route to delete a car based on it's id",
                 "description": "Try to find a vehicle and delete it",
                 "tags": [
@@ -327,6 +458,7 @@
                 ]
             },
             "put": {
+                "security": [{ "bearerAuth": [] }],
                 "summary": "Update car values",
                 "description": "Using a car ID, search for it and if it founds, put new values (avoiding duplicates on accessories)",
                 "tags": [
@@ -400,6 +532,7 @@
                 }
             },
             "get": {
+                "security": [{ "bearerAuth": [] }],
                 "summary": "Get car by id",
                 "description": "Return a car based on its id",
                 "tags": [
@@ -427,6 +560,29 @@
                         }
                     }
                 ]
+            }
+        },
+        "/api/v1/car/{id}/acessorios/{id2}": {
+            "patch": {
+                "security": [{ "bearerAuth": [] }],
+                "summary": "Update a car accessory",
+                "description": "After update an especific accessory, it should return you the original car",
+                "tags": [
+                    "Car"
+                ],
+                
+            
+                "responses": {
+                    "200": {
+                        "description": "It returns if the accessory was successfully updated"
+                    },
+                    "400": {
+                        "description": "It returns if the description passed already exists or if there's a format problem in the request"
+                    },
+                    "404": {
+                        "description": "It returns if car or accessory haven't been found in the database"
+                    }
+                } 
             }
         },
         "/api/v1/people/{id}": {
@@ -573,88 +729,263 @@
                     }
                 }
             }
-        }
-    },
-    "components": {
-        "schemas": {
-            "Person": {
-                "type": "object",
-                "properties": {
-                    "nome": {
-                        "type": "string"
+        },
+        "/api/v1/rental/": {
+            "post": {
+                "summary": "Insert a rental into the database",
+                "description": "This route uses req.body to get information about the rental, then validate it and insert into the database",
+                "tags": [
+                    "Rental"
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Rental"
+                            },
+                            "examples": {
+                                "rental": {
+                                    "value": {
+                                        "nome": "joaozinho ciclano",
+                                        "cnpj": "16.670.085/0001-55",
+                                        "atividades": "Aluguel de Carros E Gestão de Frotas",
+                                        "endereco": [      
+                                            {
+                                                "cep": "96200-200",
+                                                "number":"1234",
+                                                "isFilial": false
+                                            },
+                                            {
+                                                "cep": "96200-500",
+                                                "number":"5678",
+                                                "complemento": "Muro A",
+                                                "isFilial": true
+                                            }
+                                        ]
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "400": {
+                        "description": "It shows up when req.body have invalid items to insert, or rental name/cnpj already exists in the database"
                     },
-                    "cpf": {
-                        "type": "string"
-                    },
-                    "data_nascimento": {
-                        "type": "string"
-                    },
-                    "email": {
-                        "type": "string"
-                    },
-                    "senha": {
-                        "type": "string"
-                    },
-                    "habilitado": {
-                        "type": "string"
+                    "201": {
+                        "description": "It shows up when rental is created with success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "$ref": "#/components/schemas/Rental"
+                                }
+                            }
+                        }
                     }
                 }
             },
-            "People": {
-                "type": "array",
-                "items": {
-                    "$ref": "#/components/schemas/Person"
-                }
-            },
-            "Car": {
-                "type": "object",
-                "properties": {
-                    "modelo": {
-                        "type": "string"
-                    },
-                    "cor": {
-                        "type": "string"
-                    },
-                    "ano": {
-                        "type": "number"
-                    },
-                    "acessorios": {
-                        "type": "array",
-                        "items": {
-                            "type": "object",
-                            "properties": {
-                                "descricao": {
-                                    "type": "string"
+            "get": {
+                "summary": "Get all rentals from the database that match with the queries using pagination",
+                "description": "Pagination style = http://localhost:3333/api/v1/car/?page=1&limit=10",
+                "tags": [
+                    "Rentals"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "It shows up in every request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "$ref": "#/components/schemas/Rentals"
                                 }
                             }
                         }
                     },
-                    "quantidadePassageiros": {
-                        "type": "number"
+                    "400": {
+                        "description": "Throws it if the request have bad format on the queries"
+                    }
+                },
+                "parameters": [
+                    {
+                        "in": "query",
+                        "name": "limit",
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "description": "The number of cars to show per page. OBRIGATORY QUERY",
+                        "required": false
+                    },
+                    {
+                        "in": "query",
+                        "name": "page",
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "description": "The page to show with (limit) amount of cars. OBRIGATORY QUERY",
+                        "required": false
+                    },
+                    {
+                        "in": "query",
+                        "name": "nome",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "description": "The person name to find"
+                    },
+                    {
+                        "in": "query",
+                        "name": "cpf",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "description": "The CPF to search for"
+                    },
+                    {
+                        "in": "query",
+                        "name": "data_nascimento",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "description": "The birthday to find for"
+                    },
+                    {
+                        "in": "query",
+                        "name": "email",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "description": "The email to search for"
+                    },
+                    {
+                        "in": "query",
+                        "name": "habilitado",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "description": "Search based if person have a driver's license"
+                    }
+                ]
+            }
+        },
+        "/api/v1/rental/{id}": {
+            "delete": {
+                "summary": "Route to delete a rental based on it's id",
+                "description": "Try to find a rental and delete it",
+                "tags": [
+                    "Rental"
+                ],
+                "responses": {
+                    "404": {
+                        "description": "Throw a NotFound, telling that there's no rental with this id in the database"
+                    },
+                    "204": {
+                        "description": "Rental excluded with success"
+                    },
+                    "400": {
+                        "description": "Invalid id format"
+                    }
+                },
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "required": "true",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ]
+            },
+            "put": {
+                "summary": "Update rental values",
+                "description": "Using a rental ID, search for it and if it find, put new values",
+                "tags": [
+                    "Rental"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Rental updated with success"
+                    },
+                    "400": {
+                        "description": "Rental id or content with format errors"
+                    },
+                    "404": {
+                        "description": "Rental not found"
+                    }
+                },
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "required": "true",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Rental"
+                            },
+                            "examples": {
+                                "rental": {
+                                    "value": {
+                                        "nome": "GM S10 2.8",
+                                        "cnpj": "16.670.085/0001-55",
+                                        "atividades": "daleeeee",
+                                        "endereco": [
+                                            {
+                                                "cep": "96200-200",
+                                                "number":"1234",
+                                                "isFilial": false
+                                            },
+                                            {
+                                                "cep": "96200-500",
+                                                "number":"5678",
+                                                "complemento": "Muro A",
+                                                "isFilial": true
+                                            }
+                                        ]
+                                    }
+                                }
+                            }
+                        }
                     }
                 }
             },
-            "Cars": {
-                "type": "array",
-                "items": {
-                    "$ref": "#/components/schemas/Car"
-                }
-            },
-            "Authentication": {
-                "type": "object",
-                "properties": {
-                    "token": {
-                        "type": "string"
-                    },
-                    "email": {
-                        "type": "string"
-                    },
-                    "habilitado": {
-                        "type": "string"
+            "get": {
+                "summary": "Route to get a rental data based on it's id",
+                "description": "Try to find a rental",
+                "tags": [
+                    "Rental"
+                ],
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "required": "true",
+                        "schema": {
+                            "type": "string"
+                        }
                     }
-
+                ],
+                "responses": {
+                    "400": {
+                        "description": "It happens when ID format is wrong"
+                    },
+                    "200": {
+                        "description": "Person found with success"
+                    },
+                    "404": {
+                        "description": "Person not found"
+                    }
                 }
             }
         }
     }
+    
 }
