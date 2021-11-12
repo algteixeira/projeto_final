@@ -2,7 +2,9 @@ const axios = require('axios').default;
 const RentalRepository = require('../repository/RentalRepository');
 const AlreadyExists = require('../errors/alreadyExists');
 const BadRequest = require('../errors/badRequest');
+const InvalidCep = require('../errors/invalidCep');
 const NotFound = require('../errors/notFound');
+const FilialError = require('../errors/filialError');
 
 class RentalService {
   async create(payload) {
@@ -13,7 +15,7 @@ class RentalService {
         res.data.number = data.number;
         res.data.complemento = data.complemento;
         if (res.data.erro) {
-          throw new BadRequest();
+          throw new InvalidCep(cep);
         }
         payload.endereco[index].logradouro = res.data.logradouro;
         payload.endereco[index].bairro = res.data.bairro;
@@ -25,15 +27,15 @@ class RentalService {
     const count = payload.endereco.filter((item) => item.isFilial === false);
 
     if (count.length === 0 || count.length > 1) {
-      throw new BadRequest();
+      throw new FilialError();
     }
     const findByName = await RentalRepository.findByName(payload.nome);
     if (findByName) {
-      throw new AlreadyExists();
+      throw new AlreadyExists(payload.nome);
     }
     const findByCnpj = await RentalRepository.findByCnpj(payload.cnpj);
     if (findByCnpj) {
-      throw new AlreadyExists();
+      throw new AlreadyExists(payload.cnpj);
     }
 
     await RentalRepository.create(payload);
@@ -94,7 +96,7 @@ class RentalService {
   async findById(payload) {
     const result = await RentalRepository.findById(payload);
     if (result === null) {
-      throw new NotFound();
+      throw new NotFound(payload);
     }
     return result;
   }
@@ -102,33 +104,33 @@ class RentalService {
   async update(id, payload) {
     const checkId = await RentalRepository.findById(id);
     if (checkId === null) {
-      throw new NotFound();
+      throw new NotFound(id);
     }
 
     if (payload.nome) {
       const findByName = await RentalRepository.findByName(payload.nome);
       if (findByName) {
-        throw new AlreadyExists();
+        throw new AlreadyExists(payload.nome);
       }
     }
 
     if (payload.cnpj) {
       const findByCnpj = await RentalRepository.findByCnpj(payload.cnpj);
       if (findByCnpj) {
-        throw new AlreadyExists();
+        throw new AlreadyExists(payload.cnpj);
       }
     }
 
     const count = payload.endereco.filter((item) => item.isFilial === false);
 
     if (count.length === 0 || count.length > 1) {
-      throw new BadRequest();
+      throw new FilialError();
     }
 
     const result = await RentalRepository.update(id, payload);
 
     if (result === null) {
-      throw new NotFound();
+      throw new NotFound(id);
     }
 
     return result;
@@ -137,7 +139,7 @@ class RentalService {
   async delete(payload) {
     const result = await RentalRepository.delete(payload);
     if (result === null) {
-      throw new NotFound();
+      throw new NotFound(payload);
     }
     return result;
   }

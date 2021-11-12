@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">30.13% </span>
+                <span class="strong">31.08% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>44/146</span>
+                <span class='fraction'>46/148</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">30.13% </span>
+                <span class="strong">31.08% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>44/146</span>
+                <span class='fraction'>46/148</span>
             </div>
         
             
@@ -203,7 +203,11 @@
 <a name='L144'></a><a href='#L144'>144</a>
 <a name='L145'></a><a href='#L145'>145</a>
 <a name='L146'></a><a href='#L146'>146</a>
-<a name='L147'></a><a href='#L147'>147</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L147'></a><a href='#L147'>147</a>
+<a name='L148'></a><a href='#L148'>148</a>
+<a name='L149'></a><a href='#L149'>149</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -353,7 +357,9 @@
 const RentalRepository = require('../repository/RentalRepository');
 const AlreadyExists = require('../errors/alreadyExists');
 const BadRequest = require('../errors/badRequest');
+const InvalidCep = require('../errors/invalidCep');
 const NotFound = require('../errors/notFound');
+const FilialError = require('../errors/filialError');
 &nbsp;
 class RentalService {
   async create(payload) {
@@ -364,7 +370,7 @@ class RentalService {
         res.data.number = data.number;
         res.data.complemento = data.complemento;
         if (res.data.erro) <span class="branch-0 cbranch-no" title="branch not covered" >{</span>
-<span class="cstat-no" title="statement not covered" >          throw new BadRequest();</span>
+<span class="cstat-no" title="statement not covered" >          throw new InvalidCep(cep);</span>
 <span class="cstat-no" title="statement not covered" >        }</span>
         payload.endereco[index].logradouro = res.data.logradouro;
         payload.endereco[index].bairro = res.data.bairro;
@@ -376,15 +382,15 @@ class RentalService {
     const count = payload.endereco.filter((item) =&gt; item.isFilial === false);
 &nbsp;
     if (count.length === 0 || count.length &gt; 1) <span class="branch-0 cbranch-no" title="branch not covered" >{</span>
-<span class="cstat-no" title="statement not covered" >      throw new BadRequest();</span>
+<span class="cstat-no" title="statement not covered" >      throw new FilialError();</span>
 <span class="cstat-no" title="statement not covered" >    }</span>
     const findByName = await RentalRepository.findByName(payload.nome);
     if (findByName) <span class="branch-0 cbranch-no" title="branch not covered" >{</span>
-<span class="cstat-no" title="statement not covered" >      throw new AlreadyExists();</span>
+<span class="cstat-no" title="statement not covered" >      throw new AlreadyExists(payload.nome);</span>
 <span class="cstat-no" title="statement not covered" >    }</span>
     const findByCnpj = await RentalRepository.findByCnpj(payload.cnpj);
     if (findByCnpj) <span class="branch-0 cbranch-no" title="branch not covered" >{</span>
-<span class="cstat-no" title="statement not covered" >      throw new AlreadyExists();</span>
+<span class="cstat-no" title="statement not covered" >      throw new AlreadyExists(payload.cnpj);</span>
 <span class="cstat-no" title="statement not covered" >    }</span>
 &nbsp;
     await RentalRepository.create(payload);
@@ -445,7 +451,7 @@ class RentalService {
   async findById<span class="fstat-no" title="function not covered" >(payload) {</span>
 <span class="cstat-no" title="statement not covered" >    const result = await RentalRepository.findById(payload);</span>
 <span class="cstat-no" title="statement not covered" >    if (result === null) {</span>
-<span class="cstat-no" title="statement not covered" >      throw new NotFound();</span>
+<span class="cstat-no" title="statement not covered" >      throw new NotFound(payload);</span>
 <span class="cstat-no" title="statement not covered" >    }</span>
 <span class="cstat-no" title="statement not covered" >    return result;</span>
 <span class="cstat-no" title="statement not covered" >  }</span>
@@ -453,33 +459,33 @@ class RentalService {
   async update<span class="fstat-no" title="function not covered" >(id, payload) {</span>
 <span class="cstat-no" title="statement not covered" >    const checkId = await RentalRepository.findById(id);</span>
 <span class="cstat-no" title="statement not covered" >    if (checkId === null) {</span>
-<span class="cstat-no" title="statement not covered" >      throw new NotFound();</span>
+<span class="cstat-no" title="statement not covered" >      throw new NotFound(id);</span>
 <span class="cstat-no" title="statement not covered" >    }</span>
 <span class="cstat-no" title="statement not covered" ></span>
 <span class="cstat-no" title="statement not covered" >    if (payload.nome) {</span>
 <span class="cstat-no" title="statement not covered" >      const findByName = await RentalRepository.findByName(payload.nome);</span>
 <span class="cstat-no" title="statement not covered" >      if (findByName) {</span>
-<span class="cstat-no" title="statement not covered" >        throw new AlreadyExists();</span>
+<span class="cstat-no" title="statement not covered" >        throw new AlreadyExists(payload.nome);</span>
 <span class="cstat-no" title="statement not covered" >      }</span>
 <span class="cstat-no" title="statement not covered" >    }</span>
 <span class="cstat-no" title="statement not covered" ></span>
 <span class="cstat-no" title="statement not covered" >    if (payload.cnpj) {</span>
 <span class="cstat-no" title="statement not covered" >      const findByCnpj = await RentalRepository.findByCnpj(payload.cnpj);</span>
 <span class="cstat-no" title="statement not covered" >      if (findByCnpj) {</span>
-<span class="cstat-no" title="statement not covered" >        throw new AlreadyExists();</span>
+<span class="cstat-no" title="statement not covered" >        throw new AlreadyExists(payload.cnpj);</span>
 <span class="cstat-no" title="statement not covered" >      }</span>
 <span class="cstat-no" title="statement not covered" >    }</span>
 <span class="cstat-no" title="statement not covered" ></span>
 <span class="cstat-no" title="statement not covered" >    const count = payload.endereco.filter((item) =&gt; item.isFilial === false);</span>
 <span class="cstat-no" title="statement not covered" ></span>
 <span class="cstat-no" title="statement not covered" >    if (count.length === 0 || count.length &gt; 1) {</span>
-<span class="cstat-no" title="statement not covered" >      throw new BadRequest();</span>
+<span class="cstat-no" title="statement not covered" >      throw new FilialError();</span>
 <span class="cstat-no" title="statement not covered" >    }</span>
 <span class="cstat-no" title="statement not covered" ></span>
 <span class="cstat-no" title="statement not covered" >    const result = await RentalRepository.update(id, payload);</span>
 <span class="cstat-no" title="statement not covered" ></span>
 <span class="cstat-no" title="statement not covered" >    if (result === null) {</span>
-<span class="cstat-no" title="statement not covered" >      throw new NotFound();</span>
+<span class="cstat-no" title="statement not covered" >      throw new NotFound(id);</span>
 <span class="cstat-no" title="statement not covered" >    }</span>
 <span class="cstat-no" title="statement not covered" ></span>
 <span class="cstat-no" title="statement not covered" >    return result;</span>
@@ -488,7 +494,7 @@ class RentalService {
   async delete<span class="fstat-no" title="function not covered" >(payload) {</span>
 <span class="cstat-no" title="statement not covered" >    const result = await RentalRepository.delete(payload);</span>
 <span class="cstat-no" title="statement not covered" >    if (result === null) {</span>
-<span class="cstat-no" title="statement not covered" >      throw new NotFound();</span>
+<span class="cstat-no" title="statement not covered" >      throw new NotFound(payload);</span>
 <span class="cstat-no" title="statement not covered" >    }</span>
 <span class="cstat-no" title="statement not covered" >    return result;</span>
 <span class="cstat-no" title="statement not covered" >  }</span>
@@ -502,7 +508,7 @@ module.exports = new RentalService();
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Fri Nov 12 2021 16:38:27 GMT-0300 (Brasilia Standard Time)
+                at Fri Nov 12 2021 17:21:20 GMT-0300 (Brasilia Standard Time)
             </div>
         </div>
         <script src="../../../prettify.js"></script>
