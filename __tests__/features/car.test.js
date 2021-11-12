@@ -50,7 +50,7 @@ describe('Get all cars', () => {
   });
 });
 
-describe('Cant get cars because passing a wrong token', () => {
+describe('Shouldnt get cars because passing a wrong token', () => {
   it('must return you a 401 statusCode', async () => {
     const peopleMock = {
       nome: 'InterSant',
