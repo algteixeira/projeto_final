@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">13.01% </span>
+                <span class="strong">30.13% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>19/146</span>
+                <span class='fraction'>44/146</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">42.85% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/0</span>
+                <span class='fraction'>3/7</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">20% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/5</span>
+                <span class='fraction'>1/5</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">13.01% </span>
+                <span class="strong">30.13% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>19/146</span>
+                <span class='fraction'>44/146</span>
             </div>
         
             
@@ -211,39 +211,39 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -356,40 +356,40 @@ const BadRequest = require('../errors/badRequest');
 const NotFound = require('../errors/notFound');
 &nbsp;
 class RentalService {
-  async create<span class="fstat-no" title="function not covered" >(payload) {</span>
-<span class="cstat-no" title="statement not covered" >    await Promise.all(</span>
-<span class="cstat-no" title="statement not covered" >      payload.endereco.map(async ({ cep, ...data }, index) =&gt; {</span>
-<span class="cstat-no" title="statement not covered" >        const res = await axios.get(`https://viacep.com.br/ws/${cep}/json/`);</span>
-<span class="cstat-no" title="statement not covered" >        res.data.isFilial = data.isFilial;</span>
-<span class="cstat-no" title="statement not covered" >        res.data.number = data.number;</span>
-<span class="cstat-no" title="statement not covered" >        res.data.complemento = data.complemento;</span>
-<span class="cstat-no" title="statement not covered" >        if (res.data.erro) {</span>
+  async create(payload) {
+    await Promise.all(
+      payload.endereco.map(async ({ cep, ...data }, index) =&gt; {
+        const res = await axios.get(`https://viacep.com.br/ws/${cep}/json/`);
+        res.data.isFilial = data.isFilial;
+        res.data.number = data.number;
+        res.data.complemento = data.complemento;
+        if (res.data.erro) <span class="branch-0 cbranch-no" title="branch not covered" >{</span>
 <span class="cstat-no" title="statement not covered" >          throw new BadRequest();</span>
 <span class="cstat-no" title="statement not covered" >        }</span>
-<span class="cstat-no" title="statement not covered" >        payload.endereco[index].logradouro = res.data.logradouro;</span>
-<span class="cstat-no" title="statement not covered" >        payload.endereco[index].bairro = res.data.bairro;</span>
-<span class="cstat-no" title="statement not covered" >        payload.endereco[index].localidade = res.data.localidade;</span>
-<span class="cstat-no" title="statement not covered" >        payload.endereco[index].uf = res.data.uf;</span>
-<span class="cstat-no" title="statement not covered" >      })</span>
-<span class="cstat-no" title="statement not covered" >    );</span>
-<span class="cstat-no" title="statement not covered" ></span>
-<span class="cstat-no" title="statement not covered" >    const count = payload.endereco.filter((item) =&gt; item.isFilial === false);</span>
-<span class="cstat-no" title="statement not covered" ></span>
-<span class="cstat-no" title="statement not covered" >    if (count.length === 0 || count.length &gt; 1) {</span>
+        payload.endereco[index].logradouro = res.data.logradouro;
+        payload.endereco[index].bairro = res.data.bairro;
+        payload.endereco[index].localidade = res.data.localidade;
+        payload.endereco[index].uf = res.data.uf;
+      })
+    );
+&nbsp;
+    const count = payload.endereco.filter((item) =&gt; item.isFilial === false);
+&nbsp;
+    if (count.length === 0 || count.length &gt; 1) <span class="branch-0 cbranch-no" title="branch not covered" >{</span>
 <span class="cstat-no" title="statement not covered" >      throw new BadRequest();</span>
 <span class="cstat-no" title="statement not covered" >    }</span>
-<span class="cstat-no" title="statement not covered" >    const findByName = await RentalRepository.findByName(payload.nome);</span>
-<span class="cstat-no" title="statement not covered" >    if (findByName) {</span>
+    const findByName = await RentalRepository.findByName(payload.nome);
+    if (findByName) <span class="branch-0 cbranch-no" title="branch not covered" >{</span>
 <span class="cstat-no" title="statement not covered" >      throw new AlreadyExists();</span>
 <span class="cstat-no" title="statement not covered" >    }</span>
-<span class="cstat-no" title="statement not covered" >    const findByCnpj = await RentalRepository.findByCnpj(payload.cnpj);</span>
-<span class="cstat-no" title="statement not covered" >    if (findByCnpj) {</span>
+    const findByCnpj = await RentalRepository.findByCnpj(payload.cnpj);
+    if (findByCnpj) <span class="branch-0 cbranch-no" title="branch not covered" >{</span>
 <span class="cstat-no" title="statement not covered" >      throw new AlreadyExists();</span>
 <span class="cstat-no" title="statement not covered" >    }</span>
-<span class="cstat-no" title="statement not covered" ></span>
-<span class="cstat-no" title="statement not covered" >    await RentalRepository.create(payload);</span>
-<span class="cstat-no" title="statement not covered" >    return payload;</span>
-<span class="cstat-no" title="statement not covered" >  }</span>
+&nbsp;
+    await RentalRepository.create(payload);
+    return payload;
+  }
 &nbsp;
   async find<span class="fstat-no" title="function not covered" >(payload) {</span>
 <span class="cstat-no" title="statement not covered" >    let limit;</span>
@@ -502,7 +502,7 @@ module.exports = new RentalService();
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Fri Nov 12 2021 16:04:25 GMT-0300 (Brasilia Standard Time)
+                at Fri Nov 12 2021 16:26:51 GMT-0300 (Brasilia Standard Time)
             </div>
         </div>
         <script src="../../../prettify.js"></script>
