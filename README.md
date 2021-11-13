@@ -13,7 +13,8 @@ This is the final project that i'm doing for Compasso UOL trainee's program.
 ## Features
 
 - CRUD for people
-- CRUD for cars
+- CRUD for cars (need to have an authorization token to use)
+- CRUD for rentals
 - Authentication system
 - page&limit pagination scheme
 
