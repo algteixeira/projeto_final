@@ -27,6 +27,10 @@ This is the final project that i'm doing for Compasso UOL trainee's program.
 - Mongoose v6.0.11
 - JWT v8.5.1 & Bcrypt v5.0.1
 
+**Tests:**
+- Jest v27.3.1
+- Supertest v6.1.6
+
 **Client:**
 - - SwaggerUI v4.1.6
 
@@ -63,12 +67,23 @@ Start the server
   npm run dev
 ```
 
+...To test use
+
+```bash
+  npm run test
+```
+
+...Additional info
+```bash
+  it runs at port 3000
+```
+
 
 ## Documentation
 
 To plot the documentation just run the following command in your browser while server is running
 
 ```bash
-  http://localhost:3333/api/v1/api-docs/
+  http://localhost:3000/api/v1/api-docs/
 ```
     

@@ -10,7 +10,7 @@
     },
     "servers": [
         {
-            "url": "http://localhost:3333",
+            "url": "http://localhost:3000",
             "description": "Base URL to use the first version of this project"
         }
     ],
