@@ -1,7 +1,6 @@
 const axios = require('axios').default;
 const RentalRepository = require('../repository/RentalRepository');
 const AlreadyExists = require('../errors/alreadyExists');
-const BadRequest = require('../errors/badRequest');
 const InvalidCep = require('../errors/invalidCep');
 const NotFound = require('../errors/notFound');
 const FilialError = require('../errors/filialError');
