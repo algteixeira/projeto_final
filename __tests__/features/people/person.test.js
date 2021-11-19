@@ -1,10 +1,10 @@
 const request = require('supertest');
 
-require('../../src/infra/database/mongo/index');
+require('../../../src/infra/database/mongo/index');
 
-const PeopleSchema = require('../../src/app/schema/PeopleSchema');
+const PeopleSchema = require('../../../src/app/schema/PeopleSchema');
 
-const app = require('../../src/app');
+const app = require('../../../src/app');
 
 beforeAll(async () => {
   await PeopleSchema.deleteMany();

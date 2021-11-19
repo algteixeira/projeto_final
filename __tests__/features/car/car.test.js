@@ -1,12 +1,12 @@
 const request = require('supertest');
 
-require('../../src/infra/database/mongo/index');
+require('../../../src/infra/database/mongo/index');
 
-const CarSchema = require('../../src/app/schema/CarSchema');
+const CarSchema = require('../../../src/app/schema/CarSchema');
 
-const PeopleSchema = require('../../src/app/schema/PeopleSchema');
+const PeopleSchema = require('../../../src/app/schema/PeopleSchema');
 
-const app = require('../../src/app');
+const app = require('../../../src/app');
 
 beforeAll(async () => {
   await CarSchema.deleteMany();
