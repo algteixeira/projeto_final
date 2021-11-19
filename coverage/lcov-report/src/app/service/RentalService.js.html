@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">80.62% </span>
+                <span class="strong">86.82% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>104/129</span>
+                <span class='fraction'>112/129</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">56.52% </span>
+                <span class="strong">78.57% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>13/23</span>
+                <span class='fraction'>22/28</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">80.62% </span>
+                <span class="strong">86.82% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>104/129</span>
+                <span class='fraction'>112/129</span>
             </div>
         
             
@@ -195,39 +195,39 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-yes">10x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">9x</span>
+<span class="cline-any cline-yes">9x</span>
+<span class="cline-any cline-yes">9x</span>
+<span class="cline-any cline-yes">9x</span>
+<span class="cline-any cline-yes">9x</span>
+<span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-yes">8x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">8x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">8x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -330,9 +330,9 @@ class RentalService {
         res.data.isFilial = data.isFilial;
         res.data.number = data.number;
         res.data.complemento = data.complemento;
-        if (res.data.erro) <span class="branch-0 cbranch-no" title="branch not covered" >{</span>
-<span class="cstat-no" title="statement not covered" >          throw new InvalidCep(cep);</span>
-<span class="cstat-no" title="statement not covered" >        }</span>
+        if (res.data.erro) {
+          throw new InvalidCep(cep);
+        }
         payload.endereco[index].logradouro = res.data.logradouro;
         payload.endereco[index].bairro = res.data.bairro;
         payload.endereco[index].localidade = res.data.localidade;
@@ -342,17 +342,17 @@ class RentalService {
 &nbsp;
     const count = payload.endereco.filter((item) =&gt; item.isFilial === false);
 &nbsp;
-    if (count.length === 0 || count.length &gt; 1) <span class="branch-0 cbranch-no" title="branch not covered" >{</span>
-<span class="cstat-no" title="statement not covered" >      throw new FilialError();</span>
-<span class="cstat-no" title="statement not covered" >    }</span>
+    if (count.length === 0 || count.length &gt; 1) {
+      throw new FilialError();
+    }
     const findByName = await RentalRepository.findByName(payload.nome);
-    if (findByName) <span class="branch-0 cbranch-no" title="branch not covered" >{</span>
-<span class="cstat-no" title="statement not covered" >      throw new AlreadyExists(payload.nome);</span>
-<span class="cstat-no" title="statement not covered" >    }</span>
+    if (findByName) {
+      throw new AlreadyExists(payload.nome);
+    }
     const findByCnpj = await RentalRepository.findByCnpj(payload.cnpj);
-    if (findByCnpj) <span class="branch-0 cbranch-no" title="branch not covered" >{</span>
-<span class="cstat-no" title="statement not covered" >      throw new AlreadyExists(payload.cnpj);</span>
-<span class="cstat-no" title="statement not covered" >    }</span>
+    if (findByCnpj) {
+      throw new AlreadyExists(payload.cnpj);
+    }
 &nbsp;
     await RentalRepository.create(payload);
     return payload;
@@ -451,7 +451,7 @@ module.exports = new RentalService();
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Fri Nov 19 2021 13:09:08 GMT-0300 (Brasilia Standard Time)
+                at Fri Nov 19 2021 13:32:19 GMT-0300 (Brasilia Standard Time)
             </div>
         </div>
         <script src="../../../prettify.js"></script>
