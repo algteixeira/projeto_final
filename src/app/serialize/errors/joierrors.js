@@ -10,5 +10,3 @@ const serializeErrors = ({ details }) => ({
   errors: details.map(serialize)
 });
 module.exports = { serialize, serializeErrors };
-/* , type, context */
-// _original
