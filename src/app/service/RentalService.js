@@ -58,34 +58,16 @@ class RentalService {
     page = parseInt(page, 10);
     limit = parseInt(limit, 10);
     const offset = (page - 1) * limit;
-    if (payload.cep) {
-      payload['endereco.cep'] = payload.cep;
-      payload.cep = undefined;
-    }
-    if (payload.logradouro) {
-      payload['endereco.logradouro'] = payload.logradouro;
-      payload.logradouro = undefined;
-    }
-    if (payload.complemento) {
-      payload['endereco.complemento'] = payload.complemento;
-      payload.complemento = undefined;
-    }
-    if (payload.bairro) {
-      payload['endereco.bairro'] = payload.bairro;
-      payload.bairro = undefined;
-    }
-    if (payload.number) {
-      payload['endereco.number'] = payload.number;
-      payload.number = undefined;
-    }
-    if (payload.localidade) {
-      payload['endereco.localidade'] = payload.localidade;
-      payload.localidade = undefined;
-    }
-    if (payload.uf) {
-      payload['endereco.uf'] = payload.uf;
-      payload.uf = undefined;
-    }
+
+    const elem = ['cep', 'logradouro', 'complemento', 'bairro', 'number', 'localidade', 'uf'];
+
+    Object.keys(payload).forEach((element) => {
+      if (elem.includes(element)) {
+        payload[`endereco.${element}`] = payload[element];
+        delete payload[element];
+      }
+    });
+    // porque não deu com for element of payload, if elem.includes(element) blablabla
 
     const result = await RentalRepository.getAll(payload, limit, offset);
 
