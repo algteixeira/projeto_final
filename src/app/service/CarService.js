@@ -62,14 +62,6 @@ class CarService {
   }
 
   async update(id, payload) {
-    if (payload.acessorios) {
-      payload.acessorios = await payload.acessorios.reduce((unique, o) => {
-        if (!unique.some((obj) => obj.descricao === o.descricao)) {
-          unique.push(o);
-        }
-        return unique;
-      }, []);
-    }
     const findByModel = await CarRepository.findByModel(payload.modelo);
     if (findByModel !== null) {
       throw new AlreadyExists(payload.modelo);
