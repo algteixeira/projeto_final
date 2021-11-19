@@ -1,22 +1,16 @@
 const Joi = require('joi');
 const { serializeErrors } = require('../../serialize/errors/joierrors');
+const { cnpjRegex, cepRegex } = require('../../utils/regex');
 
 module.exports = async (req, res, next) => {
   try {
     const schema = Joi.object({
       nome: Joi.string().trim().min(2).required(),
-      cnpj: Joi.string()
-        .required()
-        // eslint-disable-next-line no-useless-escape
-        .regex(/^\d{2}\.\d{3}\.\d{3}\/\d{4}\-\d{2}$/),
+      cnpj: Joi.string().required().regex(cnpjRegex()),
       atividades: Joi.string().trim().min(2).required(),
       endereco: Joi.array()
         .items({
-          cep: Joi.string()
-            .regex(/[0-9]{5}-[0-9]{3}$/)
-            .trim()
-            .min(2)
-            .required(),
+          cep: Joi.string().regex(cepRegex()).trim().min(2).required(),
           number: Joi.number().required(),
           complemento: Joi.string().trim().min(1),
           isFilial: Joi.boolean().required()
