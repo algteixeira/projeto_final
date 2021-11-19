@@ -5,7 +5,7 @@ class RentalRepository {
     return RentalSchema.create(payload);
   }
 
-  async find(payload, limit, offset) {
+  async getAll(payload, limit, offset) {
     const result = await RentalSchema.paginate(payload, { offset, limit });
 
     return result;

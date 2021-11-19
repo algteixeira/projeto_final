@@ -14,9 +14,9 @@ class PeopleController {
     }
   }
 
-  async find(req, res) {
+  async getAll(req, res) {
     try {
-      const result = await PeopleService.find(req.query);
+      const result = await PeopleService.getAll(req.query);
       if (result.length === 0) {
         throw new NotFound(req.query);
       }

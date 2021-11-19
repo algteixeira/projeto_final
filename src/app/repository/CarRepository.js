@@ -7,7 +7,7 @@ class CarRepository {
     return result;
   }
 
-  async find(payload, limit, offset) {
+  async getAll(payload, limit, offset) {
     const result = await CarSchema.paginate(payload, { offset, limit });
 
     return result;

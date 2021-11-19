@@ -8,7 +8,7 @@ const checkToken = require('../app/middlewares/auth');
 
 module.exports = (server, routes, prefix = '/api/v1/car/') => {
   routes.post('/', checkToken, createCarValidation, CarController.create);
-  routes.get('/', checkToken, carQueryValidation, CarController.find);
+  routes.get('/', checkToken, carQueryValidation, CarController.getAll);
   routes.get('/:id', validateId, checkToken, CarController.findById);
   routes.delete('/:id', validateId, checkToken, CarController.deleteCar);
   routes.put('/:id', validateId, checkToken, updateCarValidation, CarController.update);

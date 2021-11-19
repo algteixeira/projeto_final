@@ -18,7 +18,7 @@ class CarService {
     throw new AlreadyExists(payload.modelo);
   }
 
-  async find(payload) {
+  async getAll(payload) {
     let limit;
     let page;
     if (!payload.limit) {
@@ -40,7 +40,7 @@ class CarService {
       payload.descricao = undefined;
     }
 
-    const result = await CarRepository.find(payload, limit, offset);
+    const result = await CarRepository.getAll(payload, limit, offset);
 
     return result;
   }

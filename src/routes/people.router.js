@@ -6,7 +6,7 @@ const peopleQueryValidation = require('../app/validation/people/peopleQueryValid
 
 module.exports = (server, routes, prefix = '/api/v1/people') => {
   routes.post('/', createPeopleValidation, PeopleController.create);
-  routes.get('/', peopleQueryValidation, PeopleController.find);
+  routes.get('/', peopleQueryValidation, PeopleController.getAll);
   routes.get('/:id', validateId, PeopleController.findById);
   routes.delete('/:id', validateId, PeopleController.deletePerson);
   routes.put('/:id', validateId, updatePersonValidation, PeopleController.update);

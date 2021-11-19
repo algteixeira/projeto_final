@@ -6,7 +6,7 @@ const updateRentalValidation = require('../app/validation/rental/updateRentalVal
 
 module.exports = (server, routes, prefix = '/api/v1/rental') => {
   routes.post('/', createRentalValidation, RentalController.create);
-  routes.get('/', rentalQueryValidation, RentalController.find);
+  routes.get('/', rentalQueryValidation, RentalController.getAll);
   routes.get('/:id', validateId, RentalController.findById);
   routes.put('/:id', validateId, updateRentalValidation, RentalController.update);
   routes.delete('/:id', validateId, RentalController.delete);

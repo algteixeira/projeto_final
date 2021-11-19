@@ -41,7 +41,7 @@ class RentalService {
     return payload;
   }
 
-  async find(payload) {
+  async getAll(payload) {
     let limit;
     let page;
     if (!payload.limit) {
@@ -87,7 +87,7 @@ class RentalService {
       payload.uf = undefined;
     }
 
-    const result = await RentalRepository.find(payload, limit, offset);
+    const result = await RentalRepository.getAll(payload, limit, offset);
 
     return result;
   }

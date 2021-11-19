@@ -14,9 +14,9 @@ class CarController {
     }
   }
 
-  async find(req, res) {
+  async getAll(req, res) {
     try {
-      const result = await CarService.find(req.query);
+      const result = await CarService.getAll(req.query);
       if (result.length === 0) {
         throw new NotFound();
       }
