@@ -26,7 +26,7 @@ afterAll(async () => {
 });
 
 describe('Create a car', () => {
-  it('must return you a 200 statusCode', async () => {
+  it('must return you a 200 statusCode if everything runs fine', async () => {
     const peopleMock = {
       nome: 'InterSant',
       cpf: '035.555.555-57',

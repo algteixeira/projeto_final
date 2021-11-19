@@ -22,7 +22,7 @@ afterAll(async () => {
 });
 
 describe('It must return 200 and all rentals in the body', () => {
-  it('must return you a 200 statusCode', async () => {
+  it('must return you a 200 statusCode if everything runs fine', async () => {
     await RentalSchema.deleteMany();
     const response = await request(app).get('/api/v1/rental/');
     const { status } = response;
@@ -30,7 +30,7 @@ describe('It must return 200 and all rentals in the body', () => {
   });
 });
 describe('Get an existent rental by its Id', () => {
-  it('must return you a 200 statusCode', async () => {
+  it('must return you a 200 statusCode if this rental exists', async () => {
     await RentalSchema.deleteMany();
     const rentalMock = {
       nome: 'Localiza Rent a Car',
@@ -54,7 +54,7 @@ describe('Get an existent rental by its Id', () => {
   });
 });
 describe('Accuse wrong id format', () => {
-  it('must return you a 400 statusCode', async () => {
+  it('must return you a 400 statusCode if it have an invalid Id', async () => {
     const response = await request(app).get(`/api/v1/rental/618ze79bfbf65518531043f4`);
     const { status } = response;
     expect(status).toBe(400);
@@ -62,7 +62,7 @@ describe('Accuse wrong id format', () => {
 });
 
 describe('404 Id not found', () => {
-  it('must return you a 404 statusCode', async () => {
+  it('must return you a 404 statusCode if Id is not in the database', async () => {
     const response = await request(app).get(`/api/v1/rental/611aa79aaaa65511531043a4`);
     const { status } = response;
     expect(status).toBe(404);

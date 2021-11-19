@@ -22,7 +22,7 @@ afterAll(async () => {
 });
 
 describe('This test create a new Rental element', () => {
-  it('must return you a 201 statusCode', async () => {
+  it('must return you a 201 statusCode if rental insert with success', async () => {
     await RentalSchema.deleteMany();
     const rentalMock = {
       nome: 'Localiza Rent a Car',
@@ -69,7 +69,7 @@ describe('This test create a new Rental element', () => {
   });
 });
 describe('This test throw an error if already exists name/cnpj in the database', () => {
-  it('must return you a 400 statusCode', async () => {
+  it('must return you a 400 statusCode if already exists a rental with this name', async () => {
     await RentalSchema.deleteMany();
     const rentalMock = {
       nome: 'Localiza Rent a Car',
@@ -103,7 +103,7 @@ describe('This test throw an error if already exists name/cnpj in the database',
     status = response.status;
     expect(status).toBe(400);
   });
-  it('must return you a 400 statusCode', async () => {
+  it('must return you a 400 statusCode if already exists a rental with this cnpj', async () => {
     await RentalSchema.deleteMany();
     const rentalMock = {
       nome: 'Localiza Rent a Car',
@@ -139,7 +139,7 @@ describe('This test throw an error if already exists name/cnpj in the database',
   });
 });
 describe('This test throw an error if cep doesnt exist', () => {
-  it('must return you a 400 statusCode', async () => {
+  it('must return you a 400 statusCode if a cep is invalid', async () => {
     await RentalSchema.deleteMany();
     const rentalMock = {
       nome: 'Localiza Rent a Car',
@@ -160,7 +160,7 @@ describe('This test throw an error if cep doesnt exist', () => {
   });
 });
 describe('This test throw an error if it have 0 or more than one filials', () => {
-  it('must return you a 400 statusCode', async () => {
+  it('must return you a 400 statusCode if wrong number of filials', async () => {
     await RentalSchema.deleteMany();
     const rentalMock = {
       nome: 'Localiza Rent a Car',

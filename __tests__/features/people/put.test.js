@@ -23,7 +23,7 @@ afterAll(async () => {
 });
 
 describe('Update an existent person', () => {
-  it('must return you a 200 statusCode', async () => {
+  it('must return you a 200 statusCode if everything runs fine', async () => {
     const peopleMock = {
       nome: 'Guaraná Perfeição',
       cpf: '111.111.111-11',
@@ -49,7 +49,7 @@ describe('Update an existent person', () => {
 });
 
 describe('Cannot accept an invalid Id', () => {
-  it('must return you a 400 statusCode', async () => {
+  it('must return you a 400 statusCode because of a wrong Id format', async () => {
     const peopleMock = {
       nome: 'OG. Perfeição',
       cpf: '222.222.222-22',
@@ -65,7 +65,7 @@ describe('Cannot accept an invalid Id', () => {
 });
 
 describe('Throw error if Id is not found', () => {
-  it('must return you a 404 statusCode', async () => {
+  it('must return you a 404 statusCode if person is not in the database', async () => {
     const peopleMock = {
       nome: 'OG. Perfeição',
       cpf: '222.222.222-22',
@@ -81,7 +81,7 @@ describe('Throw error if Id is not found', () => {
 });
 
 describe('Cant accept an already used cpf', () => {
-  it('must return you a 404 statusCode', async () => {
+  it('must return you a 400 statusCode if cpf is already in the database', async () => {
     const peopleMockOne = {
       nome: 'Lucas',
       cpf: '037.626.340-76',
@@ -113,7 +113,7 @@ describe('Cant accept an already used cpf', () => {
 });
 
 describe('Cant accept an already used email', () => {
-  it('must return you a 404 statusCode', async () => {
+  it('must return you a 400 statusCode if email is already registered', async () => {
     const peopleMockOne = {
       nome: 'Lucas',
       cpf: '111.222.333-44',

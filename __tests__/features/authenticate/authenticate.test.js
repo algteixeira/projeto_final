@@ -23,7 +23,7 @@ afterAll(async () => {
 });
 
 describe('This test authenticate a person', () => {
-  it('must return you a 200 statusCode', async () => {
+  it('must return you a 200 statusCode if everything runs fine', async () => {
     const peopleMock = {
       nome: 'Andre Teixeira',
       cpf: '047.624.440-76',

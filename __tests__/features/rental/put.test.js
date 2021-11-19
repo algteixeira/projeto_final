@@ -22,7 +22,7 @@ afterAll(async () => {
 });
 
 describe('Update an existent rental', () => {
-  it('must return you a 200 statusCode', async () => {
+  it('must return you a 200 statusCode if rental updated with success', async () => {
     const rentalMock = {
       nome: 'Localiza Rent a Car',
       cnpj: '16.670.085/0001-55',
@@ -55,14 +55,14 @@ describe('Update an existent rental', () => {
   });
 });
 describe('Throw bad Request', () => {
-  it('must return you a 400 statusCode', async () => {
+  it('must return you a 400 statusCode if Id format is wrong', async () => {
     const response = await request(app).put(`/api/v1/rental/611za79aaaa65511531043a4`);
     const { status } = response;
     expect(status).toBe(400);
   });
 });
 describe('Throw not found', () => {
-  it('must return you a 404 statusCode', async () => {
+  it('must return you a 404 statusCode if rental not found in the database', async () => {
     const rentalMock = {
       nome: 'Localiza Rent a Car',
       cnpj: '16.670.085/0001-55',

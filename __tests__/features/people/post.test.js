@@ -23,7 +23,7 @@ afterAll(async () => {
 });
 
 describe('This test create a new *People* element', () => {
-  it('must return you a 201 statusCode', async () => {
+  it('must return you a 201 statusCode if everything runs fine', async () => {
     await PeopleSchema.deleteMany();
     const peopleMock = {
       nome: 'Andre Teixeira',
@@ -39,7 +39,7 @@ describe('This test create a new *People* element', () => {
 
     expect(status).toBe(201);
   });
-  it('must return you a 201 statusCode', async () => {
+  it('must return you a 201 statusCode again', async () => {
     const peopleTwoMock = {
       nome: 'Felipe Compasso',
       cpf: '666.666.666-99',
@@ -56,7 +56,7 @@ describe('This test create a new *People* element', () => {
 });
 
 describe('Dont accept underage people', () => {
-  it('must return you a 400 statusCode', async () => {
+  it('must return you a 400 statusCode if person have less than 18', async () => {
     const peopleMock = {
       nome: 'Julinho do Baile',
       cpf: '037.625.340-77',
@@ -74,7 +74,7 @@ describe('Dont accept underage people', () => {
 });
 
 describe('It must have the right body structure', () => {
-  it('must return you a 400 statusCode', async () => {
+  it('must return you a 400 statusCode because theres no cpf', async () => {
     const peopleMock = {
       nome: 'Julinho do Baile',
       data_nascimento: '19/08/2008',
@@ -91,7 +91,7 @@ describe('It must have the right body structure', () => {
 });
 
 describe('Cant repeat a cpf', () => {
-  it('must return you a 400 statusCode', async () => {
+  it('must return you a 400 statusCode if cpf already exists in the database', async () => {
     const peopleMock = {
       nome: 'Anadre Teixeira',
       cpf: '037.624.340-76',
@@ -118,7 +118,7 @@ describe('Cant repeat a cpf', () => {
 });
 
 describe('Cant repeat an email', () => {
-  it('must return you a 400 statusCode', async () => {
+  it('must return you a 400 statusCode if email already exists in the database', async () => {
     const peopleMock = {
       nome: 'Ana123dre Teixeira',
       cpf: '666.624.340-76',
@@ -145,7 +145,7 @@ describe('Cant repeat an email', () => {
 });
 
 describe('Minimun on password to create user is 6 digits', () => {
-  it('must return you a 400 statusCode', async () => {
+  it('must return you a 400 statusCode if password is invalid', async () => {
     const peopleMock = {
       nome: 'Bandido Teixeira',
       cpf: '666.664.340-76',

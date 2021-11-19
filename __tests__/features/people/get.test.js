@@ -24,7 +24,7 @@ afterAll(async () => {
 
 describe('Should return all people in the database', () => {
   PeopleSchema.deleteMany();
-  it('must return you a 200 statusCode', async () => {
+  it('must return you a 200 statusCode if everything runs fine', async () => {
     const peopleMockOne = {
       nome: 'Lucas Xablau',
       cpf: '039.629.349-79',
@@ -45,7 +45,7 @@ describe('Should return all people in the database', () => {
 
 describe('Should send a person properly', () => {
   PeopleSchema.deleteMany();
-  it('must return you a 200 statusCode', async () => {
+  it('must return you a 200 statusCode if everything is fine', async () => {
     const peopleMockOne = {
       nome: 'Lucas Xablau',
       cpf: '039.629.349-79',
@@ -66,7 +66,7 @@ describe('Should send a person properly', () => {
 });
 
 describe('Should throw a not found', () => {
-  it('must return you a 404 statusCode', async () => {
+  it('must return you a 404 statusCode if theres no user with this id', async () => {
     const response = await request(app).get(`/api/v1/people/666a6a6aa66aa66af6a666a6`);
     const { status } = response;
     expect(status).toBe(404);
@@ -74,7 +74,7 @@ describe('Should throw a not found', () => {
 });
 
 describe('Should acuse an invalid Id format', () => {
-  it('must return you a 400 statusCode', async () => {
+  it('must return you a 400 statusCode if Id format is wrong', async () => {
     const response = await request(app).get(`/api/v1/people/666z6a6aa66aa66af6a666a6`);
     const { status } = response;
     expect(status).toBe(400);

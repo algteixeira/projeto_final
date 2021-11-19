@@ -26,7 +26,7 @@ afterAll(async () => {
 });
 
 describe('Get all cars', () => {
-  it('must return you a 200 statusCode', async () => {
+  it('must return you a 200 statusCode if everything runs fine', async () => {
     const peopleMock = {
       nome: 'InterSant',
       cpf: '035.555.555-57',
@@ -52,7 +52,7 @@ describe('Get all cars', () => {
 });
 
 describe('Shouldnt get cars because passing a wrong token', () => {
-  it('must return you a 401 statusCode', async () => {
+  it('must return you a 401 statusCode, because of invalid authentication', async () => {
     const peopleMock = {
       nome: 'InterSant',
       cpf: '035.555.555-57',
@@ -82,7 +82,7 @@ describe('Shouldnt get cars because passing a wrong token', () => {
 });
 
 describe('Get an existent car by its Id', () => {
-  it('must return you a 200 statusCode', async () => {
+  it('must return you a 200 statusCode if everything runs fine', async () => {
     await PeopleSchema.deleteMany();
     const peopleMock = {
       nome: 'Bom Enovo',
@@ -125,7 +125,7 @@ describe('Get an existent car by its Id', () => {
 });
 
 describe('Throw a not found', () => {
-  it('must return you a 404 statusCode', async () => {
+  it('must return you a 404 statusCode if theres no car with the given Id', async () => {
     await PeopleSchema.deleteMany();
     const peopleMock = {
       nome: 'Bom Enovo',
@@ -150,7 +150,7 @@ describe('Throw a not found', () => {
   });
 });
 describe('Throw a bad Request', () => {
-  it('must return you a 400 statusCode', async () => {
+  it('must return you a 400 statusCode because of a wrong Id format', async () => {
     await PeopleSchema.deleteMany();
     const peopleMock = {
       nome: 'Bom Enovo',
