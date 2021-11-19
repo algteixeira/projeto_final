@@ -1,5 +1,6 @@
 const Joi = require('joi').extend(require('@joi/date'));
 const { serializeErrors } = require('../../serialize/errors/joierrors');
+const { cpfRegex } = require('../../utils/regex');
 
 module.exports = async (req, res, next) => {
   try {
@@ -7,8 +8,7 @@ module.exports = async (req, res, next) => {
       limit: Joi.number().min(1),
       page: Joi.number().min(1),
       nome: Joi.string(),
-      // eslint-disable-next-line no-useless-escape
-      cpf: Joi.string().regex(/[0-9]{3}\.?[0-9]{3}\.?[0-9]{3}\-?[0-9]{2}/),
+      cpf: Joi.string().regex(cpfRegex()),
       data_nascimento: Joi.date().format('DD/MM/YYYY'),
       email: Joi.string().email(),
       senha: Joi.string().min(6),

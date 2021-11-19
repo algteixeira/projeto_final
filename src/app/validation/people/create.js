@@ -1,14 +1,12 @@
 const Joi = require('joi').extend(require('@joi/date'));
 const { serializeErrors } = require('../../serialize/errors/joierrors');
+const { cpfRegex } = require('../../utils/regex');
 
 module.exports = async (req, res, next) => {
   try {
     const schema = Joi.object({
       nome: Joi.string().required(),
-      cpf: Joi.string()
-        .required()
-        // eslint-disable-next-line no-useless-escape
-        .regex(/[0-9]{3}\.?[0-9]{3}\.?[0-9]{3}\-?[0-9]{2}/),
+      cpf: Joi.string().required().regex(cpfRegex()),
       data_nascimento: Joi.date().format('DD/MM/YYYY').required(),
       email: Joi.string().email().required(),
       senha: Joi.string().min(6).required(),

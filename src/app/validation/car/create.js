@@ -1,6 +1,5 @@
 const Joi = require('joi');
 const { serializeErrors } = require('../../serialize/errors/joierrors');
-// const { min } = require('moment');
 
 module.exports = async (req, res, next) => {
   try {
