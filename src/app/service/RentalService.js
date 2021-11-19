@@ -1,4 +1,4 @@
-const axios = require('axios').default;
+const axios = require('axios');
 const RentalRepository = require('../repository/RentalRepository');
 const AlreadyExists = require('../errors/alreadyExists');
 const InvalidCep = require('../errors/invalidCep');
