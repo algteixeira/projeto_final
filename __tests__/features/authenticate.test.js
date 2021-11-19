@@ -1,12 +1,10 @@
 const request = require('supertest');
 
-const Database = require('../../src/infra/database/mongo/index');
+require('../../src/infra/database/mongo/index');
 
 const PeopleSchema = require('../../src/app/schema/PeopleSchema');
 
 const app = require('../../src/app');
-
-Database.connect();
 
 beforeAll(async () => {
   await PeopleSchema.deleteMany();
@@ -22,7 +20,6 @@ afterEach(async () => {
 
 afterAll(async () => {
   await PeopleSchema.deleteMany();
-  Database.disconnect();
 });
 
 describe('This test authenticate a person', () => {

@@ -1,14 +1,12 @@
 const request = require('supertest');
 
-const Database = require('../../src/infra/database/mongo/index');
+require('../../src/infra/database/mongo/index');
 
 const CarSchema = require('../../src/app/schema/CarSchema');
 
 const PeopleSchema = require('../../src/app/schema/PeopleSchema');
 
 const app = require('../../src/app');
-
-Database.connect();
 
 beforeAll(async () => {
   await CarSchema.deleteMany();
@@ -25,7 +23,6 @@ afterEach(async () => {
 });
 afterAll(async () => {
   await CarSchema.deleteMany();
-  await Database.disconnect();
 });
 
 describe('Get all cars', () => {

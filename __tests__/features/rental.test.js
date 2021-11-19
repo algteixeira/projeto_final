@@ -1,12 +1,10 @@
 const request = require('supertest');
 
-const Database = require('../../src/infra/database/mongo/index');
+require('../../src/infra/database/mongo/index');
 
 const RentalSchema = require('../../src/app/schema/RentalSchema');
 
 const app = require('../../src/app');
-
-Database.connect();
 
 beforeAll(async () => {
   await RentalSchema.deleteMany();
@@ -21,7 +19,6 @@ afterEach(async () => {
 });
 afterAll(async () => {
   await RentalSchema.deleteMany();
-  Database.disconnect();
 });
 
 describe('This test create a new Rental element', () => {
