@@ -7,9 +7,7 @@ const serializeAddress = ({ cep, number, complemento, bairro, logradouro, locali
   localidade,
   uf
 });
-// const newAddress = endereco.forEach((element) => {
-//  delete element[isFilial];
-// }); */
+
 const serialize = ({ _id, nome, cnpj, atividades, endereco }) => ({
   id: _id,
   nome,
