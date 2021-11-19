@@ -193,7 +193,7 @@ describe('It must return 200 and all rentals in the body', () => {
     expect(status).toBe(200);
   });
 });
-describe('Get an existent person by its Id', () => {
+describe('Get an existent rental by its Id', () => {
   it('must return you a 200 statusCode', async () => {
     await RentalSchema.deleteMany();
     const rentalMock = {
@@ -212,7 +212,7 @@ describe('Get an existent person by its Id', () => {
     await request(app).post('/api/v1/rental/').send(rentalMock);
 
     const allRental = await request(app).get('/api/v1/rental/');
-    const response = await request(app).get(`/api/v1/rental/${allRental.body.locadoras[0]._id}`);
+    const response = await request(app).get(`/api/v1/rental/${allRental.body.locadoras[0].id}`);
     const { status } = response;
     expect(status).toBe(200);
   });
@@ -251,7 +251,7 @@ describe('Delete an existent rental', () => {
     await request(app).post('/api/v1/rental/').send(rentalMock);
 
     const allRental = await request(app).get('/api/v1/rental/');
-    const response = await request(app).delete(`/api/v1/rental/${allRental.body.locadoras[0]._id}`);
+    const response = await request(app).delete(`/api/v1/rental/${allRental.body.locadoras[0].id}`);
     const { status } = response;
     expect(status).toBe(204);
   });
@@ -273,7 +273,7 @@ describe('Throw bad Request', () => {
   });
 });
 
-describe('Update an existent person', () => {
+describe('Update an existent rental', () => {
   it('must return you a 200 statusCode', async () => {
     const rentalMock = {
       nome: 'Localiza Rent a Car',
@@ -301,7 +301,7 @@ describe('Update an existent person', () => {
     };
     await request(app).post('/api/v1/rental/').send(rentalMock);
     const allRental = await request(app).get('/api/v1/rental/');
-    const response = await request(app).put(`/api/v1/rental/${allRental.body.locadoras[0]._id}`).send(rentalTwoMock);
+    const response = await request(app).put(`/api/v1/rental/${allRental.body.locadoras[0].id}`).send(rentalTwoMock);
     const { status } = response;
     expect(status).toBe(200);
   });

@@ -39,7 +39,6 @@ class PeopleRepository {
   }
 
   async validate(payload) {
-    // eslint-disable-next-line no-unused-vars
     const email = payload;
 
     const result = await PeopleSchema.findOne({ email }).select('+senha');
