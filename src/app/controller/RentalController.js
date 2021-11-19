@@ -46,8 +46,8 @@ class RentalController {
 
   async delete(req, res) {
     try {
-      const result = await RentalService.delete(req.params.id);
-      return res.status(204).json(result);
+      await RentalService.delete(req.params.id);
+      return res.status(204).json({});
     } catch (error) {
       return res.status(error.statusCode).json(serializeErrors(error));
     }
