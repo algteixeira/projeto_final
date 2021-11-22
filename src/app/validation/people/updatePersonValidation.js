@@ -5,12 +5,12 @@ const { cpfRegex } = require('../../utils/regex');
 module.exports = async (req, res, next) => {
   try {
     const schema = Joi.object({
-      nome: Joi.string(),
-      cpf: Joi.string().regex(cpfRegex()),
-      data_nascimento: Joi.date().format('DD/MM/YYYY'),
-      email: Joi.string().email(),
-      senha: Joi.string().min(6),
-      habilitado: Joi.string().valid('sim', 'não')
+      nome: Joi.string().required().trim().min(2),
+      cpf: Joi.string().regex(cpfRegex()).required(),
+      data_nascimento: Joi.date().format('DD/MM/YYYY').required(),
+      email: Joi.string().email().required(),
+      senha: Joi.string().min(6).required().trim().min(6),
+      habilitado: Joi.string().valid('sim', 'não').required()
     });
 
     const { error } = await schema.validate(req.body, { abortEarly: false });

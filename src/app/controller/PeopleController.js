@@ -15,15 +15,9 @@ class PeopleController {
   }
 
   async getAll(req, res) {
-    try {
-      const result = await PeopleService.getAll(req.query);
-      if (result.length === 0) {
-        throw new NotFound(req.query);
-      }
-      return res.status(200).json(serializeAllPeople(result));
-    } catch (error) {
-      return res.status(error.statusCode).json(serializeErrors(error));
-    }
+    const result = await PeopleService.getAll(req.query);
+
+    return res.status(200).json(serializeAllPeople(result));
   }
 
   async findById(req, res) {

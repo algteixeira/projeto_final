@@ -185,3 +185,24 @@ describe('This test throw an error if it have 0 or more than one filials', () =>
     expect(status).toBe(400);
   });
 });
+
+describe('This test throw an error if body is missing something', () => {
+  it('must return you a 400 statusCode if theres no cnpj in the rental body', async () => {
+    await RentalSchema.deleteMany();
+    const rentalMock = {
+      nome: 'Localiza Rent a Car',
+      atividades: 'Aluguel de Carros E Gestão de Frotas',
+      endereco: [
+        {
+          cep: '66666-666',
+          number: '1234',
+          isFilial: false
+        }
+      ]
+    };
+
+    const response = await request(app).post('/api/v1/rental/').send(rentalMock);
+    const { status } = response;
+    expect(status).toBe(400);
+  });
+});

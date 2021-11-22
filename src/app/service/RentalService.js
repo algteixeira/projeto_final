@@ -67,7 +67,6 @@ class RentalService {
         delete payload[element];
       }
     });
-    // porque não deu com for element of payload, if elem.includes(element) blablabla
 
     const result = await RentalRepository.getAll(payload, limit, offset);
 
@@ -109,10 +108,6 @@ class RentalService {
     }
 
     const result = await RentalRepository.update(id, payload);
-
-    if (result === null) {
-      throw new NotFound(id);
-    }
 
     return result;
   }

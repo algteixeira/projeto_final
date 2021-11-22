@@ -43,6 +43,15 @@ describe('Should return all people in the database', () => {
   });
 });
 
+describe('Should throw an error if problems at queries', () => {
+  PeopleSchema.deleteMany();
+  it('must return you a 400 statusCode if invalid queries', async () => {
+    const response = await request(app).get(`/api/v1/people/?page=0`);
+    const { status } = response;
+    expect(status).toBe(400);
+  });
+});
+
 describe('Should send a person properly', () => {
   PeopleSchema.deleteMany();
   it('must return you a 200 statusCode if everything is fine', async () => {

@@ -14,15 +14,8 @@ class RentalController {
   }
 
   async getAll(req, res) {
-    try {
-      const result = await RentalService.getAll(req.query);
-      if (result.length === 0) {
-        throw new NotFound();
-      }
-      return res.status(200).json(serializeAllRental(result));
-    } catch (error) {
-      return res.status(error.statusCode).json(serializeErrors(error));
-    }
+    const result = await RentalService.getAll(req.query);
+    return res.status(200).json(serializeAllRental(result));
   }
 
   async findById(req, res) {

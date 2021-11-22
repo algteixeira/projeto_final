@@ -48,6 +48,31 @@ describe('Update an existent person', () => {
   });
 });
 
+describe('Throw error if missing info in the requisition body', () => {
+  it('must return you a 400 statusCode if theres no cpf', async () => {
+    const peopleMock = {
+      nome: 'Guaraná Perfeição',
+      cpf: '111.111.111-11',
+      data_nascimento: '19/08/1970',
+      email: 'testenoupdate@gmail.com',
+      senha: 'partiu123',
+      habilitado: 'sim'
+    };
+    const peopleUpdateMock = {
+      nome: 'Guaraná Perfeição',
+      data_nascimento: '19/08/1971',
+      email: 'flop@gmail.com',
+      senha: 'partiu123',
+      habilitado: 'sim'
+    };
+    await request(app).post('/api/v1/people/').send(peopleMock);
+    const allPeople = await request(app).get('/api/v1/people/');
+    const response = await request(app).put(`/api/v1/people/${allPeople.body.pessoas[0]._id}`).send(peopleUpdateMock);
+    const { status } = response;
+    expect(status).toBe(400);
+  });
+});
+
 describe('Cannot accept an invalid Id', () => {
   it('must return you a 400 statusCode because of a wrong Id format', async () => {
     const peopleMock = {

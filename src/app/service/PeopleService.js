@@ -3,7 +3,6 @@ const moment = require('moment');
 const PeopleRepository = require('../repository/PeopleRepository');
 const authConfig = require('../../infra/config/auth.json');
 const Bcrypt = require('../utils/encrypt');
-
 const UnderAge = require('../errors/underAge');
 const AlreadyExists = require('../errors/alreadyExists');
 const NotFound = require('../errors/notFound');
