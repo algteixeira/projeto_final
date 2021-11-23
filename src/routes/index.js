@@ -8,6 +8,7 @@ const rental = require('./rental.router');
 
 module.exports = (server) => {
   server.use('/api/v1/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
+  server.use('/', console.log('running'));
   server.use((req, res, next) => {
     res.header('Access-Control-Allow-Origin', 'http://localhost:3000');
     res.header('Access-Control-Allow-Method', 'GET,PUT,POST,DELETE');
