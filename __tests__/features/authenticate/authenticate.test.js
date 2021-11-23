@@ -109,3 +109,16 @@ describe('This test throw an error if authentication body is wrong', () => {
     expect(status).toBe(400);
   });
 });
+
+describe('This test throw an error if authentication body is wrong', () => {
+  it('must return you a 401 statusCode if it wont find user in the database', async () => {
+    const peopleMock = {
+      email: 'georgetown@leo.com'
+    };
+
+    const { email } = peopleMock;
+    const response2 = await request(app).post('/api/v1/authenticate/').send({ email });
+    const { status } = response2;
+    expect(status).toBe(400);
+  });
+});

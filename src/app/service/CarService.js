@@ -78,21 +78,20 @@ class CarService {
     const foundById = await CarRepository.findById(ids.id);
     if (!foundById) {
       throw new NotFound(ids.id);
+    }
+    const acessoriesId = foundById.acessorios.filter((accessory) => accessory._id.toString() === ids.id2);
+    if (acessoriesId.length !== 1) {
+      throw new UnexistentAccessory();
     } else {
-      const acessoriesId = foundById.acessorios.filter((accessory) => accessory._id.toString() === ids.id2);
-      if (acessoriesId.length !== 1) {
-        throw new UnexistentAccessory();
+      const accessoriesDescription = foundById.acessorios.filter(
+        (accessory) => accessory.descricao.toString() === payload
+      );
+      if (accessoriesDescription.length === 1) {
+        throw new ExistentDescription();
       } else {
-        const accessoriesDescription = foundById.acessorios.filter(
-          (accessory) => accessory.descricao.toString() === payload
-        );
-        if (accessoriesDescription.length === 1) {
-          throw new ExistentDescription();
-        } else {
-          const result = await CarRepository.updateAccessory(ids.id, ids.id2, payload);
+        const result = await CarRepository.updateAccessory(ids.id, ids.id2, payload);
 
-          return result;
-        }
+        return result;
       }
     }
   }

@@ -390,6 +390,38 @@ describe('Throw not found', () => {
   });
 });
 
+describe('Throw not found if the car you need to update accessory is not in the database', () => {
+  it('must return you a 404 statusCode if car accessory is not in the database', async () => {
+    const peopleMock = {
+      nome: 'InterSant',
+      cpf: '035.555.555-57',
+      data_nascimento: '19/08/1994',
+      email: 'interessant@gmail.com',
+      senha: 'xdddd123',
+      habilitado: 'não'
+    };
+    const acessorioMock = {
+      descricao: 'Simplesmente isso'
+    };
+
+    const response = await request(app).post('/api/v1/people/').send(peopleMock);
+    let { status } = response;
+    expect(status).toBe(201);
+    const { email } = response.body;
+    const { senha } = peopleMock;
+    const response2 = await request(app).post('/api/v1/authenticate/').send({ email, senha });
+    status = response2.status;
+    const { token } = response2.body;
+    expect(status).toBe(200);
+    const response4 = await request(app)
+      .patch(`/api/v1/car/666a6a6aa66aa66af6a666a6/acessorios/666a6a6aa66aa66af6a666a6`)
+      .send(acessorioMock)
+      .set('Authorization', `Bearer ${token}`);
+    status = response4.status;
+    expect(status).toBe(404);
+  });
+});
+
 describe('Cannot update with an existent model', () => {
   it('must return you a 400 statusCode because of a bad request', async () => {
     const peopleMock = {

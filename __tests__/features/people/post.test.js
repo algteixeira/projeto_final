@@ -67,7 +67,6 @@ describe('Dont accept underage people', () => {
     };
 
     const response = await request(app).post('/api/v1/people/').send(peopleMock);
-
     const { status } = response;
     expect(status).toBe(400);
   });
