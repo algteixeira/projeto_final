@@ -1,19 +1,14 @@
 const request = require('supertest');
 
+const { PersonDataFaker } = require('../../support/datafaker');
+
 require('../../../src/infra/database/mongo/index');
 
 const app = require('../../../src/app');
 
 describe('This test create a new *People* element', () => {
   it('must return you a 201 statusCode if everything runs fine', async () => {
-    const peopleMock = {
-      nome: 'Andre Teixeira',
-      cpf: '037.624.340-76',
-      data_nascimento: '19/08/1997',
-      email: 'caramba@gmail.com',
-      senha: 'andreeeheleteixeira123',
-      habilitado: 'sim'
-    };
+    const peopleMock = PersonDataFaker();
 
     const response = await request(app).post('/api/v1/people/').send(peopleMock);
     const { status } = response;
@@ -21,14 +16,7 @@ describe('This test create a new *People* element', () => {
     expect(status).toBe(201);
   });
   it('must return you a 201 statusCode again', async () => {
-    const peopleTwoMock = {
-      nome: 'Felipe Compasso',
-      cpf: '666.666.666-99',
-      data_nascimento: '19/08/1990',
-      email: 'felipe@gmail.com',
-      senha: 'compassolipe',
-      habilitado: 'sim'
-    };
+    const peopleTwoMock = PersonDataFaker();
 
     const response = await request(app).post('/api/v1/people/').send(peopleTwoMock);
     const { status } = response;

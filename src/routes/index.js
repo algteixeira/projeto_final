@@ -5,6 +5,7 @@ const people = require('./people.router');
 const car = require('./car.router');
 const authenticate = require('./authenticate.router');
 const rental = require('./rental.router');
+const fleet = require('./fleet.router');
 
 const port = process.env.PORT || 3000;
 
@@ -15,6 +16,7 @@ module.exports = (server) => {
     res.header('Access-Control-Allow-Method', 'GET,PUT,POST,DELETE');
     people(server, new Router());
     car(server, new Router());
+    fleet(server, new Router());
     rental(server, new Router());
     authenticate(server, new Router());
     next();
