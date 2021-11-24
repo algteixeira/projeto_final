@@ -2,28 +2,10 @@ const request = require('supertest');
 
 require('../../../src/infra/database/mongo/index');
 
-const RentalSchema = require('../../../src/app/schema/RentalSchema');
-
 const app = require('../../../src/app');
-
-beforeAll(async () => {
-  await RentalSchema.deleteMany();
-});
-
-beforeEach(async () => {
-  await RentalSchema.deleteMany();
-});
-
-afterEach(async () => {
-  await RentalSchema.deleteMany();
-});
-afterAll(async () => {
-  await RentalSchema.deleteMany();
-});
 
 describe('This test create a new Rental element', () => {
   it('must return you a 201 statusCode if rental insert with success', async () => {
-    await RentalSchema.deleteMany();
     const rentalMock = {
       nome: 'Localiza Rent a Car',
       cnpj: '16.670.085/0001-55',
@@ -43,7 +25,6 @@ describe('This test create a new Rental element', () => {
     expect(status).toBe(201);
   });
   it('must return you a 201 statusCode again', async () => {
-    await RentalSchema.deleteMany();
     const rentalMock = {
       nome: 'Localiza Rent a Car',
       cnpj: '16.670.085/0001-55',
@@ -70,7 +51,6 @@ describe('This test create a new Rental element', () => {
 });
 describe('This test throw an error if already exists name/cnpj in the database', () => {
   it('must return you a 400 statusCode if already exists a rental with this name', async () => {
-    await RentalSchema.deleteMany();
     const rentalMock = {
       nome: 'Localiza Rent a Car',
       cnpj: '16.670.085/0001-55',
@@ -104,7 +84,6 @@ describe('This test throw an error if already exists name/cnpj in the database',
     expect(status).toBe(400);
   });
   it('must return you a 400 statusCode if already exists a rental with this cnpj', async () => {
-    await RentalSchema.deleteMany();
     const rentalMock = {
       nome: 'Localiza Rent a Car',
       cnpj: '16.670.085/0001-55',
@@ -140,7 +119,6 @@ describe('This test throw an error if already exists name/cnpj in the database',
 });
 describe('This test throw an error if cep doesnt exist', () => {
   it('must return you a 400 statusCode if a cep is invalid', async () => {
-    await RentalSchema.deleteMany();
     const rentalMock = {
       nome: 'Localiza Rent a Car',
       cnpj: '16.670.085/0001-55',
@@ -161,7 +139,6 @@ describe('This test throw an error if cep doesnt exist', () => {
 });
 describe('This test throw an error if it have 0 or more than one filials', () => {
   it('must return you a 400 statusCode if wrong number of filials', async () => {
-    await RentalSchema.deleteMany();
     const rentalMock = {
       nome: 'Localiza Rent a Car',
       cnpj: '16.670.085/0001-55',
@@ -188,7 +165,6 @@ describe('This test throw an error if it have 0 or more than one filials', () =>
 
 describe('This test throw an error if body is missing something', () => {
   it('must return you a 400 statusCode if theres no cnpj in the rental body', async () => {
-    await RentalSchema.deleteMany();
     const rentalMock = {
       nome: 'Localiza Rent a Car',
       atividades: 'Aluguel de Carros E Gestão de Frotas',

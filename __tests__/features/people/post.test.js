@@ -2,29 +2,10 @@ const request = require('supertest');
 
 require('../../../src/infra/database/mongo/index');
 
-const PeopleSchema = require('../../../src/app/schema/PeopleSchema');
-
 const app = require('../../../src/app');
-
-beforeAll(async () => {
-  await PeopleSchema.deleteMany();
-});
-
-beforeEach(async () => {
-  await PeopleSchema.deleteMany();
-});
-
-afterEach(async () => {
-  await PeopleSchema.deleteMany();
-});
-
-afterAll(async () => {
-  await PeopleSchema.deleteMany();
-});
 
 describe('This test create a new *People* element', () => {
   it('must return you a 201 statusCode if everything runs fine', async () => {
-    await PeopleSchema.deleteMany();
     const peopleMock = {
       nome: 'Andre Teixeira',
       cpf: '037.624.340-76',

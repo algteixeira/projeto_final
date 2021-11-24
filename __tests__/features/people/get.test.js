@@ -2,28 +2,9 @@ const request = require('supertest');
 
 require('../../../src/infra/database/mongo/index');
 
-const PeopleSchema = require('../../../src/app/schema/PeopleSchema');
-
 const app = require('../../../src/app');
 
-beforeAll(async () => {
-  await PeopleSchema.deleteMany();
-});
-
-beforeEach(async () => {
-  await PeopleSchema.deleteMany();
-});
-
-afterEach(async () => {
-  await PeopleSchema.deleteMany();
-});
-
-afterAll(async () => {
-  await PeopleSchema.deleteMany();
-});
-
 describe('Should return all people in the database', () => {
-  PeopleSchema.deleteMany();
   it('must return you a 200 statusCode if everything runs fine', async () => {
     const peopleMockOne = {
       nome: 'Lucas Xablau',
@@ -44,7 +25,6 @@ describe('Should return all people in the database', () => {
 });
 
 describe('Should throw an error if problems at queries', () => {
-  PeopleSchema.deleteMany();
   it('must return you a 400 statusCode if invalid queries', async () => {
     const response = await request(app).get(`/api/v1/people/?page=0`);
     const { status } = response;
@@ -53,7 +33,6 @@ describe('Should throw an error if problems at queries', () => {
 });
 
 describe('Should send a person properly', () => {
-  PeopleSchema.deleteMany();
   it('must return you a 200 statusCode if everything is fine', async () => {
     const peopleMockOne = {
       nome: 'Lucas Xablau',

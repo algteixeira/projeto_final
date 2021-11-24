@@ -2,28 +2,10 @@ const request = require('supertest');
 
 require('../../../src/infra/database/mongo/index');
 
-const RentalSchema = require('../../../src/app/schema/RentalSchema');
-
 const app = require('../../../src/app');
-
-beforeAll(async () => {
-  await RentalSchema.deleteMany();
-});
-
-beforeEach(async () => {
-  await RentalSchema.deleteMany();
-});
-
-afterEach(async () => {
-  await RentalSchema.deleteMany();
-});
-afterAll(async () => {
-  await RentalSchema.deleteMany();
-});
 
 describe('It must return 200 and all rentals in the body', () => {
   it('must return you a 200 statusCode if everything runs fine', async () => {
-    await RentalSchema.deleteMany();
     const response = await request(app).get('/api/v1/rental/');
     const { status } = response;
     expect(status).toBe(200);
@@ -32,7 +14,6 @@ describe('It must return 200 and all rentals in the body', () => {
 
 describe('Get all rental with queries', () => {
   it('must return you a 200 statusCode if everything runs fine', async () => {
-    await RentalSchema.deleteMany();
     const response = await request(app).get('/api/v1/rental/?bairro=Centro');
     const { status } = response;
     expect(status).toBe(200);
@@ -41,7 +22,6 @@ describe('Get all rental with queries', () => {
 
 describe('Get an existent rental by its Id', () => {
   it('must return you a 200 statusCode if this rental exists', async () => {
-    await RentalSchema.deleteMany();
     const rentalMock = {
       nome: 'Localiza Rent a Car',
       cnpj: '16.670.085/0001-55',
@@ -81,7 +61,6 @@ describe('404 Id not found', () => {
 
 describe('It must return 400 if iregular query', () => {
   it('must return you a 400 statusCode if query passed doesnt fit with expected', async () => {
-    await RentalSchema.deleteMany();
     const response = await request(app).get('/api/v1/rental/?honda=12');
     const { status } = response;
     expect(status).toBe(400);

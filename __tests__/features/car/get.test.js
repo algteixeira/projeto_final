@@ -2,28 +2,7 @@ const request = require('supertest');
 
 require('../../../src/infra/database/mongo/index');
 
-const CarSchema = require('../../../src/app/schema/CarSchema');
-
-const PeopleSchema = require('../../../src/app/schema/PeopleSchema');
-
 const app = require('../../../src/app');
-
-beforeAll(async () => {
-  await CarSchema.deleteMany();
-  await PeopleSchema.deleteMany();
-});
-
-beforeEach(async () => {
-  await CarSchema.deleteMany();
-  await PeopleSchema.deleteMany();
-});
-
-afterEach(async () => {
-  await CarSchema.deleteMany();
-});
-afterAll(async () => {
-  await CarSchema.deleteMany();
-});
 
 describe('Get all cars', () => {
   it('must return you a 200 statusCode if everything runs fine', async () => {
@@ -83,7 +62,6 @@ describe('Shouldnt get cars because passing a wrong token', () => {
 
 describe('Get an existent car by its Id', () => {
   it('must return you a 200 statusCode if everything runs fine', async () => {
-    await PeopleSchema.deleteMany();
     const peopleMock = {
       nome: 'Bom Enovo',
       cpf: '035.555.444-57',
@@ -126,7 +104,6 @@ describe('Get an existent car by its Id', () => {
 
 describe('Throw a not found', () => {
   it('must return you a 404 statusCode if theres no car with the given Id', async () => {
-    await PeopleSchema.deleteMany();
     const peopleMock = {
       nome: 'Bom Enovo',
       cpf: '035.555.444-57',
@@ -151,7 +128,6 @@ describe('Throw a not found', () => {
 });
 describe('Throw a bad Request', () => {
   it('must return you a 400 statusCode because of a wrong Id format', async () => {
-    await PeopleSchema.deleteMany();
     const peopleMock = {
       nome: 'Bom Enovo',
       cpf: '035.555.444-57',

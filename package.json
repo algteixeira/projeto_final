@@ -4,9 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "jest --detectOpenHandles --runInBand",
-    "dev": "nodemon src/server.js",
-    "start": "node src/server.js"
+    "test": "ENVIRONMENT=TEST jest --detectOpenHandles --runInBand",
+    "dev": "ENVIRONMENT=PROD nodemon src/server.js",
+    "start": "ENVIRONMENT=PROD node src/server.js"
   },
   "keywords": [],
   "author": "",

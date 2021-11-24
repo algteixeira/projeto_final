@@ -1,29 +1,11 @@
 const request = require('supertest');
 
-require('../../../src/infra/database/mongo/index');
-
-const CarSchema = require('../../../src/app/schema/CarSchema');
-
 const PeopleSchema = require('../../../src/app/schema/PeopleSchema');
 
+require('../../../src/infra/database/mongo/index');
+
 const app = require('../../../src/app');
-
-beforeAll(async () => {
-  await CarSchema.deleteMany();
-  await PeopleSchema.deleteMany();
-});
-
-beforeEach(async () => {
-  await CarSchema.deleteMany();
-  await PeopleSchema.deleteMany();
-});
-
-afterEach(async () => {
-  await CarSchema.deleteMany();
-});
-afterAll(async () => {
-  await CarSchema.deleteMany();
-});
+const People = require('../../../src/app/schema/PeopleSchema');
 
 describe('Update an existent car by its Id', () => {
   it('must return you a 200 statusCode if everything runs fine', async () => {
@@ -290,6 +272,7 @@ describe('Cannot update with a body not containing description', () => {
 
 describe('Cannot update an accessory with wrong Id format', () => {
   it('must return you a 400 statusCode if wrong id format at accessories', async () => {
+    PeopleSchema.deleteMany();
     const peopleMock = {
       nome: 'InterSant',
       cpf: '035.555.555-57',

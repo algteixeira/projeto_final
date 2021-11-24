@@ -2,24 +2,7 @@ const request = require('supertest');
 
 require('../../../src/infra/database/mongo/index');
 
-const RentalSchema = require('../../../src/app/schema/RentalSchema');
-
 const app = require('../../../src/app');
-
-beforeAll(async () => {
-  await RentalSchema.deleteMany();
-});
-
-beforeEach(async () => {
-  await RentalSchema.deleteMany();
-});
-
-afterEach(async () => {
-  await RentalSchema.deleteMany();
-});
-afterAll(async () => {
-  await RentalSchema.deleteMany();
-});
 
 describe('Delete an existent rental', () => {
   it('must return you a 204 statusCode if rental deleted with success', async () => {

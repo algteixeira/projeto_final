@@ -2,25 +2,7 @@ const request = require('supertest');
 
 require('../../../src/infra/database/mongo/index');
 
-const PeopleSchema = require('../../../src/app/schema/PeopleSchema');
-
 const app = require('../../../src/app');
-
-beforeAll(async () => {
-  await PeopleSchema.deleteMany();
-});
-
-beforeEach(async () => {
-  await PeopleSchema.deleteMany();
-});
-
-afterEach(async () => {
-  await PeopleSchema.deleteMany();
-});
-
-afterAll(async () => {
-  await PeopleSchema.deleteMany();
-});
 
 describe('Update an existent person', () => {
   it('must return you a 200 statusCode if everything runs fine', async () => {
