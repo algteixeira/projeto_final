@@ -1,7 +1,7 @@
 const RentalService = require('../service/RentalService');
 const { serializeAllRental } = require('../serialize/allRental');
 const { serializeErrors } = require('../serialize/errors/routeErrors');
-const NotFound = require('../errors/notFound');
+const FleetService = require('../service/FleetService');
 
 class RentalController {
   async create(req, res) {
@@ -43,6 +43,15 @@ class RentalController {
       return res.status(204).json({});
     } catch (error) {
       return res.status(error.statusCode).json(serializeErrors(error));
+    }
+  }
+
+  async createFleet(req, res) {
+    try {
+      const result = await FleetService.create(req.params.id, req.body);
+      return res.status(201).json(result);
+    } catch (error) {
+      return res.status(error.statusCode).json('Something wrong');
     }
   }
 }
