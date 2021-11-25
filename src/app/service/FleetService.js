@@ -4,7 +4,9 @@ const RentalRepository = require('../repository/RentalRepository');
 const CarRepository = require('../repository/CarRepository');
 
 class FleetService {
-  async getAll(payload) {
+  async getAll(id, payload) {
+    const foundById = await RentalRepository.findById(id);
+    if (!foundById) throw new NotFound(id);
     let limit;
     let page;
     if (!payload.limit) {
@@ -23,6 +25,14 @@ class FleetService {
     const offset = (page - 1) * limit;
     const result = await FleetRepository.getAll(payload, limit, offset);
     return result;
+  }
+
+  async getById(id, id2) {
+    let foundById = await RentalRepository.findById(id);
+    if (!foundById) throw new NotFound(id);
+    foundById = await FleetRepository.getById(id2);
+    if (!foundById) throw new NotFound(id);
+    return foundById;
   }
 
   async create(id, payload) {
