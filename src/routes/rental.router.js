@@ -14,5 +14,7 @@ module.exports = (server, routes, prefix = '/api/v1/rental') => {
   routes.delete('/:id', validateId, RentalController.delete);
   routes.get('/:id/fleet', validateId, FleetController.getAll);
   routes.get('/:id/fleet/:id2', validateId, FleetController.getById);
+  routes.put('/:id/fleet/:id2', validateId, FleetController.update);
+  routes.delete('/:id/fleet/:id2', validateId, FleetController.delete);
   server.use(prefix, routes);
 };

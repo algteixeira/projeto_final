@@ -16,6 +16,23 @@ class FleetController {
       return res.status(404).send(serializeErrors(error));
     }
   }
+
+  async update(req, res) {
+    try {
+      const result = await FleetService.update(req.params.id, req.params.id2, req.body);
+      return res.status(200).json(result);
+    } catch (error) {
+      return res.status(error.statusCode).json(serializeErrors(error));
+    }
+  }
+
+  async delete(req, res) {
+    try {
+      return res.status(204).json({});
+    } catch (error) {
+      return res.status(404).json('Error');
+    }
+  }
 }
 
 module.exports = new FleetController();

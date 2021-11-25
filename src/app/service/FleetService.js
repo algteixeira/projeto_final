@@ -2,6 +2,7 @@ const NotFound = require('../errors/notFound');
 const FleetRepository = require('../repository/FleetRepository');
 const RentalRepository = require('../repository/RentalRepository');
 const CarRepository = require('../repository/CarRepository');
+const AlreadyExists = require('../errors/alreadyExists');
 
 class FleetService {
   async getAll(id, payload) {
@@ -39,7 +40,7 @@ class FleetService {
     let foundById = await RentalRepository.findById(id);
     if (!foundById) throw new NotFound(id);
     foundById = await CarRepository.findById(payload.id_carro);
-    if (!foundById) throw new NotFound(id);
+    if (!foundById) throw new NotFound(id); // change it to id, idCar
     const obj = {
       id_carro: payload.id_carro,
       id_locadora: id,
@@ -48,6 +49,22 @@ class FleetService {
       placa: payload.placa
     };
     const result = await FleetRepository.create(obj);
+    return result;
+  }
+
+  async update(id, idFleet, payload) {
+    let foundById = await RentalRepository.findById(id);
+    if (!foundById) throw new NotFound(id);
+    foundById = await CarRepository.findById(payload.id_carro);
+    if (!foundById) throw new NotFound(payload.id_carro);
+    foundById = await FleetRepository.getById(idFleet);
+    if (!foundById) throw new NotFound(idFleet);
+    const findByPlate = await FleetRepository.findByPlate(payload.placa);
+    if (findByPlate) {
+      throw new AlreadyExists(payload.placa);
+    }
+
+    const result = await FleetRepository.update(idFleet, payload);
     return result;
   }
 }

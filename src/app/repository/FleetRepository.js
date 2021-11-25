@@ -15,5 +15,16 @@ class FleetRepository {
     const result = await FleetSchema.findById(payload).exec();
     return result;
   }
+
+  async findByPlate(payload) {
+    const findByPlate = await FleetSchema.findOne({ placa: payload }).exec();
+    return findByPlate;
+  }
+
+  async update(id, payload) {
+    return FleetSchema.findOneAndUpdate({ _id: id }, payload, {
+      runValidators: true
+    });
+  }
 }
 module.exports = new FleetRepository();
