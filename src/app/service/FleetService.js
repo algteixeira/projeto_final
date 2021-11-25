@@ -1,6 +1,7 @@
 const NotFound = require('../errors/notFound');
 const FleetRepository = require('../repository/FleetRepository');
 const RentalRepository = require('../repository/RentalRepository');
+const CarRepository = require('../repository/CarRepository');
 
 class FleetService {
   async getAll(payload) {
@@ -25,8 +26,9 @@ class FleetService {
   }
 
   async create(id, payload) {
-    // payload = req.body
-    const foundById = await RentalRepository.findById(id);
+    let foundById = await RentalRepository.findById(id);
+    if (!foundById) throw new NotFound(id);
+    foundById = await CarRepository.findById(payload.id_carro);
     if (!foundById) throw new NotFound(id);
     const obj = {
       id_carro: payload.id_carro,

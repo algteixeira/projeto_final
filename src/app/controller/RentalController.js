@@ -51,7 +51,7 @@ class RentalController {
       const result = await FleetService.create(req.params.id, req.body);
       return res.status(201).json(result);
     } catch (error) {
-      return res.status(error.statusCode).json('Something wrong');
+      return res.status(error.statusCode).json(serializeErrors(error));
     }
   }
 }
