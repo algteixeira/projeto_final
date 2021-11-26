@@ -28,9 +28,10 @@ class FleetController {
 
   async delete(req, res) {
     try {
+      await FleetService.delete(req.params.id, req.params.id2);
       return res.status(204).json({});
     } catch (error) {
-      return res.status(404).json('Error');
+      return res.status(error.statusCode).json(serializeErrors(error));
     }
   }
 }

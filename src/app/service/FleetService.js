@@ -67,6 +67,12 @@ class FleetService {
     const result = await FleetRepository.update(idFleet, payload);
     return result;
   }
+
+  async delete(id, idFleet) {
+    const result = await FleetRepository.delete(id, idFleet);
+    if (!result) throw new NotFound(idFleet);
+    return result;
+  }
 }
 
 module.exports = new FleetService();
