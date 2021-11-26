@@ -3,6 +3,11 @@ const idRegex = () => {
   return idRegexp;
 };
 
+const plateRegex = () => {
+  const plateRegexp = /[A-Z]{3}[0-9]{4}/;
+  return plateRegexp;
+};
+
 const cpfRegex = () => {
   const cpfRegexp = /[0-9]{3}\.?[0-9]{3}\.?[0-9]{3}\-?[0-9]{2}/;
   return cpfRegexp;
@@ -18,4 +23,4 @@ const cepRegex = () => {
   return cepRegexp;
 };
 
-module.exports = { idRegex, cpfRegex, cnpjRegex, cepRegex };
+module.exports = { idRegex, cpfRegex, cnpjRegex, cepRegex, plateRegex };
