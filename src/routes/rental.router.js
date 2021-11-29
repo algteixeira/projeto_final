@@ -20,5 +20,7 @@ module.exports = (server, routes, prefix = '/api/v1/rental') => {
   routes.put('/:id/fleet/:id2', validateId, FleetValidation, FleetController.update);
   routes.delete('/:id/fleet/:id2', validateId, FleetController.delete);
   routes.post('/:id/reserve', validateId, ReserveValidation, ReserveController.create);
+  routes.put('/:id/reserve/:id2', validateId, ReserveValidation, ReserveController.update);
+  routes.get('/:id/reserve', validateId, ReserveController.getAll);
   server.use(prefix, routes);
 };

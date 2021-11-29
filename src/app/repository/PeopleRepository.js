@@ -22,7 +22,7 @@ class PeopleRepository {
   }
 
   async findById(payload) {
-    const PeopleFound = await PeopleSchema.findById(payload).exec();
+    const PeopleFound = await PeopleSchema.findById({ _id: payload }).exec();
 
     return PeopleFound;
   }

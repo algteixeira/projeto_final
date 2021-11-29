@@ -32,5 +32,10 @@ class FleetRepository {
     console.log(deletedFleet);
     return deletedFleet;
   }
+
+  async getForVal(id_locadora, id_carro) {
+    const result = await FleetSchema.findOne({ id_locadora, id_carro }).exec();
+    return result;
+  }
 }
 module.exports = new FleetRepository();

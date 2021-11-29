@@ -1,22 +1,19 @@
 const mongoose = require('mongoose');
 const mongoosePaginate = require('mongoose-paginate-v2');
-const moment = require('moment');
 
 const ReserveSchema = mongoose.Schema({
   id_user: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'Person',
+    ref: 'People',
     required: true
   },
   data_inicio: {
-    type: Date,
-    required: true,
-    transform: (val) => moment(val).format('DD/MM/YYYY')
+    type: String,
+    required: true
   },
   data_fim: {
-    type: Date,
-    required: true,
-    transform: (val) => moment(val).format('DD/MM/YYYY')
+    type: String,
+    required: true
   },
   valor_final: {
     type: Number,

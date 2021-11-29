@@ -7,7 +7,6 @@ module.exports = async (req, res, next) => {
     const schema = Joi.object({
       id_user: Joi.string().required().regex(idRegex()),
       id_carro: Joi.string().required().regex(idRegex()),
-      id_locadora: Joi.string().required().regex(idRegex()),
       data_inicio: Joi.date().format('DD/MM/YYYY').required(),
       data_fim: Joi.date().format('DD/MM/YYYY').required()
     });
