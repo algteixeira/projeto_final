@@ -131,7 +131,69 @@
                     }
 
                 }
-            }        
+            }     ,
+            "Fleet": {
+                "type": "object",
+                "properties": {
+                    "_id": {
+                        "type": "string"
+                    },
+                    "id_carro": {
+                        "type": "string"
+                    },
+                    "status": {
+                        "type": "string"
+                    },
+                    "valor_diaria": {
+                        "type":"number"
+                    },
+                    "id_locadora": {
+                        "type": "string"
+                    },
+                    "placa": {
+                        "type": "string"
+                    }
+
+                }
+            },
+            "Fleet's": {
+                "type": "array",
+                "items": {
+                    "$ref": "#/components/schemas/Fleet"
+                }
+            },
+            "Reserve": {
+                "type":"object",
+                "properties": {
+                    "_id": {
+                        "type":"string"
+                    },
+                    "id_user": {
+                        "type":"string"
+                    },
+                    "data_inicio": {
+                        "type":"string"
+                    },
+                    "data_fim": {
+                        "type":"string"
+                    },
+                    "valor_final": {
+                        "type":"number"
+                    },
+                    "id_locadora": {
+                        "type":"string"
+                    },
+                    "id_carro": {
+                        "type":"string"
+                    }
+                }
+            },
+            "Reserves": {
+                "type":"array",
+                "items":{
+                    "$ref": "#/components/schemas/Reserve"
+                }
+            }
         },
         "securitySchemes": {
             "bearerAuth": {
@@ -985,7 +1047,478 @@
                     }
                 }
             }
+        },
+        "/api/v1/rental/{id}/reserve": {
+            "post": {
+                "summary": "insert a new reserve for the Id rental system",
+                "description": "this route uses the req.body to insert reserve information in the database",
+                "tags": [
+                    "Reserve"
+                ],
+                "requestBody":{
+                    "content":{
+                        "application/json": {
+                            "schema":{
+                                "$ref":"#/components/schemas/Reserve"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "400":{
+                        "description": "It happens if there's something wrong with request body or if car is already being rented for that time."
+                    },
+                    "201": {
+                        "description": "It appears in case of success"
+                    }
+                }
+            },
+            "get": {
+                "summary": "Get all reserves from the database that match your queries",
+                "description": "Returns you an array of reserves suited to your request",
+                "tags":[
+                    "Reserves"
+                ],
+                "responses": {
+                    "200":{
+                        "description": "It shows up in case of success",
+                        "content":{
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "$ref": "#/components/schemas/Reserves"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "It throws up if there's something wrong with you queries"
+                    }
+                },
+                "parameters": [
+                    {
+                        "in": "query",
+                        "name": "limit",
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "description": "The number of reserves to show per page.",
+                        "required": false
+                    },
+                    {
+                        "in": "query",
+                        "name": "page",
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "description": "The page to show with (limit) amount of reserves.",
+                        "required": false
+                    },
+                    {
+                        "in": "query",
+                        "name": "id_user",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "description": "The id of a person responsable by this reserve"
+                    },
+                    {
+                        "in": "query",
+                        "name": "data_inicio",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "description": "The first day a car will be rented"
+                    },
+                    {
+                        "in": "query",
+                        "name": "data_fim",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "description": "The last day someone will stay with the car"
+                    },
+                    {
+                        "in": "query",
+                        "name": "valor_final",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "description": "The full price of this rental"
+                    },
+                    {
+                        "in": "query",
+                        "name": "id_locadora",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "description": "The Id of the rental shop who's renting the car"
+                    },
+                    {
+                        "in": "query",
+                        "name": "id_carro",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "description": "The Id of the car being rented"
+                    }
+                ]
+            }
+        },
+        "/api/v1/rental/{id}/reserve/{id2}": {
+            "get": {
+                "summary": "Get a reserve by it's id",
+                "description": "It returns to you the requested reserve if it trully exists",
+                "tags":["Reserve"],
+                "parameters":[
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "required": "true",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "in": "path",
+                        "name": "id2",
+                        "required": "true",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses":{
+                    "400":{
+                        "description": "It happens when ID format is wrong"
+                    },
+                    "200": {
+                        "description": "It happens when everything runs fine"
+                    },
+                    "404": {
+                        "description": "It shows up when given id's haven't been found"
+                    }
+                }
+            },
+            "put": {
+                "summary": "Update reserve values",
+                "description": "Using a reserve ID, search for it and if it find, put new values",
+                "tags": [
+                    "Reserve"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Reserve updated with success"
+                    },
+                    "400": {
+                        "description": "Rental id or content with format errors, or dates passed are unavailable"
+                    },
+                    "404": {
+                        "description": "Reserve not found"
+                    }
+                },
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "required": "true",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "in": "path",
+                        "name": "id2",
+                        "required": "true",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Reserve"
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "summary": "Route to delete a reserve based on it's id",
+                "description": "Try to find a reserve and delete it",
+                "tags": [
+                    "Reserve"
+                ],
+                "responses": {
+                    "404": {
+                        "description": "Throw a NotFound, telling that there's no reserve with this id in the database"
+                    },
+                    "204": {
+                        "description": "Reserve excluded with success"
+                    },
+                    "400": {
+                        "description": "Invalid id format"
+                    }
+                },
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "required": "true",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "in": "path",
+                        "name": "id2",
+                        "required": "true",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ]
+            }
+        },
+        "/api/v1/rental/{id}/car": {
+            "post":{
+                "summary": "insert a new car in the fleet of a rental",
+                "description": "this route uses the req.body to insert fleet information in the database",
+                "tags": [
+                    "Fleet"
+                ],
+                "requestBody":{
+                    "content":{
+                        "application/json": {
+                            "schema":{
+                                "$ref":"#/components/schemas/Fleet"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "400":{
+                        "description": "It happens if there's something wrong with request body."
+                    },
+                    "201": {
+                        "description": "It appears in case of success"
+                    }
+                }
+            }
+        },
+        "/api/v1/rental/{id}/fleet": {
+            "get": {
+                "summary": "Get all fleet from the database that match your queries",
+                "description": "Returns you an array of cars in a rental fleet suited to your request",
+                "tags":[
+                    "Fleet's"
+                ],
+                "responses": {
+                    "200":{
+                        "description": "It shows up in case of success",
+                        "content":{
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "$ref": "#/components/schemas/Fleet's"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "It throws up if there's something wrong with you queries"
+                    }
+                },
+                "parameters": [
+                    {
+                        "in": "query",
+                        "name": "limit",
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "description": "The number of reserves to show per page.",
+                        "required": false
+                    },
+                    {
+                        "in": "query",
+                        "name": "page",
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "description": "The page to show with (limit) amount of reserves.",
+                        "required": false
+                    },
+                    {
+                        "in": "query",
+                        "name": "id_carro",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "description": "The id of a car in the fleet"
+                    },
+                    {
+                        "in": "query",
+                        "name": "status",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "description": "The car status in the system (available or not)"
+                    },
+                    {
+                        "in": "query",
+                        "name": "data_fim",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "description": "The last day someone will stay with the car"
+                    },
+                    {
+                        "in": "query",
+                        "name": "valor_diaria",
+                        "schema": {
+                            "type": "number"
+                        },
+                        "description": "The cost per day to rent a car"
+                    },
+                    {
+                        "in": "query",
+                        "name": "id_locadora",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "description": "The Id of the rental shop who's renting the car"
+                    },
+                    {
+                        "in": "query",
+                        "name": "placa",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "description": "The identification plate of this car"
+                    }
+                ]
+            }
+        },
+        "/api/v1/rental/{id}/fleet:{id2}": {
+            "get": {
+                "summary": "Get a fleet car by it's id",
+                "description": "It returns to you the requested car if it trully exists",
+                "tags":["Fleet"],
+                "parameters":[
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "required": "true",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "in": "path",
+                        "name": "id2",
+                        "required": "true",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses":{
+                    "400":{
+                        "description": "It happens when ID format is wrong"
+                    },
+                    "200": {
+                        "description": "It happens when everything runs fine"
+                    },
+                    "404": {
+                        "description": "It shows up when given id's haven't been found"
+                    }
+                }
+            },
+            "put": {
+                "summary": "Update a fleet car values",
+                "description": "Using a car ID, search for it and if it find, put new values",
+                "tags": [
+                    "Fleet"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Car updated with success"
+                    },
+                    "400": {
+                        "description": "Rental/car id or content with format errors"
+                    },
+                    "404": {
+                        "description": "Rental/car not found"
+                    }
+                },
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "required": "true",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "in": "path",
+                        "name": "id2",
+                        "required": "true",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Fleet"
+                            }
+                        }
+                    }
+                }
+            }, 
+            "delete": {
+                "summary": "Route to delete a car from the fleet based on it's id",
+                "description": "Try to find a car from fleet and delete it",
+                "tags": [
+                    "Fleet"
+                ],
+                "responses": {
+                    "404": {
+                        "description": "Throw a NotFound, telling that there's no rental/car with this id in the database"
+                    },
+                    "204": {
+                        "description": "Car excluded from fleet with success"
+                    },
+                    "400": {
+                        "description": "Invalid id's format"
+                    }
+                },
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "required": "true",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "in": "path",
+                        "name": "id2",
+                        "required": "true",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ]
+            }
         }
+        
     }
     
 }
