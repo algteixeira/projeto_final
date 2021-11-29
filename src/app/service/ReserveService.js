@@ -19,8 +19,7 @@ class ReserveService {
   async getById(idRental, idReserve) {
     const foundById = await ReserveRepository.getAll({ id_locadora: idRental, _id: idReserve }, 1, 0);
     if (foundById.totalDocs === 0) throw new NotFound(foundById);
-    console.log(foundById.docs);
-    return foundById;
+    return foundById.docs[0];
   }
 
   async getAll(idRental, payload) {

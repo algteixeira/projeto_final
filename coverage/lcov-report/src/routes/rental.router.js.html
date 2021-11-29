@@ -25,7 +25,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>14/14</span>
+                <span class='fraction'>29/29</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>14/14</span>
+                <span class='fraction'>29/29</span>
             </div>
         
             
@@ -71,32 +71,77 @@
 <a name='L12'></a><a href='#L12'>12</a>
 <a name='L13'></a><a href='#L13'>13</a>
 <a name='L14'></a><a href='#L14'>14</a>
-<a name='L15'></a><a href='#L15'>15</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L15'></a><a href='#L15'>15</a>
+<a name='L16'></a><a href='#L16'>16</a>
+<a name='L17'></a><a href='#L17'>17</a>
+<a name='L18'></a><a href='#L18'>18</a>
+<a name='L19'></a><a href='#L19'>19</a>
+<a name='L20'></a><a href='#L20'>20</a>
+<a name='L21'></a><a href='#L21'>21</a>
+<a name='L22'></a><a href='#L22'>22</a>
+<a name='L23'></a><a href='#L23'>23</a>
+<a name='L24'></a><a href='#L24'>24</a>
+<a name='L25'></a><a href='#L25'>25</a>
+<a name='L26'></a><a href='#L26'>26</a>
+<a name='L27'></a><a href='#L27'>27</a>
+<a name='L28'></a><a href='#L28'>28</a>
+<a name='L29'></a><a href='#L29'>29</a>
+<a name='L30'></a><a href='#L30'>30</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">44x</span>
-<span class="cline-any cline-yes">44x</span>
-<span class="cline-any cline-yes">44x</span>
-<span class="cline-any cline-yes">44x</span>
-<span class="cline-any cline-yes">44x</span>
-<span class="cline-any cline-yes">44x</span>
-<span class="cline-any cline-yes">44x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">46x</span>
+<span class="cline-any cline-yes">46x</span>
+<span class="cline-any cline-yes">46x</span>
+<span class="cline-any cline-yes">46x</span>
+<span class="cline-any cline-yes">46x</span>
+<span class="cline-any cline-yes">46x</span>
+<span class="cline-any cline-yes">46x</span>
+<span class="cline-any cline-yes">46x</span>
+<span class="cline-any cline-yes">46x</span>
+<span class="cline-any cline-yes">46x</span>
+<span class="cline-any cline-yes">46x</span>
+<span class="cline-any cline-yes">46x</span>
+<span class="cline-any cline-yes">46x</span>
+<span class="cline-any cline-yes">46x</span>
+<span class="cline-any cline-yes">46x</span>
+<span class="cline-any cline-yes">46x</span>
+<span class="cline-any cline-yes">46x</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">const RentalController = require('../app/controller/RentalController');
 const createRentalValidation = require('../app/validation/rental/create');
 const rentalQueryValidation = require('../app/validation/rental/rentalQueryValidation');
 const validateId = require('../app/validation/car/validateId');
 const updateRentalValidation = require('../app/validation/rental/updateRentalValidation');
+const FleetController = require('../app/controller/FleetController');
+const FleetValidation = require('../app/validation/fleet/create');
+const ReserveController = require('../app/controller/ReserveController');
+const ReserveValidation = require('../app/validation/reserve/create');
+const reserveQueryValidation = require('../app/validation/reserve/reserveQueryValidation');
 &nbsp;
 module.exports = (server, routes, prefix = '/api/v1/rental') =&gt; {
   routes.post('/', createRentalValidation, RentalController.create);
   routes.get('/', rentalQueryValidation, RentalController.getAll);
   routes.get('/:id', validateId, RentalController.findById);
   routes.put('/:id', validateId, updateRentalValidation, RentalController.update);
+  routes.post('/:id/car', validateId, FleetValidation, RentalController.createFleet);
   routes.delete('/:id', validateId, RentalController.delete);
+  routes.get('/:id/fleet', validateId, FleetController.getAll);
+  routes.get('/:id/fleet/:id2', validateId, FleetController.getById);
+  routes.put('/:id/fleet/:id2', validateId, FleetValidation, FleetController.update);
+  routes.delete('/:id/fleet/:id2', validateId, FleetController.delete);
+  routes.post('/:id/reserve', validateId, ReserveValidation, ReserveController.create);
+  routes.put('/:id/reserve/:id2', validateId, ReserveValidation, ReserveController.update);
+  routes.get('/:id/reserve', validateId, reserveQueryValidation, ReserveController.getAll);
+  routes.get('/:id/reserve/:id2', validateId, ReserveController.getById);
+  routes.delete('/:id/reserve/:id2', validateId, ReserveController.delete);
   server.use(prefix, routes);
 };
 &nbsp;</pre></td></tr></table></pre>
@@ -106,7 +151,7 @@ module.exports = (server, routes, prefix = '/api/v1/rental') =&gt; {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Wed Nov 24 2021 13:28:49 GMT-0300 (Brasilia Standard Time)
+                at Mon Nov 29 2021 14:43:03 GMT-0300 (Brasilia Standard Time)
             </div>
         </div>
         <script src="../../prettify.js"></script>

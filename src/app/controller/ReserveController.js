@@ -1,3 +1,4 @@
+const { serializeOneReserve, serializeAllReserve } = require('../serialize/allReserve');
 const { serializeErrors } = require('../serialize/errors/routeErrors');
 const ReserveService = require('../service/ReserveService');
 
@@ -14,7 +15,7 @@ class ReserveController {
   async getAll(req, res) {
     try {
       const result = await ReserveService.getAll(req.params.id, req.query);
-      return res.status(200).json(result);
+      return res.status(200).json(serializeAllReserve(result));
     } catch (error) {
       return res.status(error.statusCode).json(serializeErrors(error));
     }
@@ -23,7 +24,7 @@ class ReserveController {
   async getById(req, res) {
     try {
       const result = await ReserveService.getById(req.params.id, req.params.id2);
-      return res.status(200).json(result);
+      return res.status(200).json(serializeOneReserve(result));
     } catch (error) {
       return res.status(error.statusCode).json(serializeErrors(error));
     }
