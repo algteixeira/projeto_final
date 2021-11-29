@@ -10,9 +10,8 @@ const NoDriversLicense = require('../errors/noDriversLicense');
 class Validate {
   async validateInfo(idRental, payload) {
     let result = await PeopleRepository.findById(payload.id_user);
-    console.log(result);
-    if (result.habilitado !== 'sim') throw new NoDriversLicense(payload.id_user);
     if (!result) throw new NotFound(payload.id_user);
+    if (result.habilitado !== 'sim') throw new NoDriversLicense(payload.id_user);
     result = await FleetRepository.getForVal(idRental, payload.id_carro);
     if (!result) throw new NotFound(payload.id_carro);
     const { valor_diaria } = result;

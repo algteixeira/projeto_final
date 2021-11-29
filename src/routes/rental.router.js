@@ -7,6 +7,7 @@ const FleetController = require('../app/controller/FleetController');
 const FleetValidation = require('../app/validation/fleet/create');
 const ReserveController = require('../app/controller/ReserveController');
 const ReserveValidation = require('../app/validation/reserve/create');
+const reserveQueryValidation = require('../app/validation/reserve/reserveQueryValidation');
 
 module.exports = (server, routes, prefix = '/api/v1/rental') => {
   routes.post('/', createRentalValidation, RentalController.create);
@@ -21,6 +22,6 @@ module.exports = (server, routes, prefix = '/api/v1/rental') => {
   routes.delete('/:id/fleet/:id2', validateId, FleetController.delete);
   routes.post('/:id/reserve', validateId, ReserveValidation, ReserveController.create);
   routes.put('/:id/reserve/:id2', validateId, ReserveValidation, ReserveController.update);
-  routes.get('/:id/reserve', validateId, ReserveController.getAll);
+  routes.get('/:id/reserve', validateId, reserveQueryValidation, ReserveController.getAll);
   server.use(prefix, routes);
 };
