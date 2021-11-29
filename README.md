@@ -15,8 +15,11 @@ This is the final project that i'm doing for Compasso UOL trainee's program.
 - CRUD for people
 - CRUD for cars (need to have an authorization token to use)
 - CRUD for rentals
+- CRUD for the rental fleet
+- CRUD for car reserves in specific rentals
 - Authentication system
 - page&limit pagination scheme
+- Using MongoDB Atlas to avoid needing a local database
 
 
 ## Used technologies
@@ -76,7 +79,7 @@ Start the server
 
 ...Additional info
 ```bash
-  it runs at port 3000
+  it runs at port 3000 (or env.proccess.PORT if passed)
 ```
 
 
