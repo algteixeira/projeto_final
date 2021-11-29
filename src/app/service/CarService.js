@@ -37,7 +37,7 @@ class CarService {
     const offset = (page - 1) * limit;
     if (payload.descricao) {
       payload['acessorios.descricao'] = payload.descricao;
-      payload.descricao = undefined;
+      delete payload.descricao;
     }
 
     const result = await CarRepository.getAll(payload, limit, offset);

@@ -1,5 +1,4 @@
 const PeopleService = require('../service/PeopleService');
-const NotFound = require('../errors/notFound');
 const { serialize } = require('../serialize/createUser');
 const { serializeAllPeople } = require('../serialize/allPeople');
 const { serializeErrors } = require('../serialize/errors/routeErrors');
