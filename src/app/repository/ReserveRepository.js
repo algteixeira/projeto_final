@@ -21,6 +21,11 @@ class ReserveRepository {
       runValidators: true
     });
   }
+
+  async delete(payload) {
+    const deletedFleet = await ReserveSchema.findOneAndDelete(payload);
+    return deletedFleet;
+  }
 }
 
 module.exports = new ReserveRepository();

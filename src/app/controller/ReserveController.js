@@ -20,10 +20,28 @@ class ReserveController {
     }
   }
 
+  async getById(req, res) {
+    try {
+      const result = await ReserveService.getById(req.params.id, req.params.id2);
+      return res.status(200).json(result);
+    } catch (error) {
+      return res.status(error.statusCode).json(serializeErrors(error));
+    }
+  }
+
   async update(req, res) {
     try {
       const result = await ReserveService.update(req.params.id, req.params.id2, req.body);
       return res.status(200).json(result);
+    } catch (error) {
+      return res.status(error.statusCode).json(serializeErrors(error));
+    }
+  }
+
+  async delete(req, res) {
+    try {
+      await ReserveService.delete(req.params.id, req.params.id2);
+      return res.status(204).json({});
     } catch (error) {
       return res.status(error.statusCode).json(serializeErrors(error));
     }

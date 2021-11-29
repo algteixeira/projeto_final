@@ -29,7 +29,6 @@ class FleetRepository {
 
   async delete(id, idFleet) {
     const deletedFleet = await FleetSchema.findOneAndDelete({ _id: idFleet, id_locadora: id });
-    console.log(deletedFleet);
     return deletedFleet;
   }
 

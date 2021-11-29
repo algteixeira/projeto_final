@@ -16,6 +16,13 @@ class ReserveService {
     return ReserveRepository.create(payload);
   }
 
+  async getById(idRental, idReserve) {
+    const foundById = await ReserveRepository.getAll({ id_locadora: idRental, _id: idReserve }, 1, 0);
+    if (foundById.totalDocs === 0) throw new NotFound(foundById);
+    console.log(foundById.docs);
+    return foundById;
+  }
+
   async getAll(idRental, payload) {
     const foundById = await RentalRepository.findById(idRental);
     if (!foundById) throw new NotFound(idRental);
@@ -50,6 +57,11 @@ class ReserveService {
     payload.id_locadora = idRental;
     payload.valor_final = moment(data_fim, 'DD/MM/YYYY').diff(moment(data_inicio, 'DD/MM/YYYY'), 'days') * valor_diaria;
     return ReserveRepository.update(idReserve, payload);
+  }
+
+  async delete(idRental, idReserve) {
+    const result = await ReserveRepository.delete({ id_locadora: idRental, _id: idReserve });
+    if (!result) throw new NotFound(idReserve);
   }
 }
 
